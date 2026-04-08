@@ -1,0 +1,9 @@
+// 偏好：隐藏资产数值（对标币安「隐藏小额资产 / 隐私」类体验）
+[data-privacy-hide-balances='true'] {
+  .ex-num,
+  .asc-ov__bar-val {
+    filter: blur(7px);
+    user-select: none;
+    transition: filter 0.2s ease;
+  }
+}

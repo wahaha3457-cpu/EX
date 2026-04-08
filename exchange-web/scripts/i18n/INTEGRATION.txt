@@ -1,0 +1,39 @@
+【防止多语言遗漏 — 与本仓库脚本的集成说明】
+
+1) locale 主语言 key 对齐（CI 必跑）
+   npm run i18n:parity
+   等价：node scripts/i18n/check-locale-parity.mjs
+   环境变量 PRIMARY_LOCALES=zh-CN,en,zh-TW 可改主语言集合。
+
+2) 覆盖率启发式（可选门禁）
+   npm run i18n:coverage
+   npm run i18n:coverage -- --fail-over 200
+   含 CJK 的文件数超过阈值则失败（适合迁移期逐步下调）。
+
+3) ESLint：禁止模板裸字符串（推荐安装官方插件）
+   npm i -D @intlify/eslint-plugin-vue-i18n
+   在 eslint.config.js 中追加：
+   import intlify from '@intlify/eslint-plugin-vue-i18n'
+   export default [
+     ...existing,
+     ...intlify.configs['flat/recommended'],
+     {
+       settings: {
+         'vue-i18n': {
+           localeDir: {
+             'zh-CN': './src/locales/messages/zh-CN.json',
+             'en': './src/locales/messages/en.json',
+           },
+         },
+       },
+       rules: {
+         '@intlify/vue-i18n/no-missing-keys': 'error',
+         '@intlify/vue-i18n/no-raw-text': ['warn', { ignorePattern: '^[\\d\\s.,:%/()+-]+$' }],
+       },
+     },
+   ]
+   注意：若文案拆在 fragments/*.json，需同步配置或改为指向合并后的导出 JSON。
+
+4) fallback 策略（见 src/i18n/index.ts 注释）
+   - 生产：主语言 key 对齐后，fallback 仅作最后保险；可设 strict missing 在 CI 构建失败。
+   - 扩展语言（ko/ja…）当前为 en 克隆，避免与页面硬编码中文混用：应完成页面 i18n 后再开放语言选项。

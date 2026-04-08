@@ -1,0 +1,24 @@
+// 运营后台 — 深色金融壳层：由外到内逐级提亮，避免「纯黑糊成一团」
+// --- 壳层 ---
+$adm-bg-shell: #11141a;
+$adm-bg-shell-floor: #0c0f14;
+$adm-bg-sidebar: #151a22;
+$adm-bg-main: #1a1f2a;
+$adm-bg-header: #1d232e;
+$adm-bg-well: #232b38;
+$adm-bg-card: #2a3344;
+$adm-bg-card-muted: #262f3e;
+
+$adm-border: #3d4a5f;
+$adm-border-subtle: #313945;
+$adm-border-sidebar: rgba(255, 255, 255, 0.07);
+
+$adm-text: #e8ecf4;
+$adm-text-muted: #9aa3b5;
+$adm-accent: #3b82f6;
+$adm-accent-muted: rgba(59, 130, 246, 0.14);
+$adm-risk: #f59e0b;
+$adm-success: #22c55e;
+
+// 兼容旧名（element-bridge 等仍引用 $adm-bg-app）
+$adm-bg-app: $adm-bg-shell;

@@ -1,0 +1,113 @@
+{
+  "charity": {
+    "heroTitle": "Crypto Charity",
+    "heroLead": "Donate USDT and more to global programs with transparent milestones (demo). Production requires compliance, custody, and audits.",
+    "stats": {
+      "raised": "Total raised (USDT)",
+      "donors": "Donor participations",
+      "projects": "Active / completed projects"
+    },
+    "tab": {
+      "all": "All",
+      "active": "Active",
+      "completed": "Completed"
+    },
+    "tabsAria": "Campaign filters",
+    "searchPh": "Search by title or summary",
+    "loading": "Loading campaigns…",
+    "empty": "No campaigns match your filters",
+    "error": {
+      "load": "Failed to load charity data"
+    },
+    "howTitle": "How it works (demo)",
+    "how": {
+      "1": {
+        "title": "Choose a campaign",
+        "body": "Review goals, regions, and progress before you donate."
+      },
+      "2": {
+        "title": "Confirm donation",
+        "body": "Enter USDT amount and submit while logged in; demo does not broadcast on-chain."
+      },
+      "3": {
+        "title": "Transparency",
+        "body": "Production can show tx hashes, milestones, and third-party audit summaries."
+      }
+    },
+    "rulesTitle": "Rules & compliance (demo)",
+    "rules": {
+      "i1": "Donations are voluntary—give only what fits your risk tolerance.",
+      "i2": "Demo data/images are placeholders—not real partners or beneficiaries.",
+      "i3": "Live flows may require KYC, AML, and local tax compliance.",
+      "i4": "Network fees or service fees may apply per platform notices."
+    },
+    "disclaimer": "Demo page; read live terms and privacy before donating.",
+    "badge": {
+      "active": "Active",
+      "completed": "Completed"
+    },
+    "raised": "Raised",
+    "goal": "Goal",
+    "donors": "{n} participants",
+    "status": {
+      "completed": "Completed"
+    },
+    "detailRisk": "Risk: digital asset donations are volatile; verify addresses and campaign authenticity. Demo does not move funds on-chain.",
+    "amountLabel": "Amount",
+    "btn": {
+      "donate": "Donate (demo)"
+    },
+    "needLogin": "Please log in to donate",
+    "amountInvalid": "Enter an amount greater than 0",
+    "toast": {
+      "donateDemo": "Recorded {amount} USDT for “{title}” (demo, not charged)"
+    },
+    "cat": {
+      "ALL": "All categories",
+      "EDUCATION": "Education",
+      "DISASTER": "Disaster relief",
+      "ENVIRONMENT": "Environment",
+      "CHILDREN": "Children",
+      "HEALTH": "Health & water"
+    },
+    "region": {
+      "asia": "Asia",
+      "sea": "Southeast Asia",
+      "latam": "Latin America",
+      "africa": "Africa",
+      "global": "Global"
+    },
+    "items": {
+      "edu-rural-library": {
+        "title": "Rural library & digital classroom",
+        "summary": "Books and devices for remote schools, plus remote learning content.",
+        "body": "This initiative narrows the urban–rural digital divide through pooled procurement and local volunteer operations.\n\nPlanned quarterly breakdowns cover hardware, connectivity, and teacher training (demo only).\n\nIllustrative copy—not a live fundraising pledge."
+      },
+      "disaster-flood-2025": {
+        "title": "Flood emergency humanitarian aid",
+        "summary": "Clean water, food packs, and temporary shelter with local partners.",
+        "body": "Rapid logistics matter during floods. We work with registered NGOs to prioritize elders and children.\n\nOn-chain donations can speed cross-border settlement; distribution lists would be published in production.\n\nVerify credentials and payout details before donating."
+      },
+      "env-reforest": {
+        "title": "Mangrove restoration & carbon pilot",
+        "summary": "Coastal wetland repair with community jobs and long-term monitoring.",
+        "body": "Ecological projects need years of satellite + field monitoring. Funds cover seedlings, labor, and equipment.\n\nCarbon rights follow local law; this demo makes no carbon credit promise.\n\nSmall recurring gifts help sustain operations."
+      },
+      "children-lunch": {
+        "title": "School lunch program (completed)",
+        "summary": "One school year of meal subsidies—goal reached and executed.",
+        "body": "The campaign hit its target and completed vendor selection and meal plans.\n\nThank you to all donors. Final reporting is illustrative in demo.\n\nA new cycle may be announced separately."
+      },
+      "health-vaccine": {
+        "title": "Primary care cold-chain & education (completed)",
+        "summary": "Cold boxes and pamphlets for township clinics—goal reached.",
+        "body": "Funds supported portable cold storage and printed education materials across townships. Monthly receipts would be shared in production.\n\nMedical programs must follow regulator rules."
+      },
+      "water-wells": {
+        "title": "Clean water wells & maintenance",
+        "summary": "Village wells plus basic maintenance training for residents.",
+        "body": "Water projects need hydro surveys and community co-management to avoid idle assets. Phases: survey, build, train, and a one-year maintenance fund.\n\nDonations unlock by milestone in production (demo flow)."
+      }
+    }
+  }
+}

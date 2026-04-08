@@ -1,0 +1,169 @@
+{
+  "nft": {
+    "heroEyebrow": "Digital collectibles · Multi-chain",
+    "heroTitle": "NFT Marketplace",
+    "heroLead": "Explore curated drops, collections, and listings with multi-chain filters (demo data). Live trading follows on-chain contracts and platform rules.",
+    "howTitle": "How to buy",
+    "how1t": "Browse & filter",
+    "how1d": "Find items or collections by chain, category, sort, and search.",
+    "how2t": "Connect & verify",
+    "how2d": "Production supports custodial and external wallets; demo needs no on-chain signature.",
+    "how3t": "Buy or bid",
+    "how3d": "Buy-now and auctions; after a fill, view holdings under Orders › NFT orders.",
+    "chainLabel": "Chain",
+    "portal": {
+      "ctaHoldings": "My holdings & orders",
+      "ctaLogin": "Log in to view holdings",
+      "ctaBrowse": "Browse marketplace",
+      "bannerTitle": "Where are my NFTs?",
+      "bannerBody": "Holdings and buy/bid history live under Orders › NFT orders (separate from spot/futures).",
+      "bannerLink": "Open NFT orders",
+      "bannerAria": "NFT holdings and orders"
+    },
+    "ordersPage": {
+      "intro": "Shows NFTs held in your account and buy/sell/bid history (demo). Production follows on-chain ownership and APIs.",
+      "bullet1": "Holdings lists items currently owned; they disappear after transfer or sale.",
+      "bullet2": "Orders includes buy-now fills and auction bids; outbid/cancelled states are labeled.",
+      "heading": "NFT holdings & orders",
+      "goMarket": "Go to NFT marketplace",
+      "loading": "Loading NFT holdings…",
+      "tabsAria": "NFT sections",
+      "tabHoldings": "Holdings",
+      "tabOrders": "Orders",
+      "emptyHoldings": "No NFT holdings yet",
+      "emptyOrders": "No NFT order history",
+      "acquired": "Acquired",
+      "cost": "Est. cost",
+      "colTime": "Time",
+      "colItem": "Item",
+      "colCollection": "Collection",
+      "colChain": "Chain",
+      "colSide": "Side",
+      "colKind": "Type",
+      "colAmount": "Amount",
+      "colStatus": "Status",
+      "sideBuy": "Buy",
+      "sideSell": "Sell",
+      "sideBid": "Bid",
+      "status": {
+        "FILLED": "Filled",
+        "PENDING": "Open",
+        "OUTBID": "Outbid",
+        "CANCELLED": "Cancelled"
+      }
+    },
+    "stats": {
+      "volume24h": "24h volume (USDT)",
+      "traders": "24h traders",
+      "listed": "Listed NFTs"
+    },
+    "tab": {
+      "featured": "Featured",
+      "market": "Marketplace",
+      "collections": "Collections",
+      "drops": "Drops"
+    },
+    "tabsAria": "NFT sections",
+    "searchPh": "Search by name, collection, or creator",
+    "searchCollectionPh": "Search collections",
+    "loading": "Loading NFT data…",
+    "empty": "No items match your filters",
+    "error": {
+      "load": "Failed to load NFT data"
+    },
+    "sort": {
+      "latest": "Recently listed",
+      "price_asc": "Price: low to high",
+      "price_desc": "Price: high to low",
+      "popular": "Popular"
+    },
+    "chain": {
+      "ALL": "All chains",
+      "BSC": "BNB Chain",
+      "ETH": "Ethereum",
+      "POLYGON": "Polygon"
+    },
+    "cat": {
+      "ALL": "All categories",
+      "PFP": "PFP",
+      "ART": "Art",
+      "GAME": "Gaming",
+      "SPORT": "Sports",
+      "METAVERSE": "Metaverse"
+    },
+    "sale": {
+      "buyNow": "Buy now",
+      "auction": "Auction"
+    },
+    "collection": {
+      "floor": "Floor",
+      "vol24h": "24h volume",
+      "items": "Items"
+    },
+    "badge": {
+      "verified": "Verified"
+    },
+    "drop": {
+      "badge": "Drop",
+      "ended": "Ended",
+      "left": "{d}d {h}h left"
+    },
+    "rules": {
+      "title": "Rules & risk (demo)",
+      "i1": "NFTs are volatile digital assets; only participate if you understand the risks.",
+      "i2": "Demo mode is not connected to mainnet; buys/bids are simulated.",
+      "i3": "Production may require KYC and compliance with local laws.",
+      "i4": "Royalties, creator fees, and gas follow live parameters.",
+      "short": "Demo purchases are not charged; production uses escrow contracts and order flows."
+    },
+    "disclaimer": "Demo UI; images are placeholders and unrelated to real projects. Replace with your CDN and on-chain metadata before launch.",
+    "price": {
+      "buyNow": "Buy now",
+      "currentBid": "Current bid"
+    },
+    "time": {
+      "ended": "Ended",
+      "left": "~{h}h {m}m left"
+    },
+    "detail": {
+      "creator": "Creator",
+      "tokenStandard": "Token standard",
+      "royalty": "Royalty",
+      "traits": "Traits",
+      "feeHint": "Includes ~{fee}% service fee · {roy}% creator royalty (see checkout for details)"
+    },
+    "trade": {
+      "title": "Confirm order",
+      "bidLabel": "Bid amount",
+      "bidHint": "Minimum {min}; step {step}",
+      "lineBid": "Bid",
+      "linePrice": "Item price",
+      "lineFee": "Platform fee ({pct}%)",
+      "lineRoyalty": "Creator royalty ({pct}%)",
+      "lineGas": "Est. gas",
+      "lineTotal": "Est. total (native)",
+      "note": "Total includes price, platform fee, royalty, and estimated gas. Demo does not broadcast on-chain. Production follows finalized orders.",
+      "agree": "I have read and agree to the risk notice and platform rules (demo)",
+      "errTerms": "Please accept the terms",
+      "errBid": "Bid is below the minimum",
+      "errEnded": "Auction has ended",
+      "btnCancel": "Cancel",
+      "btnConfirm": "Confirm",
+      "btnDone": "Done",
+      "processing": "Submitting…",
+      "successTitle": "Submitted",
+      "successDesc": "Order accepted (demo)",
+      "successSub": "In production, track status under Orders › NFT orders or in your wallet."
+    },
+    "btn": {
+      "close": "Close",
+      "buy": "Buy now",
+      "bid": "Place bid"
+    },
+    "toast": {
+      "orderDemo": "Order created (demo): {title}",
+      "needLogin": "Please log in to buy or bid",
+      "completedDemo": "Order submitted (demo)"
+    }
+  }
+}

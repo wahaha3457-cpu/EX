@@ -1,0 +1,58 @@
+// =============================================================================
+// 原始色板 — 仅供 themes/_default.scss 等写入 CSS 变量，避免与 var(--ex-*) 循环依赖
+// =============================================================================
+
+// Dark（与旧 variables 默认终端色一致）
+$pal-dark-bg-canvas: #0b0e11;
+$pal-dark-bg-base: #0b0e11;
+$pal-dark-bg-elevated: #1e2329;
+$pal-dark-bg-surface: #2b3139;
+$pal-dark-bg-hover: #2e353d;
+$pal-dark-bg-muted: #161a1e;
+$pal-dark-bg-overlay: rgba(0, 0, 0, 0.65);
+
+$pal-dark-border-subtle: #2b3139;
+$pal-dark-border: #2e353d;
+$pal-dark-border-strong: #474d57;
+$pal-dark-border-focus: #f0b90b;
+
+$pal-dark-text-primary: #eaecef;
+$pal-dark-text-secondary: #b7bdc6;
+$pal-dark-text-tertiary: #848e9c;
+$pal-dark-text-disabled: #5e6673;
+$pal-dark-text-inverse: #0b0e11;
+
+$pal-dark-brand: #f0b90b;
+$pal-dark-brand-hover: #f8d12f;
+$pal-dark-brand-active: #c99400;
+$pal-dark-brand-muted: rgba(240, 185, 11, 0.12);
+$pal-dark-brand-subtle: rgba(240, 185, 11, 0.08);
+
+$pal-dark-rise: #0ecb81;
+$pal-dark-rise-hover: #12d991;
+$pal-dark-rise-bg: rgba(14, 203, 129, 0.12);
+$pal-dark-rise-border: rgba(14, 203, 129, 0.35);
+
+$pal-dark-fall: #f6465d;
+$pal-dark-fall-hover: #ff6675;
+$pal-dark-fall-bg: rgba(246, 70, 93, 0.12);
+$pal-dark-fall-border: rgba(246, 70, 93, 0.35);
+
+$pal-dark-info: #3084fc;
+$pal-dark-info-bg: rgba(48, 132, 252, 0.12);
+$pal-dark-warning: #f0b90b;
+$pal-dark-warning-bg: rgba(240, 185, 11, 0.12);
+$pal-dark-danger: #f6465d;
+$pal-dark-danger-bg: rgba(246, 70, 93, 0.12);
+$pal-dark-success: #0ecb81;
+$pal-dark-success-bg: rgba(14, 203, 129, 0.12);
+$pal-dark-neutral: #848e9c;
+$pal-dark-neutral-bg: rgba(132, 142, 156, 0.12);
+
+$pal-dark-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.24);
+$pal-dark-shadow-card: 0 4px 24px rgba(0, 0, 0, 0.32);
+$pal-dark-shadow-dropdown: 0 8px 32px rgba(0, 0, 0, 0.45);
+$pal-dark-shadow-inset-well: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+$pal-dark-card-surface: #1e2329;
+$pal-dark-modal-surface: #1e2329;

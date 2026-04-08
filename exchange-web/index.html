@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/brand-logo.png" />
+    <link rel="apple-touch-icon" href="/brand-logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b0e11" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <title>Exchange</title>
+    <script>
+      ;(function () {
+        var k = 'exchange-theme'
+        var legacy = 'ex-theme'
+        var root = document.documentElement
+        var bgDark = '#0b0e11'
+        var bgMono = '#fafafa'
+        function norm(raw) {
+          if (raw === 'dark') return 'default'
+          if (raw === 'light') return 'monochrome'
+          if (raw === 'default' || raw === 'monochrome') return raw
+          return 'default'
+        }
+        try {
+          var v = localStorage.getItem(k)
+          if (v == null) v = localStorage.getItem(legacy)
+          v = norm(v)
+          root.setAttribute('data-theme', v)
+          if (v === 'default') root.classList.add('dark')
+          else root.classList.remove('dark')
+          root.style.colorScheme = v === 'default' ? 'dark' : 'light'
+          var bg = v === 'default' ? bgDark : bgMono
+          root.style.backgroundColor = bg
+          if (document.body) document.body.style.backgroundColor = bg
+          var tc = document.querySelector('meta[name="theme-color"]')
+          if (tc) tc.setAttribute('content', bg)
+        } catch (e) {
+          root.setAttribute('data-theme', 'default')
+          root.classList.add('dark')
+          root.style.colorScheme = 'dark'
+          root.style.backgroundColor = bgDark
+        }
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

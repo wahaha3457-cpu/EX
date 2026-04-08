@@ -1,0 +1,26 @@
+// 涨跌配色：默认绿涨红跌；intl 与部分欧美证券习惯一致（红涨绿跌）
+@use '../abstracts/palette' as pal;
+
+[data-theme='default'][data-candle-palette='intl'],
+[data-theme='default'][data-candle-palette='intl'],
+[data-theme='dark'][data-candle-palette='intl'] {
+  --ex-rise: #{pal.$pal-dark-fall};
+  --ex-rise-hover: #{pal.$pal-dark-fall-hover};
+  --ex-rise-bg: #{pal.$pal-dark-fall-bg};
+  --ex-rise-border: #{pal.$pal-dark-fall-border};
+  --ex-fall: #{pal.$pal-dark-rise};
+  --ex-fall-hover: #{pal.$pal-dark-rise-hover};
+  --ex-fall-bg: #{pal.$pal-dark-rise-bg};
+  --ex-fall-border: #{pal.$pal-dark-rise-border};
+}
+
+[data-theme='monochrome'][data-candle-palette='intl'] {
+  --ex-rise: #f6465d;
+  --ex-rise-hover: #e03e52;
+  --ex-rise-bg: rgba(246, 70, 93, 0.1);
+  --ex-rise-border: rgba(246, 70, 93, 0.35);
+  --ex-fall: #0ecb81;
+  --ex-fall-hover: #0bb874;
+  --ex-fall-bg: rgba(14, 203, 129, 0.1);
+  --ex-fall-border: rgba(14, 203, 129, 0.35);
+}

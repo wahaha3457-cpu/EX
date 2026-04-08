@@ -1,0 +1,104 @@
+@use './tokens' as *;
+
+/**
+ * 运营后台侧栏 — 一级导航图标规范
+ * - Element Plus Icons 均为 currentColor 填充路径；通过统一尺寸、默认色、hover/active 色阶对齐观感。
+ * - 折叠态仅显示图标时，保证与深色底对比度一致。
+ */
+.admin-console .admin-sidebar {
+  --adm-nav-icon-size: 18px;
+  --adm-nav-icon-default: rgba(236, 240, 248, 0.92);
+  --adm-nav-icon-hover: #ffffff;
+  --adm-nav-icon-active: var(--el-color-primary-light-3);
+}
+
+.admin-console .admin-sidebar .admin-sidebar__menu.el-menu {
+  /* 与图标盒宽对齐，减少折叠时偏移 */
+  --el-menu-icon-width: 22px;
+}
+
+/* 一级侧栏：叶子路由与带子菜单的标题字重一致（避免「上面分组偏粗、底部独立叶子偏细」） */
+.admin-console .admin-sidebar .admin-sidebar__menu.el-menu > .el-menu-item,
+.admin-console .admin-sidebar .admin-sidebar__menu.el-menu > .el-sub-menu > .el-sub-menu__title {
+  font-weight: 600 !important;
+}
+
+.admin-console .admin-sidebar .admin-sidebar__menu.el-menu > .el-menu-item .el-menu-item__title {
+  font-weight: inherit !important;
+}
+
+.admin-console .admin-sidebar .admin-sidebar__menu .el-icon {
+  font-size: var(--adm-nav-icon-size);
+  width: var(--adm-nav-icon-size);
+  height: var(--adm-nav-icon-size);
+  flex-shrink: 0;
+  opacity: 1;
+}
+
+.admin-console .admin-sidebar .admin-sidebar__menu .el-icon svg {
+  width: 1em;
+  height: 1em;
+  display: block;
+}
+
+/* 一级：叶子与带子菜单的标题行内图标 — 同色阶（不再对「非快捷」单独 muted，避免有的发白、有的发灰） */
+.admin-console .admin-sidebar .admin-sidebar__menu > .el-menu-item > .el-icon,
+.admin-console .admin-sidebar .admin-sidebar__menu > .el-sub-menu > .el-sub-menu__title .el-icon {
+  color: var(--adm-nav-icon-default);
+  transition:
+    color 0.15s ease,
+    filter 0.15s ease;
+}
+
+.admin-console .admin-sidebar .admin-sidebar__menu > .el-menu-item:not(.is-active):hover > .el-icon,
+.admin-console
+  .admin-sidebar
+  .admin-sidebar__menu
+  > .el-sub-menu:not(.is-active)
+  > .el-sub-menu__title:hover
+  .el-icon {
+  color: var(--adm-nav-icon-hover);
+}
+
+.admin-console .admin-sidebar .admin-sidebar__menu > .el-menu-item.is-active > .el-icon {
+  color: var(--adm-nav-icon-active);
+}
+
+/* 带子路由选中时，一级 SubMenu 标题行图标与选中态一致 */
+.admin-console .admin-sidebar .admin-sidebar__menu > .el-sub-menu.is-active > .el-sub-menu__title .el-icon {
+  color: var(--adm-nav-icon-active);
+}
+
+/* 嵌套子项图标（分组内路由）：与一级同色阶变量，避免仅一级有显式色 */
+.admin-console .admin-sidebar .admin-sidebar__menu .admin-menu-nodes__leaf-ic {
+  color: var(--adm-nav-icon-default);
+}
+
+.admin-console
+  .admin-sidebar
+  .admin-sidebar__menu
+  .el-menu-item:not(.is-active):hover
+  .admin-menu-nodes__leaf-ic {
+  color: var(--adm-nav-icon-hover);
+}
+
+.admin-console .admin-sidebar .admin-sidebar__menu .el-menu-item.is-active .admin-menu-nodes__leaf-ic {
+  color: var(--adm-nav-icon-active);
+}
+
+/* 常用功能列表：紫底入口 — 图标始终浅紫白、略发光，折叠/选中时都可见 */
+.admin-console .admin-sidebar .admin-sidebar__quick-root > .el-sub-menu__title .admin-sidebar__quick-ic {
+  color: #ede9fe !important;
+  filter: drop-shadow(0 0 10px color-mix(in srgb, #a78bfa 40%, transparent));
+}
+
+.admin-console .admin-sidebar .admin-sidebar__quick-root.is-active > .el-sub-menu__title .admin-sidebar__quick-ic,
+.admin-console .admin-sidebar .admin-sidebar__quick-root > .el-sub-menu__title:hover .admin-sidebar__quick-ic {
+  color: #ffffff !important;
+  filter: drop-shadow(0 0 12px color-mix(in srgb, #c4b5fd 55%, transparent));
+}
+
+/* 子路由命中时常用功能父级也高亮：保持图标可见 */
+.admin-console .admin-sidebar .admin-sidebar__quick-root.is-opened > .el-sub-menu__title .admin-sidebar__quick-ic {
+  color: #f5f3ff !important;
+}

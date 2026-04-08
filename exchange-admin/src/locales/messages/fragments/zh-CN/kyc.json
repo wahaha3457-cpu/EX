@@ -1,0 +1,186 @@
+{
+  "kyc": {
+    "heroTitle": "身份认证（KYC）",
+    "heroLead": "完成实名核验以解锁提币、C2C、法币等能力，并提升账户安全等级。以下为演示流程：材料仅保存在本机浏览器，不上传服务器；正式上线请接入持牌 KYC 供应商。",
+    "routeHint": "独立入口：",
+    "progressLabel": "认证完成度",
+    "progLv0": "Lv.0 未认证",
+    "progLv1": "Lv.1 基础认证",
+    "progLv2": "Lv.2 进阶认证",
+    "tipsOkTitle": "拍摄建议",
+    "tipsNoTitle": "请避免",
+    "photoDo": {
+      "0": "光线均匀，避免强光反光",
+      "1": "证件四角完整入镜",
+      "2": "文字清晰可辨、无手指遮挡关键信息",
+      "3": "手持自拍需露出面部与证件，附便签日期（生产常见要求）"
+    },
+    "photoDont": {
+      "0": "勿使用黑白复印件或截图翻拍",
+      "1": "勿在证件上放置硬币等异物遮挡",
+      "2": "勿上传与本人不一致的证件"
+    },
+    "limitsTitle": "认证等级与权限",
+    "limitsSub": "以下为演示额度，实际以风控策略为准。",
+    "limitsNoteRef": "可参考",
+    "limitCol0": "Lv.0",
+    "limitCol1": "Lv.1 基础",
+    "limitCol2": "Lv.2 进阶",
+    "limitColPermission": "权限项",
+    "limitWithdraw24h": "24h 提币额度（折算 USDT）",
+    "limitC2c": "C2C 单笔限额（示意）",
+    "limitFiat": "法币充值 / 买币",
+    "limitContract": "合约 / 杠杆",
+    "limitV0w": "— / 禁用",
+    "limitV1w": "200,000",
+    "limitV2w": "2,000,000",
+    "limitV0c": "不可用",
+    "limitV1c": "50,000 CNY",
+    "limitV2c": "500,000 CNY",
+    "limitV0f": "不可用",
+    "limitV1f": "支持",
+    "limitV2f": "更高额度",
+    "limitV0x": "仅浏览",
+    "limitV1x": "标准",
+    "limitV2x": "完整",
+    "binanceRef": "币安 KYC 说明",
+    "stepsTitle": "认证步骤",
+    "step1Title": "基础认证 · 证件与个人信息",
+    "step2Title": "进阶认证 · 地址与补充材料",
+    "status": {
+      "LOCKED": "待解锁",
+      "TODO": "待填写",
+      "IN_REVIEW": "审核中",
+      "PASSED": "已通过",
+      "REJECTED": "未通过"
+    },
+    "submittedAt": "提交时间 {time}",
+    "basicTitle": "基础认证 · 个人信息",
+    "basicSub": "请确保与证件一致。伪造信息可能导致账户限制；演示环境需手动选择审核结果。",
+    "advTitle": "进阶认证 · 地址与补充材料",
+    "advSub": "用于提高法币与高额提币额度。演示中不上传真实影像。",
+    "bannerBasicReview": "审核中 — 请在下方选择演示审核结果（通过 / 驳回）。提交于 {time}",
+    "bannerBasicOk": "基础认证已通过 · {time}",
+    "bannerAdvReview": "进阶审核中 — 请在下方选择演示审核结果。提交于 {time}",
+    "bannerAdvOk": "进阶认证已通过 · {time}",
+    "demoReviewTitle": "演示审核（仅本机模拟）",
+    "demoApprove": "模拟通过",
+    "demoReject": "模拟驳回",
+    "fieldCountry": "国家 / 地区",
+    "fieldIdType": "证件类型",
+    "idTypeIdCard": "身份证",
+    "idTypePassport": "护照",
+    "fieldFullName": "姓名（与证件一致）",
+    "fieldIdNumber": "证件号码",
+    "fieldDob": "出生日期",
+    "fieldResidential": "居住地址",
+    "fieldCity": "城市",
+    "fieldPostal": "邮编（选填）",
+    "loading": "加载认证状态…",
+    "sectionIdPhotos": "证件影像",
+    "sectionAdvDocs": "补充材料",
+    "consentBasic": "本人声明所填信息与证件影像真实、准确、合法，并授权平台为合规目的处理上述数据（演示勾选即可）。",
+    "consentAdv": "本人确认地址证明与自拍材料真实有效，并理解进阶认证用于更高额度场景的风控评估（演示）。",
+    "submitBasic": "提交基础认证",
+    "submitAdv": "提交进阶认证",
+    "upload": "上传",
+    "reupload": "重新选择",
+    "badgeCurrent": "当前 Lv.{n}",
+    "badgeDone": "已完成全部认证等级",
+    "badgeHint1": "可继续完成 Lv.2 提升法币与高额提币额度",
+    "badgeHint0": "未完成实名，提币 / C2C / 法币等将受限（演示）",
+    "faqTitle": "常见问题",
+    "faq": {
+      "why": {
+        "q": "为什么要完成身份认证？",
+        "a": "用于满足反洗钱（AML）与了解你的客户（KYC）合规要求，并解锁提币、C2C、法币通道等能力。本页为演示流程，生产环境由持牌机构或合规供应商完成核验。"
+      },
+      "time": {
+        "q": "审核需要多久？",
+        "a": "生产环境通常为几分钟至数个工作日，视材料清晰度与队列而定。演示环境需在提交后手动选择「模拟通过」或「模拟驳回」。"
+      },
+      "reject": {
+        "q": "证件照总被拒怎么办？",
+        "a": "请保证四角完整、无反光遮挡、信息与填写一致；勿使用截图或过度修图。若被驳回，请根据原因重新上传后再次提交。"
+      },
+      "privacy": {
+        "q": "我的数据如何存储？",
+        "a": "演示数据仅存于本浏览器 localStorage，不会上传服务器。上线后应使用加密传输、最小化存储与可审计的访问控制。"
+      }
+    },
+    "reset": "重置演示数据",
+    "resetHint": "（清空本地 KYC 状态，便于重复体验）",
+    "previewAlt": "预览",
+    "doc": {
+      "idFront": {
+        "title": "证件人像面",
+        "hint": "支持 JPG / PNG / WebP，≤5MB，四角完整、无反光"
+      },
+      "idBack": {
+        "title": "证件国徽面",
+        "hint": "与正面为同一证件；文字清晰"
+      },
+      "passportBio": {
+        "title": "护照资料页（含照片）",
+        "hint": "个人信息与照片页，四角完整；支持 JPG / PNG / WebP，≤5MB（演示）"
+      },
+      "addressProof": {
+        "title": "地址证明",
+        "hint": "近 3 个月水电账单、银行卡对账单等（演示）"
+      },
+      "selfie": {
+        "title": "手持证件自拍",
+        "hint": "面部清晰、证件信息可读，建议附手写便签与日期"
+      }
+    },
+    "rejectReason": {
+      "blur": "证件照片不清晰或反光严重，请重新拍摄上传。",
+      "mismatch": "证件信息与填写不一致，请核对后重新提交。",
+      "address": "地址证明无法验证有效居住地址，请上传近 3 个月内有效账单。",
+      "selfie": "手持自拍不符合规范，请确保面部与证件同框且信息可读。"
+    },
+    "demoRejectBlur": "驳回 · 不清晰",
+    "demoRejectMismatch": "驳回 · 信息不符",
+    "demoRejectAddress": "驳回 · 地址证明",
+    "demoRejectSelfie": "驳回 · 手持自拍",
+    "error": {
+      "load": "认证数据加载失败",
+      "fileSize": "文件需小于 5MB（演示）",
+      "fileType": "仅支持 JPG、PNG、WebP 格式",
+      "uploadAllIdDocs": "请上传全部证件影像",
+      "needBasicFirst": "请先完成基础认证",
+      "uploadAllAdvanced": "请上传全部进阶材料",
+      "name": "请输入与证件一致的姓名（≥2 字符）",
+      "idNumber": "请输入有效证件号码",
+      "idCnInvalid": "中国大陆身份证号格式或校验位不正确",
+      "idPassportInvalid": "护照号码格式不正确（6–20 位字母数字）",
+      "dob": "出生日期格式不正确",
+      "adult": "需年满 18 周岁方可认证",
+      "address": "请填写详细居住地址",
+      "city": "请填写城市",
+      "consentBasic": "请阅读并勾选确认声明后再提交",
+      "consentAdv": "请阅读并勾选进阶认证声明后再提交"
+    },
+    "toast": {
+      "fileRecorded": "已记录文件（演示不上传服务器）",
+      "submittedBasic": "已提交基础认证，请选择演示审核结果",
+      "submittedAdvanced": "已提交进阶认证，请选择演示审核结果",
+      "demoBasicPass": "基础认证已通过 · 已开通 Lv.1 权限（演示）",
+      "demoBasicReject": "已模拟驳回基础认证，请根据原因修改后重新提交",
+      "demoAdvPass": "进阶认证已通过 · 已开通 Lv.2 权限（演示）",
+      "demoAdvReject": "已模拟驳回进阶认证，请根据原因修改后重新提交",
+      "reset": "已重置 KYC 演示数据"
+    },
+    "country": {
+      "CN": "中国",
+      "HK": "中国香港",
+      "MO": "中国澳门",
+      "TW": "中国台湾",
+      "US": "美国",
+      "SG": "新加坡",
+      "JP": "日本",
+      "GB": "英国",
+      "OTHER": "其他"
+    }
+  }
+}

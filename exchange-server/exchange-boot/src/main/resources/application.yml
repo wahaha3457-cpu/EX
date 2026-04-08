@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: exchange-boot
+  profiles:
+    active: dev
+
+server:
+  port: 8080
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+
+# 现货简易撮合：按行情最新价触发限价 NEW 单成交（非独立撮合引擎；生产需接入专业撮合）
+exchange:
+  spot:
+    match:
+      enabled: true
+      initial-delay-ms: 8000
+      fixed-delay-ms: 2500

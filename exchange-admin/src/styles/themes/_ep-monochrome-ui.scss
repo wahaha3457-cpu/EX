@@ -1,0 +1,169 @@
+// -----------------------------------------------------------------------------
+// Element Plus — monochrome 下「纯白前台」组件级对齐（表/Tab/表单/分页等）
+// 依赖 [data-theme=monochrome] 内已定义的 --el-* / --ex-* token；尽量少用 !important
+// -----------------------------------------------------------------------------
+
+[data-theme='monochrome'] {
+  /* 按钮：默认态白底描边，避免灰实心块 */
+  .el-button--default {
+    --el-button-bg-color: #ffffff;
+    --el-button-border-color: var(--el-border-color);
+    --el-button-text-color: var(--ex-text-primary);
+  }
+
+  .el-button--default:hover,
+  .el-button--default:focus {
+    --el-button-bg-color: var(--ex-hover-bg);
+    --el-button-border-color: var(--ex-border-strong);
+  }
+
+  /* 输入：白底凹槽 + 细边 */
+  .el-input__wrapper {
+    background-color: var(--ex-surface-inset);
+    box-shadow: 0 0 0 1px var(--ex-border) inset;
+  }
+
+  .el-input__wrapper.is-focus {
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--ex-brand) 45%, var(--ex-border)) inset;
+  }
+
+  .el-textarea__inner {
+    background-color: var(--ex-surface-inset);
+    box-shadow: 0 0 0 1px var(--ex-border) inset;
+  }
+
+  .el-select .el-input__wrapper {
+    background-color: var(--ex-surface-inset);
+  }
+
+  /* Tab：头部与内容区白底，靠线与选中态分层 */
+  .el-tabs {
+    --el-tabs-header-height: 40px;
+  }
+
+  .el-tabs__header {
+    margin: 0;
+    background: #ffffff;
+    border-bottom: 1px solid var(--ex-border-subtle);
+  }
+
+  .el-tabs__nav-wrap::after {
+    height: 1px;
+    background-color: var(--ex-border-subtle);
+  }
+
+  .el-tabs__item {
+    color: var(--ex-text-secondary);
+  }
+
+  .el-tabs__item.is-active {
+    color: var(--ex-text-primary);
+    font-weight: 600;
+  }
+
+  .el-tabs__active-bar {
+    background-color: var(--ex-brand);
+  }
+
+  .el-tabs__content {
+    background: #ffffff;
+  }
+
+  /* 卡片：白底 + 细边，阴影走 token */
+  .el-card {
+    --el-card-bg-color: #ffffff;
+    border-color: var(--ex-border-subtle);
+    box-shadow: var(--ex-shadow-sm);
+  }
+
+  /* 表格：兜底（变量未穿透时） */
+  .el-table {
+    --el-table-bg-color: #ffffff;
+    --el-table-tr-bg-color: #ffffff;
+    --el-table-header-bg-color: #ffffff;
+    --el-table-row-hover-bg-color: var(--ex-hover-bg);
+    --el-table-border-color: var(--ex-border-subtle);
+  }
+
+  .el-table th.el-table__cell {
+    background-color: var(--el-table-header-bg-color);
+    font-weight: 600;
+    color: var(--ex-text-secondary);
+  }
+
+  .el-table tr {
+    background-color: var(--el-table-tr-bg-color);
+  }
+
+  /* 分页 */
+  .el-pagination {
+    --el-pagination-bg-color: #ffffff;
+    --el-pagination-text-color: var(--ex-text-secondary);
+    --el-pagination-button-color: var(--ex-text-primary);
+  }
+
+  .el-pagination .el-pager li {
+    background: #ffffff;
+    color: var(--ex-text-secondary);
+  }
+
+  .el-pagination .el-pager li.is-active {
+    background: color-mix(in srgb, var(--ex-brand) 10%, #ffffff);
+    color: var(--ex-brand);
+  }
+
+  /* Tag：弱灰仅用在内里，外轮廓用线 */
+  .el-tag {
+    --el-tag-bg-color: var(--ex-fill-ghost);
+    border-color: var(--ex-border-subtle);
+  }
+
+  .el-tag--primary {
+    --el-tag-bg-color: color-mix(in srgb, var(--ex-brand) 10%, #ffffff);
+    --el-tag-border-color: color-mix(in srgb, var(--ex-brand) 22%, transparent);
+  }
+
+  /* 空态 / 骨架 */
+  .el-empty__description {
+    color: var(--ex-text-secondary);
+  }
+
+  .el-skeleton__item {
+    background: linear-gradient(
+      90deg,
+      var(--ex-fill-ghost) 25%,
+      var(--ex-hover-bg) 50%,
+      var(--ex-fill-ghost) 75%
+    );
+  }
+
+  /* Dialog */
+  .el-dialog__header {
+    border-bottom: 1px solid var(--ex-border-subtle);
+    margin-right: 0;
+    padding-bottom: 16px;
+  }
+
+  /* Menu：侧栏白底 */
+  .el-menu {
+    background-color: #ffffff;
+    border-color: var(--ex-border-subtle);
+  }
+
+  .el-menu-item:hover {
+    background-color: var(--ex-hover-bg);
+  }
+
+  /* 项目内 BEM Tabs：胶囊轨道改白底描边，去掉灰条感 */
+  .ex-tabs-pill {
+    background: var(--ex-bg-elevated);
+    border: 1px solid var(--ex-border-subtle);
+    box-shadow: var(--ex-shadow-sm);
+  }
+
+  .ex-tab-pill--active {
+    background: var(--ex-fill-ghost);
+    box-shadow: none;
+    border: 1px solid color-mix(in srgb, var(--ex-brand) 24%, var(--ex-border-subtle));
+  }
+}

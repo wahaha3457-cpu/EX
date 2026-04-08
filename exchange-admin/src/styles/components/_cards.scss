@@ -1,0 +1,55 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/variables' as *;
+@use '../mixins' as mq;
+
+.ex-card {
+  @include panel-raised;
+  padding: $space-4;
+}
+
+@include mq.media-down(md) {
+  .ex-card:not(.ex-card--density-fixed) {
+    padding: $space-3;
+  }
+
+  .ex-card__title {
+    font-size: $font-size-base;
+  }
+}
+
+.ex-card--flat {
+  @include panel;
+  box-shadow: none;
+}
+
+.ex-card--compact {
+  padding: $space-3;
+  border-radius: $radius-md;
+}
+
+.ex-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-3;
+  margin-bottom: $space-3;
+}
+
+.ex-card__title {
+  margin: 0;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-snug;
+  color: $color-text-primary;
+}
+
+.ex-card__sub {
+  margin: $space-1 0 0;
+  font-size: $font-size-sm;
+  line-height: $line-height-normal;
+  color: $color-text-tertiary;
+}
+
+.ex-card__body {
+  min-height: 0;
+}

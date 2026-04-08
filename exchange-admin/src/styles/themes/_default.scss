@@ -1,0 +1,192 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/palette' as pal;
+@use 'tokens' as ex-tok;
+
+/* 默认深色终端；保留 [data-theme='dark'] 选择器以兼容历史内联脚本与书签 */
+[data-theme='default'],
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --ex-bg-canvas: #{pal.$pal-dark-bg-canvas};
+  --ex-bg-base: #{pal.$pal-dark-bg-base};
+  --ex-bg-elevated: #{pal.$pal-dark-bg-elevated};
+  --ex-bg-surface: #{pal.$pal-dark-bg-surface};
+  --ex-bg-hover: #{pal.$pal-dark-bg-hover};
+  --ex-bg-muted: #{pal.$pal-dark-bg-muted};
+  --ex-bg-overlay: #{pal.$pal-dark-bg-overlay};
+
+  --ex-border-subtle: #{pal.$pal-dark-border-subtle};
+  --ex-border: #{pal.$pal-dark-border};
+  --ex-border-strong: #{pal.$pal-dark-border-strong};
+  --ex-border-focus: #{pal.$pal-dark-border-focus};
+
+  --ex-text-primary: #{pal.$pal-dark-text-primary};
+  --ex-text-secondary: #{pal.$pal-dark-text-secondary};
+  --ex-text-tertiary: #{pal.$pal-dark-text-tertiary};
+  --ex-text-disabled: #{pal.$pal-dark-text-disabled};
+  --ex-text-inverse: #{pal.$pal-dark-text-inverse};
+
+  color: var(--ex-text-primary);
+
+  --ex-brand: #{pal.$pal-dark-brand};
+  --ex-brand-hover: #{pal.$pal-dark-brand-hover};
+  --ex-brand-active: #{pal.$pal-dark-brand-active};
+  --ex-brand-muted: #{pal.$pal-dark-brand-muted};
+  --ex-brand-subtle: #{pal.$pal-dark-brand-subtle};
+  --ex-link: #{pal.$pal-dark-brand};
+  --ex-link-hover: #{pal.$pal-dark-brand-hover};
+
+  --ex-rise: #{pal.$pal-dark-rise};
+  --ex-rise-hover: #{pal.$pal-dark-rise-hover};
+  --ex-rise-bg: #{pal.$pal-dark-rise-bg};
+  --ex-rise-border: #{pal.$pal-dark-rise-border};
+
+  --ex-fall: #{pal.$pal-dark-fall};
+  --ex-fall-hover: #{pal.$pal-dark-fall-hover};
+  --ex-fall-bg: #{pal.$pal-dark-fall-bg};
+  --ex-fall-border: #{pal.$pal-dark-fall-border};
+
+  --ex-info: #{pal.$pal-dark-info};
+  --ex-info-bg: #{pal.$pal-dark-info-bg};
+  --ex-warning: #{pal.$pal-dark-warning};
+  --ex-warning-bg: #{pal.$pal-dark-warning-bg};
+  --ex-danger: #{pal.$pal-dark-danger};
+  --ex-danger-bg: #{pal.$pal-dark-danger-bg};
+  --ex-success: #{pal.$pal-dark-success};
+  --ex-success-bg: #{pal.$pal-dark-success-bg};
+  --ex-neutral: #{pal.$pal-dark-neutral};
+  --ex-neutral-bg: #{pal.$pal-dark-neutral-bg};
+
+  --ex-card-surface: #{pal.$pal-dark-card-surface};
+  --ex-modal-surface: #{pal.$pal-dark-modal-surface};
+  --ex-on-brand: #0b0e11;
+
+  /* 交易终端壳层：纯色面承载，弱渐变噪音 */
+  --ex-tcf-surface: #1b1f28;
+  --ex-tcf-shadow: 0 8px 28px rgba(0, 0, 0, 0.28);
+
+  --ex-spot-order-surface: #{pal.$pal-dark-bg-elevated};
+  --ex-spot-order-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  --ex-elevated-panel-surface: #1a1f26;
+  --ex-elevated-panel-shadow: none;
+  --ex-pair-modal-surface: #{pal.$pal-dark-bg-elevated};
+  --ex-vip-banner-surface: #1e2329;
+  --ex-vip-banner-border: #{pal.$pal-dark-border};
+
+  --ex-chart-host-bg: #13161b;
+
+  --ex-hero-bg: #{pal.$pal-dark-bg-canvas};
+  --ex-hero-grid-line: rgba(234, 236, 239, 0.06);
+  --ex-home-card-tint: rgba(30, 35, 41, 0.65);
+  --ex-home-download-bg: #{pal.$pal-dark-bg-elevated};
+  --ex-home-markets-bg: #{pal.$pal-dark-bg-muted};
+
+  --ex-font-base: #{v.$font-family-base};
+  --ex-font-mono: #{v.$font-family-mono};
+
+  --ex-font-xxs: #{v.$font-size-xxs};
+  --ex-font-xs: #{v.$font-size-xs};
+  --ex-font-sm: #{v.$font-size-sm};
+  --ex-font-md: #{v.$font-size-md};
+  --ex-font-base-size: #{v.$font-size-base};
+  --ex-font-size-base: #{v.$font-size-base};
+  --ex-font-lg: #{v.$font-size-lg};
+  --ex-font-xl: #{v.$font-size-xl};
+  --ex-font-xxl: #{v.$font-size-xxl};
+  --ex-font-display: #{v.$font-size-display};
+
+  --ex-leading-tight: #{v.$line-height-tight};
+  --ex-leading-snug: #{v.$line-height-snug};
+  --ex-leading-normal: #{v.$line-height-normal};
+
+  --ex-space-1: #{v.$space-1};
+  --ex-space-2: #{v.$space-2};
+  --ex-space-3: #{v.$space-3};
+  --ex-space-4: #{v.$space-4};
+  --ex-space-5: #{v.$space-5};
+  --ex-space-6: #{v.$space-6};
+  --ex-space-8: #{v.$space-8};
+  --ex-space-10: #{v.$space-10};
+
+  --ex-radius-xs: #{v.$radius-xs};
+  --ex-radius-sm: #{v.$radius-sm};
+  --ex-radius-md: #{v.$radius-md};
+  --ex-radius-lg: #{v.$radius-lg};
+  --ex-radius-xl: #{v.$radius-xl};
+
+  --ex-shadow-sm: #{pal.$pal-dark-shadow-sm};
+  --ex-shadow-card: #{pal.$pal-dark-shadow-card};
+  --ex-shadow-dropdown: #{pal.$pal-dark-shadow-dropdown};
+  --ex-shadow-inset-well: #{pal.$pal-dark-shadow-inset-well};
+
+  --ex-header-height: #{v.$header-height};
+  --ex-subnav-height: #{v.$subnav-height};
+  --ex-footer-height: #{v.$footer-height};
+
+  --ex-z-dropdown: #{v.$z-dropdown};
+  --ex-z-modal: #{v.$z-modal};
+  --ex-z-toast: #{v.$z-toast};
+
+  --ex-fill-hover-subtle: rgba(255, 255, 255, 0.06);
+  --ex-fill-ghost: rgba(255, 255, 255, 0.04);
+  --ex-fill-ghost-border-hover: rgba(255, 255, 255, 0.12);
+
+  /* 仅用于 Dialog / Drawer / MessageBox 遮罩，禁止用作「整页发白」主题层 */
+  --ex-overlay-bg: rgba(0, 0, 0, 0.68);
+  --ex-overlay-backdrop: rgba(0, 0, 0, 0.68);
+  --ex-modal-shadow-elevated: 0 24px 80px rgba(0, 0, 0, 0.5);
+  --ex-surface-inset: rgba(255, 255, 255, 0.06);
+  --ex-surface-inset-strong: rgba(255, 255, 255, 0.1);
+  --ex-table-header-bg: rgba(255, 255, 255, 0.04);
+  --ex-panel-row-hover: rgba(255, 255, 255, 0.06);
+  --ex-divider-on-white: rgba(255, 255, 255, 0.08);
+  --ex-panel-sunken: rgba(0, 0, 0, 0.22);
+
+  // Element Plus — 深色壳层对齐
+  --el-color-primary: #f0b90b;
+  --el-color-primary-light-3: #f5cb4a;
+  --el-color-primary-light-5: #f8d97a;
+  --el-color-primary-light-7: #fbe8a8;
+  --el-color-primary-light-8: #fcf0c4;
+  --el-color-primary-light-9: #fef8e6;
+  --el-color-primary-dark-2: #c99400;
+  --el-bg-color: #1e2329;
+  --el-bg-color-page: #0b0e11;
+  --el-bg-color-overlay: #1e2329;
+  --el-fill-color-blank: #1e2329;
+  --el-fill-color-light: rgba(255, 255, 255, 0.06);
+  --el-fill-color: rgba(255, 255, 255, 0.08);
+  --el-fill-color-lighter: rgba(255, 255, 255, 0.04);
+  --el-fill-color-extra-light: rgba(255, 255, 255, 0.03);
+  --el-fill-color-dark: #2b3139;
+  --el-text-color-primary: #eaecef;
+  --el-text-color-regular: #b7bdc6;
+  --el-text-color-secondary: #848e9c;
+  --el-text-color-placeholder: #5e6673;
+  --el-text-color-disabled: #5e6673;
+  --el-border-color: #2e353d;
+  --el-border-color-light: #2b3139;
+  --el-border-color-lighter: #252930;
+  --el-border-color-extra-light: #1e2329;
+  --el-border-color-dark: #474d57;
+  --el-border-color-darker: #5e6673;
+  --el-mask-color: rgba(0, 0, 0, 0.65);
+
+  @include ex-tok.ex-theme-semantic-aliases;
+
+  /* Header 图标：暗色终端 — 圆形轻量入口，弱化「方框工具条」 */
+  --ex-icon-btn-hover-bg: rgba(255, 255, 255, 0.08);
+  --ex-icon-btn-active-bg: color-mix(in srgb, var(--ex-brand) 16%, rgba(255, 255, 255, 0.05));
+  --ex-icon-btn-border-hover: rgba(255, 255, 255, 0.1);
+  --ex-icon-btn-active-border: color-mix(in srgb, var(--ex-brand) 50%, transparent);
+  --ex-menu-icon-tile-bg: rgba(255, 255, 255, 0.07);
+
+  /* 顶栏 / 浮层：实色承载（aliases 已指向 elevated，此处与 palette 显式对齐） */
+  --ex-z-sticky-header: 1000;
+  --ex-z-header-panel: 1200;
+  --ex-bg-header: #{pal.$pal-dark-bg-elevated};
+  --ex-bg-header-scrolled: #{pal.$pal-dark-bg-surface};
+  --ex-bg-dropdown: #{pal.$pal-dark-bg-elevated};
+  --ex-bg-popover: #{pal.$pal-dark-modal-surface};
+  --ex-header-sticky-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+}

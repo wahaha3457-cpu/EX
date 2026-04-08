@@ -1,0 +1,186 @@
+{
+  "kyc": {
+    "heroTitle": "身份認證（KYC）",
+    "heroLead": "完成實名核驗以解鎖提幣、C2C、法幣等能力，並提升帳戶安全等級。以下為演示流程：資料僅存於本機瀏覽器，不上傳伺服器；正式上線請接入持牌 KYC 供應商。",
+    "routeHint": "獨立入口：",
+    "progressLabel": "認證完成度",
+    "progLv0": "Lv.0 未認證",
+    "progLv1": "Lv.1 基礎認證",
+    "progLv2": "Lv.2 進階認證",
+    "tipsOkTitle": "拍攝建議",
+    "tipsNoTitle": "請避免",
+    "photoDo": {
+      "0": "光線均勻，避免強光反光",
+      "1": "證件四角完整入鏡",
+      "2": "文字清晰可辨、無手指遮擋關鍵資訊",
+      "3": "手持自拍需露出面部與證件，附便簽日期（生產常見要求）"
+    },
+    "photoDont": {
+      "0": "勿使用黑白複印件或截圖翻拍",
+      "1": "勿在證件上放置硬幣等異物遮擋",
+      "2": "勿上傳與本人不一致的證件"
+    },
+    "limitsTitle": "認證等級與權限",
+    "limitsSub": "以下為演示額度，實際以風控策略為準。",
+    "limitsNoteRef": "可參考",
+    "limitCol0": "Lv.0",
+    "limitCol1": "Lv.1 基礎",
+    "limitCol2": "Lv.2 進階",
+    "limitColPermission": "權限項",
+    "limitWithdraw24h": "24h 提幣額度（折算 USDT）",
+    "limitC2c": "C2C 單筆限額（示意）",
+    "limitFiat": "法幣充值 / 買幣",
+    "limitContract": "合約 / 槓桿",
+    "limitV0w": "— / 禁用",
+    "limitV1w": "200,000",
+    "limitV2w": "2,000,000",
+    "limitV0c": "不可用",
+    "limitV1c": "50,000 CNY",
+    "limitV2c": "500,000 CNY",
+    "limitV0f": "不可用",
+    "limitV1f": "支援",
+    "limitV2f": "更高額度",
+    "limitV0x": "僅瀏覽",
+    "limitV1x": "標準",
+    "limitV2x": "完整",
+    "binanceRef": "幣安 KYC 說明",
+    "stepsTitle": "認證步驟",
+    "step1Title": "基礎認證 · 證件與個人資訊",
+    "step2Title": "進階認證 · 地址與補充材料",
+    "status": {
+      "LOCKED": "待解鎖",
+      "TODO": "待填寫",
+      "IN_REVIEW": "審核中",
+      "PASSED": "已通過",
+      "REJECTED": "未通過"
+    },
+    "submittedAt": "提交時間 {time}",
+    "basicTitle": "基礎認證 · 個人資訊",
+    "basicSub": "請確保與證件一致。偽造資訊可能導致帳戶限制；演示環境需手動選擇審核結果。",
+    "advTitle": "進階認證 · 地址與補充材料",
+    "advSub": "用於提高法幣與高額提幣額度。演示中不上傳真實影像。",
+    "bannerBasicReview": "審核中 — 請在下方選擇演示審核結果（通過 / 駁回）。提交於 {time}",
+    "bannerBasicOk": "基礎認證已通過 · {time}",
+    "bannerAdvReview": "進階審核中 — 請在下方選擇演示審核結果。提交於 {time}",
+    "bannerAdvOk": "進階認證已通過 · {time}",
+    "demoReviewTitle": "演示審核（僅本機模擬）",
+    "demoApprove": "模擬通過",
+    "demoReject": "模擬駁回",
+    "fieldCountry": "國家 / 地區",
+    "fieldIdType": "證件類型",
+    "idTypeIdCard": "身份證",
+    "idTypePassport": "護照",
+    "fieldFullName": "姓名（與證件一致）",
+    "fieldIdNumber": "證件號碼",
+    "fieldDob": "出生日期",
+    "fieldResidential": "居住地址",
+    "fieldCity": "城市",
+    "fieldPostal": "郵編（選填）",
+    "loading": "載入認證狀態…",
+    "sectionIdPhotos": "證件影像",
+    "sectionAdvDocs": "補充材料",
+    "consentBasic": "本人聲明所填資訊與證件影像真實、準確、合法，並授權平台為合規目的處理上述資料（演示勾選即可）。",
+    "consentAdv": "本人確認地址證明與自拍材料真實有效，並理解進階認證用於更高額度場景的風控評估（演示）。",
+    "submitBasic": "提交基礎認證",
+    "submitAdv": "提交進階認證",
+    "upload": "上傳",
+    "reupload": "重新選擇",
+    "badgeCurrent": "目前 Lv.{n}",
+    "badgeDone": "已完成全部認證等級",
+    "badgeHint1": "可繼續完成 Lv.2 提升法幣與高額提幣額度",
+    "badgeHint0": "未完成實名，提幣 / C2C / 法幣等將受限（演示）",
+    "faqTitle": "常見問題",
+    "faq": {
+      "why": {
+        "q": "為什麼要完成身份認證？",
+        "a": "用於滿足反洗錢（AML）與了解你的客戶（KYC）合規要求，並解鎖提幣、C2C、法幣通道等能力。本頁為演示流程，生產環境由持牌機構或合規供應商完成核驗。"
+      },
+      "time": {
+        "q": "審核需要多久？",
+        "a": "生產環境通常為數分鐘至數個工作日，視材料清晰度與佇列而定。演示環境需在提交後手動選擇「模擬通過」或「模擬駁回」。"
+      },
+      "reject": {
+        "q": "證件照總被拒怎麼辦？",
+        "a": "請保證四角完整、無反光遮擋、資訊與填寫一致；勿使用截圖或過度修圖。若被駁回，請根據原因重新上傳後再次提交。"
+      },
+      "privacy": {
+        "q": "我的資料如何儲存？",
+        "a": "演示資料僅存於本瀏覽器 localStorage，不會上傳伺服器。上線後應使用加密傳輸、最小化儲存與可稽核的存取控制。"
+      }
+    },
+    "reset": "重置演示資料",
+    "resetHint": "（清空本機 KYC 狀態，便於重複體驗）",
+    "previewAlt": "預覽",
+    "doc": {
+      "idFront": {
+        "title": "證件人像面",
+        "hint": "支援 JPG / PNG / WebP，≤5MB，四角完整、無反光"
+      },
+      "idBack": {
+        "title": "證件國徽面",
+        "hint": "與正面為同一證件；文字清晰"
+      },
+      "passportBio": {
+        "title": "護照資料頁（含照片）",
+        "hint": "個人資訊與照片頁，四角完整；支援 JPG / PNG / WebP，≤5MB（演示）"
+      },
+      "addressProof": {
+        "title": "地址證明",
+        "hint": "近 3 個月水電帳單、銀行對帳單等（演示）"
+      },
+      "selfie": {
+        "title": "手持證件自拍",
+        "hint": "面部清晰、證件資訊可讀，建議附手寫便簽與日期"
+      }
+    },
+    "rejectReason": {
+      "blur": "證件照片不清晰或反光嚴重，請重新拍攝上傳。",
+      "mismatch": "證件資訊與填寫不一致，請核對後重新提交。",
+      "address": "地址證明無法驗證有效居住地址，請上傳近 3 個月內有效帳單。",
+      "selfie": "手持自拍不符合規範，請確保面部與證件同框且資訊可讀。"
+    },
+    "demoRejectBlur": "駁回 · 不清晰",
+    "demoRejectMismatch": "駁回 · 資訊不符",
+    "demoRejectAddress": "駁回 · 地址證明",
+    "demoRejectSelfie": "駁回 · 手持自拍",
+    "error": {
+      "load": "認證資料載入失敗",
+      "fileSize": "檔案需小於 5MB（演示）",
+      "fileType": "僅支援 JPG、PNG、WebP 格式",
+      "uploadAllIdDocs": "請上傳全部證件影像",
+      "needBasicFirst": "請先完成基礎認證",
+      "uploadAllAdvanced": "請上傳全部進階材料",
+      "name": "請輸入與證件一致的姓名（≥2 字元）",
+      "idNumber": "請輸入有效證件號碼",
+      "idCnInvalid": "中國大陸身分證號格式或校驗位不正確",
+      "idPassportInvalid": "護照號碼格式不正確（6–20 位字母數字）",
+      "dob": "出生日期格式不正確",
+      "adult": "需年滿 18 周歲方可認證",
+      "address": "請填寫詳細居住地址",
+      "city": "請填寫城市",
+      "consentBasic": "請閱讀並勾選確認聲明後再提交",
+      "consentAdv": "請閱讀並勾選進階認證聲明後再提交"
+    },
+    "toast": {
+      "fileRecorded": "已記錄檔案（演示不上傳伺服器）",
+      "submittedBasic": "已提交基礎認證，請選擇演示審核結果",
+      "submittedAdvanced": "已提交進階認證，請選擇演示審核結果",
+      "demoBasicPass": "基礎認證已通過 · 已開通 Lv.1 權限（演示）",
+      "demoBasicReject": "已模擬駁回基礎認證，請根據原因修改後重新提交",
+      "demoAdvPass": "進階認證已通過 · 已開通 Lv.2 權限（演示）",
+      "demoAdvReject": "已模擬駁回進階認證，請根據原因修改後重新提交",
+      "reset": "已重置 KYC 演示資料"
+    },
+    "country": {
+      "CN": "中國",
+      "HK": "中國香港",
+      "MO": "中國澳門",
+      "TW": "中國台灣",
+      "US": "美國",
+      "SG": "新加坡",
+      "JP": "日本",
+      "GB": "英國",
+      "OTHER": "其他"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+@use './tokens' as *;
+
+/* 仅作用于 .admin-console，避免影响前台交易端 */
+.admin-console {
+  --el-color-primary: #3b82f6;
+  --el-color-primary-light-3: #60a5fa;
+  --el-color-primary-light-5: #93c5fd;
+  --el-color-primary-light-7: #bfdbfe;
+  --el-color-primary-light-9: #1e3a5f;
+  --el-color-primary-dark-2: #2563eb;
+
+  --el-bg-color: #{$adm-bg-card};
+  --el-bg-color-page: #{$adm-bg-main};
+  --el-text-color-primary: #{$adm-text};
+  --el-text-color-regular: #c7cedd;
+  --el-text-color-secondary: #{$adm-text-muted};
+  --el-text-color-placeholder: #6b7380;
+  --el-border-color: #{$adm-border-subtle};
+  --el-border-color-light: #{$adm-border-subtle};
+  --el-fill-color-light: rgba(255, 255, 255, 0.055);
+  --el-fill-color: rgba(255, 255, 255, 0.075);
+  --el-fill-color-blank: transparent;
+  --el-mask-color: rgba(0, 0, 0, 0.55);
+
+  --el-box-shadow: 0 14px 40px rgba(0, 0, 0, 0.42);
+  --el-box-shadow-light: 0 4px 16px rgba(0, 0, 0, 0.28);
+
+  min-height: 100vh;
+  color: var(--el-text-color-primary);
+
+  /* 外壳：微渐变 + 环境光，与中间「内容画布」拉开距离 */
+  background:
+    radial-gradient(ellipse 1200px 560px at 8% -14%, rgba(59, 130, 246, 0.11), transparent 58%),
+    radial-gradient(ellipse 720px 420px at 96% 4%, rgba(139, 92, 246, 0.06), transparent 48%),
+    linear-gradient(168deg, #{$adm-bg-shell} 0%, #{$adm-bg-shell-floor} 48%, #{$adm-bg-shell} 100%);
+}

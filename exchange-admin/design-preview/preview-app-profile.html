@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>我的 · 账户与信任（设计预览）</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./app-tabbar.css" />
+  <style>
+    :root {
+      --bg: #0a0c10;
+      --surface: rgba(22, 28, 38, 0.82);
+      --stroke: rgba(255, 255, 255, 0.08);
+      --text: #eef2f7;
+      --muted: #8b95a8;
+      --usdt: #2ee6c8;
+      --usdt-soft: rgba(46, 230, 200, 0.14);
+      --cyan: #4dc4ff;
+      --gold: #c9a962;
+      --success: #5ed69a;
+      --warning: #e8b86d;
+      --radius-xl: 22px;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --shadow: 0 28px 56px rgba(0, 0, 0, 0.5);
+      --glow: 0 0 64px rgba(201, 169, 98, 0.08);
+      --font: 'DM Sans', system-ui, -apple-system, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font);
+      background:
+        radial-gradient(95% 55% at 50% -12%, rgba(201, 169, 98, 0.07), transparent 50%),
+        radial-gradient(60% 40% at 100% 20%, rgba(46, 230, 200, 0.06), transparent 42%),
+        radial-gradient(50% 35% at 0% 50%, rgba(77, 196, 255, 0.05), transparent 38%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100dvh;
+      padding: 16px 0 32px;
+      -webkit-font-smoothing: antialiased;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+    .phone {
+      width: min(390px, 100vw - 32px);
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    .top-row h1 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+    .top-gear {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      border: 1px solid var(--stroke);
+      background: rgba(255, 255, 255, 0.04);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    .top-gear:active { color: var(--cyan); border-color: rgba(77, 196, 255, 0.25); }
+
+    /* 1. Identity card */
+    .id-card {
+      position: relative;
+      border-radius: var(--radius-xl);
+      padding: 22px 20px 20px;
+      background: linear-gradient(165deg, rgba(201, 169, 98, 0.12) 0%, rgba(46, 230, 200, 0.06) 45%, rgba(14, 17, 22, 0.94) 100%);
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow), var(--glow);
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .id-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(201, 169, 98, 0.4), transparent 42%, rgba(46, 230, 200, 0.25));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+    .id-main {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      position: relative;
+      z-index: 1;
+    }
+    .avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+      background: linear-gradient(145deg, rgba(46, 230, 200, 0.25), rgba(77, 196, 255, 0.12));
+      border: 1px solid rgba(46, 230, 200, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      flex-shrink: 0;
+    }
+    .id-info { flex: 1; min-width: 0; }
+    .id-name {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+    .id-uid {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+    }
+    .id-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .badge {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 5px 10px;
+      border-radius: 8px;
+    }
+    .badge.level {
+      background: rgba(46, 230, 200, 0.15);
+      color: var(--usdt);
+      border: 1px solid rgba(46, 230, 200, 0.28);
+    }
+    .badge.verified {
+      background: rgba(94, 214, 154, 0.12);
+      color: var(--success);
+      border: 1px solid rgba(94, 214, 154, 0.25);
+    }
+    .badge.plus {
+      background: rgba(201, 169, 98, 0.15);
+      color: var(--gold);
+      border: 1px solid rgba(201, 169, 98, 0.3);
+    }
+    .id-score-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .score-ring {
+      width: 76px;
+      height: 76px;
+      position: relative;
+    }
+    .score-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .score-val {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .score-val .n { font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--gold); }
+    .score-val .l { font-size: 9px; font-weight: 600; color: var(--muted); margin-top: 2px; }
+
+    /* 2. Trust metrics */
+    .sec-h {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin: 26px 0 12px;
+    }
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .trust-cell {
+      border-radius: var(--radius-lg);
+      padding: 14px 14px 12px;
+      background: var(--surface);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--stroke);
+    }
+    .trust-cell .k {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .trust-cell .v {
+      font-size: 20px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--text);
+    }
+    .trust-cell .v.em { color: var(--usdt); }
+    .trust-cell .v.g { color: var(--gold); }
+    .tier-pill {
+      margin-top: 12px;
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      background: rgba(201, 169, 98, 0.08);
+      border: 1px solid rgba(201, 169, 98, 0.2);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gold);
+      text-align: center;
+    }
+
+    /* 3. Core menu cards */
+    .core-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .core-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 14px;
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+      border: 1px solid var(--stroke);
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.2s ease, transform 0.12s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .core-item:active { transform: scale(0.98); border-color: rgba(46, 230, 200, 0.2); }
+    .core-ic {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      background: rgba(46, 230, 200, 0.1);
+      border: 1px solid rgba(46, 230, 200, 0.18);
+      flex-shrink: 0;
+    }
+    .core-item:nth-child(2) .core-ic { background: rgba(77, 196, 255, 0.1); border-color: rgba(77, 196, 255, 0.2); }
+    .core-item:nth-child(3) .core-ic { background: rgba(94, 214, 154, 0.1); border-color: rgba(94, 214, 154, 0.2); }
+    .core-item:nth-child(4) .core-ic { background: rgba(77, 196, 255, 0.08); border-color: rgba(77, 196, 255, 0.18); }
+    .core-item:nth-child(5) .core-ic { background: rgba(201, 169, 98, 0.1); border-color: rgba(201, 169, 98, 0.22); }
+    .core-item:nth-child(6) .core-ic { background: rgba(232, 184, 109, 0.1); border-color: rgba(232, 184, 109, 0.2); }
+    .core-txt .t { font-size: 14px; font-weight: 600; }
+    .core-txt .s { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+    /* 4. Activity */
+    .act-card {
+      border-radius: var(--radius-xl);
+      padding: 18px;
+      background: rgba(46, 230, 200, 0.06);
+      border: 1px solid rgba(46, 230, 200, 0.14);
+      margin-bottom: 16px;
+    }
+    .act-card h3 {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      letter-spacing: -0.01em;
+    }
+    .act-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .act-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .act-row:first-of-type { padding-top: 0; }
+    .act-row .k { font-size: 13px; color: var(--muted); }
+    .act-row .v { font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .act-row .v.up { color: var(--success); }
+    .act-row .v.w { color: var(--warning); }
+    .act-row .v.c { color: var(--cyan); }
+
+    /* 5. Auxiliary list */
+    .aux {
+      border-radius: var(--radius-xl);
+      background: var(--surface);
+      border: 1px solid var(--stroke);
+      overflow: hidden;
+      backdrop-filter: blur(20px);
+    }
+    .aux a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 18px;
+      text-decoration: none;
+      color: inherit;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      transition: background 0.15s ease;
+    }
+    .aux a:last-child { border-bottom: none; }
+    .aux a:active { background: rgba(255, 255, 255, 0.04); }
+    .aux .left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .aux .ic {
+      width: 36px;
+      height: 36px;
+      border-radius: 11px;
+      background: rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      color: var(--muted);
+    }
+    .aux .t { font-size: 14px; font-weight: 600; }
+    .aux .arr { color: var(--muted); font-size: 14px; }
+
+    .footer-note {
+      text-align: center;
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 28px;
+      opacity: 0.7;
+      line-height: 1.45;
+    }
+  </style>
+</head>
+<body class="has-app-tabbar">
+  <div class="phone">
+    <div class="status-bar">
+      <span>9:41</span>
+      <span>我的</span>
+      <span>LTE ●</span>
+    </div>
+
+    <header class="top-row">
+      <h1>我的</h1>
+      <a href="#" class="top-gear" aria-label="设置">⚙</a>
+    </header>
+
+    <section class="id-card" aria-label="账户身份">
+      <div class="id-main">
+        <div class="avatar" aria-hidden="true">◇</div>
+        <div class="id-info">
+          <p class="id-name">Alex Chen</p>
+          <p class="id-uid">UID · UF-8K2M-91Q</p>
+          <div class="id-badges">
+            <span class="badge level">Lv.4 成长型交易者</span>
+            <span class="badge verified">已实名</span>
+            <span class="badge plus">Pro 徽章</span>
+          </div>
+        </div>
+        <div class="id-score-wrap">
+          <div class="score-ring" aria-hidden="true">
+            <svg viewBox="0 0 36 36">
+              <circle cx="18" cy="18" r="15.5" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="3" />
+              <circle cx="18" cy="18" r="15.5" fill="none" stroke="url(#gr)" stroke-width="3" stroke-linecap="round" stroke-dasharray="97.4" stroke-dashoffset="14.6" />
+              <defs>
+                <linearGradient id="gr" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#c9a962" />
+                  <stop offset="100%" stop-color="#2ee6c8" />
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="score-val">
+              <span class="n">86</span>
+              <span class="l">信用</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <h2 class="sec-h">信任与履约</h2>
+    <div class="trust-grid">
+      <div class="trust-cell">
+        <div class="k">综合信用分</div>
+        <div class="v g">86 / 100</div>
+      </div>
+      <div class="trust-cell">
+        <div class="k">订单完成率</div>
+        <div class="v em">99.2%</div>
+      </div>
+      <div class="trust-cell">
+        <div class="k">任务成功率</div>
+        <div class="v">97.8%</div>
+      </div>
+      <div class="trust-cell">
+        <div class="k">托管履约率</div>
+        <div class="v em">100%</div>
+      </div>
+    </div>
+    <p class="tier-pill">当前等级 · <strong>黄金</strong> · 再完成 2 笔托管即可解锁铂金权益</p>
+
+    <h2 class="sec-h">交易中心</h2>
+    <div class="core-grid">
+      <a class="core-item" href="#">
+        <span class="core-ic">◎</span>
+        <div class="core-txt"><p class="t">我的订单</p><p class="s">OTC 与增值服务</p></div>
+      </a>
+      <a class="core-item" href="#">
+        <span class="core-ic">✦</span>
+        <div class="core-txt"><p class="t">我发布的任务</p><p class="s">赏金与进度</p></div>
+      </a>
+      <a class="core-item" href="#">
+        <span class="core-ic">✓</span>
+        <div class="core-txt"><p class="t">已接取的任务</p><p class="s">交付与验收</p></div>
+      </a>
+      <a class="core-item" href="#">
+        <span class="core-ic">⛨</span>
+        <div class="core-txt"><p class="t">我的托管</p><p class="s">进行与已结束</p></div>
+      </a>
+      <a class="core-item" href="./assets-wallet.html">
+        <span class="core-ic">≡</span>
+        <div class="core-txt"><p class="t">钱包流水</p><p class="s">充值提现与账单</p></div>
+      </a>
+      <a class="core-item" href="#">
+        <span class="core-ic">◈</span>
+        <div class="core-txt"><p class="t">安全中心</p><p class="s">设备与验证</p></div>
+      </a>
+    </div>
+
+    <h2 class="sec-h">近期动态</h2>
+    <div class="act-card">
+      <h3>收益与参与 · 轻量概览</h3>
+      <div class="act-row">
+        <span class="k">近 30 日净收益</span>
+        <span class="v up">+1,240 USDT</span>
+      </div>
+      <div class="act-row">
+        <span class="k">进行中订单</span>
+        <span class="v c">3</span>
+      </div>
+      <div class="act-row">
+        <span class="k">待您确认</span>
+        <span class="v w">2</span>
+      </div>
+      <div class="act-row">
+        <span class="k">账户成长</span>
+        <span class="v">信用 +4 · 本月</span>
+      </div>
+    </div>
+
+    <h2 class="sec-h">服务与支持</h2>
+    <nav class="aux" aria-label="辅助入口">
+      <a href="#"><span class="left"><span class="ic">≡</span><span class="t">设置</span></span><span class="arr">→</span></a>
+      <a href="#"><span class="left"><span class="ic">◎</span><span class="t">在线客服</span></span><span class="arr">→</span></a>
+      <a href="#"><span class="left"><span class="ic">ⓘ</span><span class="t">关于平台</span></span><span class="arr">→</span></a>
+      <a href="#"><span class="left"><span class="ic">⛨</span><span class="t">风险与防诈指南</span></span><span class="arr">→</span></a>
+      <a href="#"><span class="left"><span class="ic">?</span><span class="t">帮助中心</span></span><span class="arr">→</span></a>
+    </nav>
+
+    <p class="footer-note">高保真设计预览 · 我的 · 与首页 / 市场 / 资产 / 发布共用设计 Token 与底部导航</p>
+  </div>
+
+  <nav class="app-tabbar" aria-label="主导航">
+    <div class="app-tabbar__inner">
+      <a href="./preview-app-home.html" class="app-tab"><span class="app-tab__ic">⌂</span><span class="app-tab__tx">首页</span><span class="app-tab__dot" aria-hidden="true"></span></a>
+      <a href="./preview-app-market.html" class="app-tab"><span class="app-tab__ic">≋</span><span class="app-tab__tx">市场</span><span class="app-tab__dot" aria-hidden="true"></span></a>
+      <a href="./preview-app-publish.html" class="app-tab"><span class="app-tab__ic">⊕</span><span class="app-tab__tx">发布</span><span class="app-tab__dot" aria-hidden="true"></span></a>
+      <a href="./assets-wallet.html" class="app-tab"><span class="app-tab__ic">◈</span><span class="app-tab__tx">资产</span><span class="app-tab__dot" aria-hidden="true"></span></a>
+      <a href="./preview-app-profile.html" class="app-tab is-active"><span class="app-tab__ic">◎</span><span class="app-tab__tx">我的</span><span class="app-tab__dot" aria-hidden="true"></span></a>
+    </div>
+  </nav>
+</body>
+</html>

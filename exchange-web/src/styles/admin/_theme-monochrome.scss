@@ -1,0 +1,1007 @@
+/**
+ * 运营后台在 [data-theme='monochrome'] 下的壳层覆盖。
+ * 与 `styles/admin/_element-bridge.scss` 中 `.admin-console` 的深色 EP 变量配套：提高特异性以覆盖 scoped 布局中的底色。
+ * 新增后台页面时：优先依赖 --el-*；若使用 tokens 硬编码色值，请在此补选择器或改为变量。
+ */
+@use './tokens' as *;
+
+/* 浅色壳层：去掉视口顶/侧容易露出的硬边（与 body 接缝等） */
+[data-theme='monochrome'] html,
+[data-theme='monochrome'] body {
+  border: 0 !important;
+  outline: none !important;
+}
+
+[data-theme='monochrome'] .admin-console {
+  --el-color-primary: #2563eb;
+  --el-color-primary-light-3: #3b82f6;
+  --el-color-primary-light-5: #60a5fa;
+  --el-color-primary-light-7: #93c5fd;
+  --el-color-primary-light-9: #eff6ff;
+  --el-color-primary-dark-2: #1d4ed8;
+
+  /* 浅色层次：底/填充分级，边框用 slate-200～300（避免 #f3f4f6 贴白看不见） */
+  --el-bg-color: #ffffff;
+  --el-bg-color-page: #e2e8f0;
+  --el-bg-color-overlay: #ffffff;
+  --el-text-color-primary: #0f172a;
+  --el-text-color-regular: #334155;
+  --el-text-color-secondary: #475569;
+  --el-text-color-placeholder: #64748b;
+  --el-border-color: #c6d0dc;
+  --el-border-color-light: #d9e1ea;
+  --el-border-color-lighter: #e8edf3;
+  --el-border-color-extra-light: #f2f5f8;
+  --el-fill-color-light: #f5f7fa;
+  --el-fill-color-lighter: #f8fafc;
+  --el-fill-color-extra-light: #fafcff;
+  --el-fill-color: #e9eef5;
+  --el-fill-color-blank: #ffffff;
+  --el-mask-color: rgba(0, 0, 0, 0.35);
+
+  --el-box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+  --el-box-shadow-light: 0 8px 22px rgba(15, 23, 42, 0.08);
+
+  --el-input-border-color: #c6d0dc;
+  --el-input-hover-border-color: #94a3b8;
+  --el-input-focus-border-color: #2563eb;
+  --el-input-bg-color: #fdfefe;
+  --el-disabled-bg-color: #f6f8fb;
+  --el-disabled-text-color: #94a3b8;
+
+  color: var(--el-text-color-primary);
+  background:
+    radial-gradient(ellipse 960px 440px at 10% -10%, rgba(37, 99, 235, 0.06), transparent 55%),
+    radial-gradient(ellipse 760px 360px at 100% 0%, rgba(14, 165, 233, 0.04), transparent 56%),
+    linear-gradient(180deg, #edf2f7 0%, #dde4ec 100%);
+}
+
+[data-theme='monochrome'] .admin-console .admin-sidebar {
+  background: #fafbfc !important;
+  border-right: 1px solid #d1d5db !important;
+  box-shadow:
+    4px 0 20px rgba(15, 23, 42, 0.05),
+    inset -1px 0 0 rgba(255, 255, 255, 0.75) !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-sidebar__brand {
+  border-bottom: 1px solid #cbd5e1 !important;
+  background: linear-gradient(180deg, #f8fafc 0%, #fafbfc 100%) !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-sidebar__name {
+  color: #111827 !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-sidebar .el-menu {
+  --el-menu-bg-color: #fafbfc;
+  --el-menu-text-color: #374151;
+  --el-menu-hover-text-color: #111827;
+  --el-menu-active-color: #2563eb;
+}
+
+[data-theme='monochrome'] .admin-console .admin-sidebar .el-sub-menu__title:hover,
+[data-theme='monochrome'] .admin-console .admin-sidebar .el-menu-item:hover {
+  background: rgba(37, 99, 235, 0.08) !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-sidebar .el-menu-item.is-active {
+  background: linear-gradient(90deg, rgba(37, 99, 235, 0.12), transparent 72%) !important;
+  border-right-color: #2563eb !important;
+}
+
+/* 主区：比壳略深一档，承托中间白画布 */
+[data-theme='monochrome'] .admin-console .admin-main {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.24)),
+    #dbe3eb !important;
+  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.55) !important;
+}
+
+/* 内容画布：细描边 + 阴影，与主区灰底分离 */
+[data-theme='monochrome'] .admin-console .admin-main__panel {
+  background:
+    linear-gradient(180deg, rgba(248, 250, 252, 0.9) 0%, rgba(255, 255, 255, 0.97) 56px),
+    #ffffff !important;
+  border: 1px solid #c7d1dc !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.92) inset,
+    0 22px 52px rgba(15, 23, 42, 0.09),
+    0 6px 14px rgba(15, 23, 42, 0.05) !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-header {
+  background: linear-gradient(180deg, #ffffff 0%, #f4f7fb 100%) !important;
+  border-bottom: 1px solid #d7dee8 !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.96) inset,
+    0 8px 20px rgba(15, 23, 42, 0.05) !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-header__right {
+  color: #4b5563;
+}
+
+[data-theme='monochrome'] .admin-console .admin-header__locale-text,
+[data-theme='monochrome'] .admin-console .admin-header__name {
+  color: #111827 !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-header__globe {
+  color: #6b7280 !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-header__caret {
+  color: #9ca3af !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-header__avatar {
+  background: #e5e7eb !important;
+  color: #374151 !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-header__locale-trigger:hover,
+[data-theme='monochrome'] .admin-console .admin-header__user-trigger:hover {
+  background: rgba(0, 0, 0, 0.05) !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-card {
+  --el-card-bg-color: #ffffff;
+  --el-card-border-color: #d4dde7;
+  border: 1px solid #d4dde7 !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 10px 24px rgba(15, 23, 42, 0.06),
+    0 2px 4px rgba(15, 23, 42, 0.03) !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-card__header {
+  border-bottom: 1px solid #e6ecf2 !important;
+  background: linear-gradient(180deg, #fbfdff 0%, #f6f9fc 100%) !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-table {
+  --el-table-bg-color: #ffffff;
+  --el-table-tr-bg-color: #ffffff;
+  /* 表头：淡灰底 + 更浅字色，与正文行拉开层次 */
+  --el-table-header-bg-color: #f4f7fb;
+  --el-table-header-text-color: #64748b;
+  --el-table-text-color: var(--el-text-color-regular);
+  --el-table-row-hover-bg-color: rgba(37, 99, 235, 0.06);
+  --el-table-current-row-bg-color: rgba(37, 99, 235, 0.08);
+  --el-table-border-color: #d5dee8;
+}
+
+[data-theme='monochrome'] .admin-console .el-table th.el-table__cell {
+  border-color: #d9e2ec !important;
+  background-color: var(--el-table-header-bg-color) !important;
+  color: var(--el-table-header-text-color) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em;
+}
+
+[data-theme='monochrome'] .admin-console .el-table td.el-table__cell {
+  border-color: #e6ecf2 !important;
+  color: var(--el-table-text-color) !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-table--striped .el-table__body tr.el-table__row--striped td.el-table__cell {
+  background: #fafcff !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-table .el-table__inner-wrapper::before,
+[data-theme='monochrome'] .admin-console .el-table::before {
+  background-color: #d5dee8 !important;
+}
+
+/* 多页签条 */
+[data-theme='monochrome'] .admin-console .admin-tags {
+  background: linear-gradient(180deg, #edf2f7 0%, #e6ecf2 100%) !important;
+  border-bottom: 1px solid #d7dee8 !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.85) inset !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-tags__item {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%) !important;
+  color: #475569 !important;
+  border: 1px solid #d4dde7 !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-tags__item:hover {
+  color: #0f172a !important;
+  background: #f8fafc !important;
+  border-color: #94a3b8 !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-tags__item--active {
+  color: #0f172a !important;
+  background: linear-gradient(180deg, rgba(37, 99, 235, 0.14), rgba(37, 99, 235, 0.08)) !important;
+  border-color: rgba(37, 99, 235, 0.5) !important;
+  font-weight: 600;
+}
+
+[data-theme='monochrome'] .admin-console .el-input__wrapper,
+[data-theme='monochrome'] .admin-console .el-textarea__inner,
+[data-theme='monochrome'] .admin-console .el-select__wrapper,
+[data-theme='monochrome'] .admin-console .el-date-editor.el-input__wrapper {
+  background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%) !important;
+  border: 1px solid #cbd5e1 !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.96) inset,
+    0 1px 2px rgba(15, 23, 42, 0.03) !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-input__wrapper:hover,
+[data-theme='monochrome'] .admin-console .el-textarea__inner:hover,
+[data-theme='monochrome'] .admin-console .el-select__wrapper:hover,
+[data-theme='monochrome'] .admin-console .el-date-editor.el-input__wrapper:hover {
+  border-color: #94a3b8 !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.96) inset,
+    0 2px 6px rgba(15, 23, 42, 0.05) !important;
+}
+
+[data-theme='monochrome'] .admin-console .is-focus .el-input__wrapper,
+[data-theme='monochrome'] .admin-console .is-focus.el-input__wrapper,
+[data-theme='monochrome'] .admin-console .is-focus .el-select__wrapper,
+[data-theme='monochrome'] .admin-console .el-date-editor.is-active,
+[data-theme='monochrome'] .admin-console .el-date-editor.is-focus,
+[data-theme='monochrome'] .admin-console .el-textarea__inner:focus {
+  border-color: #2563eb !important;
+  box-shadow:
+    0 0 0 1px rgba(37, 99, 235, 0.18),
+    0 10px 18px rgba(37, 99, 235, 0.08) !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-input__wrapper.is-disabled,
+[data-theme='monochrome'] .admin-console .el-select__wrapper.is-disabled,
+[data-theme='monochrome'] .admin-console .el-textarea.is-disabled .el-textarea__inner {
+  background: #f6f8fb !important;
+  border-color: #dde5ee !important;
+  box-shadow: none !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-button:not(.is-text):not(.is-link) {
+  border-radius: 10px !important;
+  border-color: #cbd5e1 !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.92) inset,
+    0 1px 2px rgba(15, 23, 42, 0.03) !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-button:not(.is-text):not(.is-link):hover {
+  border-color: #94a3b8 !important;
+  transform: translateY(-1px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.92) inset,
+    0 8px 16px rgba(15, 23, 42, 0.06) !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-button--primary:not(.is-link) {
+  border-color: #2563eb !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.18) inset,
+    0 8px 16px rgba(37, 99, 235, 0.18) !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-pagination.is-background .btn-next,
+[data-theme='monochrome'] .admin-console .el-pagination.is-background .btn-prev,
+[data-theme='monochrome'] .admin-console .el-pagination.is-background .el-pager li {
+  border: 1px solid #d2dbe5 !important;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%) !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.92) inset !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-pagination.is-background .el-pager li.is-active {
+  background: linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%) !important;
+  border-color: rgba(37, 99, 235, 0.45) !important;
+  color: #1d4ed8 !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-dialog,
+[data-theme='monochrome'] .admin-console .el-drawer {
+  background: linear-gradient(180deg, #fbfdff 0%, #ffffff 100%) !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-dialog,
+[data-theme='monochrome'] .admin-console .el-drawer__body,
+[data-theme='monochrome'] .admin-console .el-drawer__header,
+[data-theme='monochrome'] .admin-console .el-dialog__header,
+[data-theme='monochrome'] .admin-console .el-dialog__body,
+[data-theme='monochrome'] .admin-console .el-dialog__footer {
+  color: #0f172a !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-dialog,
+[data-theme='monochrome'] .admin-console .el-drawer {
+  border: 1px solid #d7dee8 !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.96) inset,
+    0 24px 50px rgba(15, 23, 42, 0.14) !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-descriptions {
+  --el-descriptions-table-border: #d9e2ec;
+}
+
+[data-theme='monochrome'] .admin-console .el-descriptions__label.el-descriptions__cell.is-bordered-label {
+  background: #f5f8fb !important;
+  color: #475569 !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-form-item__label {
+  color: #334155 !important;
+  font-weight: 600;
+}
+
+[data-theme='monochrome'] .admin-console .admin-tags__close:hover {
+  color: #111827 !important;
+  background: rgba(0, 0, 0, 0.06) !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-tags__more {
+  color: #6b7280 !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-tags__more:hover {
+  color: #111827 !important;
+  background: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* 仪表盘等页：浅底上的区块标题（深色玻璃卡片内部样式仍由页面 scoped 控制，一般无需改） */
+[data-theme='monochrome'] .admin-console .adm-dash__section-title {
+  color: #111827 !important;
+  text-shadow: none !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-dash__section-hint {
+  color: #334155 !important;
+  background: #f1f5f9 !important;
+  border: 1px solid #cbd5e1 !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-mini-stats__k {
+  color: #6b7280 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-mini-stats__v {
+  color: #111827 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-mini-stats__v--warn {
+  color: #b45309 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-mini-stats__li--click:hover {
+  background: rgba(0, 0, 0, 0.04) !important;
+}
+
+/* —— 侧栏图标变量（_sidebar-icons.scss 默认按深色底配浅灰，需在浅色下重写） —— */
+[data-theme='monochrome'] .admin-console .admin-sidebar {
+  /* 白天模式：略加深、略放大，保证线图标清晰可见 */
+  --adm-nav-icon-size: 19px;
+  --adm-nav-icon-default: #1f2937;
+  --adm-nav-icon-hover: #0f172a;
+  --adm-nav-icon-active: #1d4ed8;
+}
+
+[data-theme='monochrome']
+  .admin-console
+  .admin-sidebar
+  .admin-sidebar__quick-root
+  > .el-sub-menu__title
+  .admin-sidebar__quick-ic,
+[data-theme='monochrome']
+  .admin-console
+  .admin-sidebar
+  .admin-sidebar__quick-root.is-active
+  > .el-sub-menu__title
+  .admin-sidebar__quick-ic,
+[data-theme='monochrome']
+  .admin-console
+  .admin-sidebar
+  .admin-sidebar__quick-root
+  > .el-sub-menu__title:hover
+  .admin-sidebar__quick-ic,
+[data-theme='monochrome']
+  .admin-console
+  .admin-sidebar
+  .admin-sidebar__quick-root.is-opened
+  > .el-sub-menu__title
+  .admin-sidebar__quick-ic {
+  color: #2563eb !important;
+  filter: none !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-sidebar__quick-root .el-sub-menu__title {
+  border-color: #c7d2fe !important;
+  background: linear-gradient(125deg, #eff6ff 0%, #eef2ff 55%, #f8fafc 100%) !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 4px 14px rgba(0, 0, 0, 0.06) !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-sidebar__quick-title-wrap--hot .admin-sidebar__quick-txt {
+  background: linear-gradient(90deg, #1e3a8a, #4f46e5 45%, #2563eb) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+
+/* 二级/三级菜单：scoped 内写死的 $adm-text 在浅色侧栏上不可读，用全局覆盖 */
+[data-theme='monochrome'] .admin-console .admin-menu-nodes__group-title[data-depth='1'] {
+  color: #374151 !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-menu-nodes__group-title[data-depth='2'] {
+  color: #475569 !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-menu-nodes__leaf--d1 .el-menu-item__title,
+[data-theme='monochrome'] .admin-console .admin-menu-nodes__leaf--d1 .admin-menu-nodes__leaf-txt {
+  color: #374151 !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-menu-nodes__leaf--d2 .admin-menu-nodes__leaf-txt {
+  color: #475569 !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-menu-nodes__sub--d1.el-sub-menu {
+  border: 1px solid #cbd5e1 !important;
+  background: color-mix(in srgb, var(--el-color-primary) 5%, #f8fafc) !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 1px 2px rgba(15, 23, 42, 0.04) !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-menu-nodes__leaf--d1.el-menu-item {
+  border: 1px solid #cbd5e1 !important;
+  background: #ffffff !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.95) inset !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-menu-nodes__leaf--d1.el-menu-item.is-active {
+  border-color: rgba(37, 99, 235, 0.45) !important;
+  background: rgba(37, 99, 235, 0.08) !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-menu-nodes__sub--d1 .el-menu.el-menu--inline {
+  border-left: 3px solid #2563eb !important;
+  background: linear-gradient(
+    90deg,
+    rgba(37, 99, 235, 0.12),
+    rgba(37, 99, 235, 0.03) 45%,
+    transparent 82%
+  ) !important;
+  box-shadow:
+    inset 1px 0 0 #e2e8f0,
+    0 1px 0 rgba(255, 255, 255, 0.95) inset !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-menu-nodes__sub--d1 .el-menu--inline > .el-menu-item::before {
+  background: #ffffff !important;
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15) !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-menu-nodes__sub.admin-quick__block.el-sub-menu {
+  border-color: #e9d5ff !important;
+  background: linear-gradient(180deg, #faf5ff 0%, #f5f3ff 100%) !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-quick__group-title {
+  color: #5b21b6 !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-menu-nodes__sub.admin-quick__block .el-menu.el-menu--inline {
+  border-left-color: #c4b5fd !important;
+  background: rgba(255, 255, 255, 0.75) !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-quick__leaf .admin-menu-nodes__leaf-txt {
+  color: #374151 !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-quick__leaf .admin-menu-nodes__leaf-ic {
+  color: #7c3aed !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-quick__leaf.admin-menu-nodes__leaf.is-active .admin-menu-nodes__leaf-txt {
+  color: #1d4ed8 !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-header__fold {
+  color: #374151 !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-header .el-button.is-link {
+  --el-button-text-color: #2563eb;
+  color: #2563eb !important;
+}
+
+/* 仪表盘 · 深色玻璃组件在浅色壳上统一为白底高对比 */
+[data-theme='monochrome'] .admin-console .adm-dash__hero--ai {
+  border: 1px solid #cbd5e1 !important;
+  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 42%, #eff6ff 100%) !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 12px 36px rgba(15, 23, 42, 0.07) !important;
+  backdrop-filter: none !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-dash__hero-glow {
+  opacity: 0.35 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-dash__hero-mesh {
+  opacity: 0.05 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-dash__ai-badge {
+  color: #3730a3 !important;
+  border-color: #c7d2fe !important;
+  background: linear-gradient(135deg, #eef2ff, #e0e7ff) !important;
+  box-shadow: none !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-dash__ai-badge-ic {
+  background: #ffffff !important;
+  color: #4f46e5 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-dash__ai-badge-txt {
+  background: linear-gradient(92deg, #312e81, #4338ca 50%, #1d4ed8) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-dash__eyebrow {
+  color: #6b7280 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-dash__h1--gradient {
+  background: linear-gradient(110deg, #0f172a 0%, #3730a3 38%, #0369a1 72%, #5b21b6 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  text-shadow: none !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-dash__sub {
+  color: #6b7280 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-dash__sub-main {
+  color: #4b5563 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-dash__code {
+  background: #f1f5f9 !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #334155 !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) inset !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-dash__hud-search {
+  color: #2563eb !important;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.15) !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-dash__hud-search::after {
+  background: linear-gradient(145deg, #ffffff, #f1f5f9) !important;
+  border-color: #c7d2fe !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.95) inset !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-dash__hud-search-ic {
+  filter: none !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-today-card--ai {
+  border: 1px solid #cbd5e1 !important;
+  background: linear-gradient(155deg, #ffffff 0%, #f9fafb 45%, #f1f5f9 100%) !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 8px 24px rgba(15, 23, 42, 0.06) !important;
+  backdrop-filter: none !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-today-card--ai:hover {
+  border-color: #c7d2fe !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 14px 32px rgba(37, 99, 235, 0.1) !important;
+  filter: none !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-today-card--ai::after {
+  opacity: 0.035 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-today-card__value,
+[data-theme='monochrome'] .admin-console .adm-today-card__dual {
+  color: #111827 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-today-card__label {
+  color: #6b7280 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-today-card__ic {
+  color: #9ca3af !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-today-card__coin {
+  border: 1px solid #cbd5e1 !important;
+  background: #f1f5f9 !important;
+  color: #334155 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-today-card__today {
+  color: #475569 !important;
+  background: #e8eef4 !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-today-card__foot {
+  border-top: 1px solid #cbd5e1 !important;
+  background: #f8fafc !important;
+  color: #334155 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-today-card__foot--empty {
+  border-top: 1px solid #cbd5e1 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-today-card__dual > span:first-child::after {
+  background: #cbd5e1 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-today-spark {
+  opacity: 0.82 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-pending--ai {
+  border: 1px solid #cbd5e1 !important;
+  background: linear-gradient(160deg, #ffffff 0%, #f9fafb 52%, #f1f5f9 100%) !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 8px 24px rgba(15, 23, 42, 0.06) !important;
+  backdrop-filter: none !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-pending__title {
+  color: #111827 !important;
+  text-shadow: none !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-pending__item {
+  border: 1px solid #cbd5e1 !important;
+  background: #ffffff !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-pending__item:hover {
+  border-color: #c7d2fe !important;
+  background: #f9fafb !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06) !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-pending__txt {
+  color: #374151 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-pending__icon-wrap {
+  background: linear-gradient(145deg, #eff6ff, #eef2ff) !important;
+  border-color: #c7d2fe !important;
+  box-shadow: none !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-pending__icon {
+  color: #2563eb !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-card--ai {
+  border: 1px solid #cbd5e1 !important;
+  background: linear-gradient(165deg, #ffffff 0%, #f9fafb 100%) !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 8px 24px rgba(15, 23, 42, 0.06) !important;
+  backdrop-filter: none !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-card--ai .el-card__header {
+  border-bottom: 1px solid #e2e8f0 !important;
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-card--ai .el-table {
+  --el-table-bg-color: #ffffff;
+  --el-table-tr-bg-color: #ffffff;
+  --el-table-header-bg-color: #e8ecf0;
+  --el-table-header-text-color: #94a3b8;
+  --el-table-text-color: var(--el-text-color-regular);
+  --el-table-border-color: #cbd5e1;
+}
+
+[data-theme='monochrome'] .admin-console .adm-card--ai .el-table th.el-table__cell {
+  background-color: var(--el-table-header-bg-color) !important;
+  color: var(--el-table-header-text-color) !important;
+  border-color: #cbd5e1 !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.02em;
+}
+
+[data-theme='monochrome'] .admin-console .adm-card--ai .el-table td.el-table__cell {
+  border-color: #cbd5e1 !important;
+  color: var(--el-table-text-color) !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-bj-clock {
+  border: 1px solid #cbd5e1 !important;
+  background: linear-gradient(155deg, #ffffff 0%, #f8fafc 52%, #f1f5f9 100%) !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 8px 20px rgba(15, 23, 42, 0.06) !important;
+  backdrop-filter: none !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-bj-clock__label {
+  color: #1d4ed8 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-bj-clock__tz,
+[data-theme='monochrome'] .admin-console .adm-bj-clock__date,
+[data-theme='monochrome'] .admin-console .adm-bj-clock__hint {
+  color: #6b7280 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-bj-clock__time {
+  color: #111827 !important;
+  text-shadow: none !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-bj-clock__seg--sec {
+  color: #2563eb !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-bj-clock__colon {
+  color: #9ca3af !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-bj-clock__wave {
+  border-top: 1px solid #cbd5e1 !important;
+}
+
+/* —— 侧栏文案兜底：一级叶子、底部独立路由、SubMenu 标题在浅色下强制可读 —— */
+[data-theme='monochrome'] .admin-console .admin-sidebar .el-menu-item:not(.is-active),
+[data-theme='monochrome'] .admin-console .admin-sidebar .el-sub-menu:not(.is-active) > .el-sub-menu__title {
+  color: #374151 !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-sidebar .el-menu-item.is-active {
+  color: #2563eb !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-sidebar .el-sub-menu.is-active > .el-sub-menu__title {
+  color: #2563eb !important;
+}
+
+/* 嵌套在分组内的 item 文本（含底部路由） */
+[data-theme='monochrome'] .admin-console .admin-sidebar .el-menu--inline .el-menu-item:not(.is-active) {
+  color: #4b5563 !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-sidebar .el-menu--inline .el-menu-item.is-active {
+  color: #2563eb !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-header .el-button.is-link .el-icon {
+  color: inherit !important;
+}
+
+/* 报表 / 占位等页：scoped 内 $adm-text 编译色兜底 */
+[data-theme='monochrome'] .admin-console .adm-rep__title,
+[data-theme='monochrome'] .admin-console .adm-mod__title {
+  color: #111827 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-rep__desc,
+[data-theme='monochrome'] .admin-console .adm-mod__desc,
+[data-theme='monochrome'] .admin-console .adm-mod__drawer-txt {
+  color: #6b7280 !important;
+}
+
+/* 用户管理子模块：统计卡与标题（与页面内 var() 双保险） */
+[data-theme='monochrome'] .admin-console .adm-um__h1 {
+  color: #111827 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-um__sub {
+  color: #6b7280 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-um-stat__lbl {
+  color: #6b7280 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-um-stat__val {
+  color: #111827 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-um-stat--warn .adm-um-stat__val {
+  color: #b45309 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-um-stat--ok .adm-um-stat__val {
+  color: #15803d !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-um-stat--muted .adm-um-stat__val {
+  color: #6b7280 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-fin__title {
+  color: #111827 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-fin__desc {
+  color: #6b7280 !important;
+}
+
+/* —— 列表页 / 表单：筛选条、工具条、输入与分页（1px 实线，层次清楚但不厚重） —— */
+[data-theme='monochrome'] .admin-console .el-form-item__label {
+  color: #334155 !important;
+  font-weight: 600;
+}
+
+[data-theme='monochrome'] .admin-console .adm-filter .el-form-item__label {
+  color: #334155 !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-filter.el-card {
+  border: 1px solid #cbd5e1 !important;
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%) !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 1px 4px rgba(15, 23, 42, 0.05) !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-tb {
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+[data-theme='monochrome'] .admin-console .adm-tb__title {
+  color: #0f172a !important;
+}
+
+[data-theme='monochrome'] .admin-console .adm-kpi {
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 2px 8px rgba(15, 23, 42, 0.05) !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-input__wrapper {
+  background-color: var(--el-input-bg-color) !important;
+  border: 1px solid var(--el-input-border-color) !important;
+  box-shadow: none !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-input__wrapper:hover {
+  border-color: var(--el-input-hover-border-color) !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-input__wrapper.is-focus {
+  border-color: var(--el-input-focus-border-color) !important;
+  box-shadow: 0 0 0 1px var(--el-input-focus-border-color) inset !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-input.is-disabled .el-input__wrapper {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-textarea__inner {
+  background-color: #ffffff !important;
+  color: var(--el-text-color-primary) !important;
+  border: 1px solid #cbd5e1 !important;
+  box-shadow: none !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-textarea__inner:hover {
+  border-color: #94a3b8 !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-textarea__inner:focus {
+  border-color: var(--el-color-primary) !important;
+  outline: none;
+  box-shadow: 0 0 0 1px var(--el-color-primary) inset !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-button--default {
+  --el-button-bg-color: #ffffff;
+  --el-button-border-color: #cbd5e1;
+  --el-button-text-color: #334155;
+  --el-button-hover-bg-color: #f8fafc;
+  --el-button-hover-border-color: #94a3b8;
+  --el-button-hover-text-color: #0f172a;
+  --el-button-active-bg-color: #f1f5f9;
+  --el-button-active-border-color: #64748b;
+  font-weight: 500;
+}
+
+[data-theme='monochrome'] .admin-console .el-button.is-plain {
+  --el-button-bg-color: #f8fafc;
+  --el-button-border-color: #cbd5e1;
+}
+
+[data-theme='monochrome'] .admin-console .el-pagination.is-background .el-pager li {
+  background-color: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-pagination.is-background .btn-prev,
+[data-theme='monochrome'] .admin-console .el-pagination.is-background .btn-next {
+  border: 1px solid #cbd5e1 !important;
+  background: #ffffff !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-descriptions__body .el-descriptions__table {
+  border-color: #cbd5e1 !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-descriptions__label {
+  background: #f1f5f9 !important;
+  color: #334155 !important;
+  font-weight: 600;
+}
+
+[data-theme='monochrome'] .admin-console .el-divider {
+  border-color: #cbd5e1 !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-collapse {
+  border-color: #cbd5e1 !important;
+}
+
+[data-theme='monochrome'] .admin-console .el-collapse-item__header {
+  border-bottom-color: #e2e8f0 !important;
+  color: #0f172a !important;
+  font-weight: 600;
+}
+
+[data-theme='monochrome'] .el-popper.is-light,
+[data-theme='monochrome'] .el-popper.is-light .el-popper__arrow::before {
+  border-color: #cbd5e1 !important;
+}
+
+[data-theme='monochrome'] .el-overlay .el-dialog {
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 24px 56px rgba(15, 23, 42, 0.12);
+}
+
+[data-theme='monochrome'] .el-overlay .el-drawer {
+  box-shadow: -8px 0 32px rgba(15, 23, 42, 0.1);
+}
+
+/* 主题切换：tooltip 包裹 + path 填充一并压成纯黑 */
+[data-theme='monochrome'] .admin-console .admin-header .el-tooltip__trigger .admin-theme-toggle,
+[data-theme='monochrome'] .admin-console .admin-header button.admin-theme-toggle {
+  color: #000000 !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-header .admin-theme-toggle .el-icon,
+[data-theme='monochrome'] .admin-console .admin-header .admin-theme-toggle svg {
+  color: #000000 !important;
+}
+
+[data-theme='monochrome'] .admin-console .admin-header .admin-theme-toggle svg path {
+  fill: currentColor !important;
+}

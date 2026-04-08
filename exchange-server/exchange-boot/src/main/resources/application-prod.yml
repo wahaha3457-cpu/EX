@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: ${MYSQL_URL}
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+  flyway:
+    enabled: true
+
+logging:
+  level:
+    root: WARN
+    com.exchange: INFO
+
+exchange:
+  jwt:
+    issuer: ${JWT_ISSUER:exchange}
+    secret: ${JWT_SECRET}
+    access-token-ttl: ${JWT_ACCESS_TTL:30m}

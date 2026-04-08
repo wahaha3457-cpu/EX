@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/exchange_test?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+  flyway:
+    enabled: true
+
+exchange:
+  jwt:
+    issuer: exchange-test
+    secret: "test-only-change-in-prod-min-32-chars-long-key!!"
+    access-token-ttl: 15m

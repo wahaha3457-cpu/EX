@@ -1,0 +1,87 @@
+{
+  "admin": {
+    "placeholder": {
+      "desc": "业务列表与审核流待接入；下方为「筛选栏 / 工具栏 / 表格 / 分页 / 状态标签 / 抽屉」组件演示。",
+      "keyword": "关键词",
+      "keywordPh": "ID / 名称",
+      "status": "状态",
+      "statusAll": "全部",
+      "statusPending": "待处理",
+      "statusActive": "正常",
+      "query": "查询",
+      "reset": "重置",
+      "tableTitle": "数据列表（演示）",
+      "exportCsv": "导出 CSV（预留）",
+      "refresh": "刷新",
+      "colName": "名称",
+      "colStatus": "状态",
+      "actions": "操作",
+      "detail": "详情",
+      "review": "审核（预留）",
+      "drawerTitle": "详情（演示）",
+      "drawerBody": "生产环境在此展示只读字段、链路 ID、风控标签等；支持嵌套「审核意见」表单。",
+      "close": "关闭",
+      "confirm": "确认（预留）",
+      "demoRowA": "示例记录 A",
+      "demoRowB": "示例记录 B",
+      "more": "更多",
+      "edit": "编辑",
+      "delete": "删除",
+      "copyId": "复制 ID",
+      "copyOk": "已复制到剪贴板",
+      "reviewTitle": "审核",
+      "reviewRemark": "审核意见",
+      "submitReview": "提交",
+      "deleteConfirm": "确定删除该条记录？（演示）",
+      "exportTip": "已创建导出任务（演示）",
+      "queryOk": "查询完成",
+      "resetOk": "已重置筛选条件",
+      "editTitle": "编辑（演示）",
+      "saveOk": "已保存（演示）",
+      "refreshOk": "列表已刷新",
+      "selectRow": "请先选择一条记录"
+    },
+    "header": {
+      "backToExchange": "前台首页",
+      "logoutSub": "管理员会话已结束，欢迎下次再来。",
+      "locale": "语言",
+      "localeAria": "切换界面语言",
+      "userAria": "用户菜单",
+      "userMenu": {
+        "loginPassword": "修改登录密码",
+        "fundPassword": "修改资金密码",
+        "logout": "退出登录"
+      }
+    },
+    "account": {
+      "loginPassword": {
+        "desc": "定期更换登录密码有助于保护管理后台账号安全。对接后将调用运营人员凭证接口。",
+        "old": "当前登录密码",
+        "new": "新登录密码",
+        "confirm": "确认新密码",
+        "submit": "确认修改",
+        "ok": "登录密码已更新（演示）",
+        "errMismatch": "两次输入的新密码不一致",
+        "errShort": "新密码至少 8 位"
+      },
+      "fundPassword": {
+        "desc": "资金密码用于敏感资金操作二次校验。当前为演示表单，未调用真实接口。",
+        "old": "当前资金密码",
+        "new": "新资金密码",
+        "confirm": "确认新密码",
+        "submit": "确认修改",
+        "ok": "资金密码已更新（演示）",
+        "errMismatch": "两次输入的新密码不一致",
+        "errShort": "新密码至少 6 位"
+      }
+    },
+    "reviewAlert": {
+      "badge": "智能提醒",
+      "title": "新订单待审核",
+      "subtitleDefault": "系统检测到有待处理审核项，请及时处理以降低资金与合规风险。",
+      "demoSubtitle": "演示：智能体已聚合 1 笔提现待审（模拟数据）。",
+      "cta": "去审核",
+      "dismiss": "关闭"
+    }
+  }
+}

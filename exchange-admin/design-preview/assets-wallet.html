@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>资产 · USDT 钱包（设计预览）</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./app-tabbar.css" />
+  <style>
+    :root {
+      --bg: #0a0c10;
+      --surface: rgba(22, 28, 38, 0.78);
+      --stroke: rgba(255, 255, 255, 0.08);
+      --text: #eef2f7;
+      --muted: #8b95a8;
+      --usdt: #2ee6c8;
+      --usdt-soft: rgba(46, 230, 200, 0.14);
+      --cyan: #4dc4ff;
+      --gold: #c9a962;
+      --success: #5ed69a;
+      --warning: #e8b86d;
+      --danger: #e89898;
+      --radius-xl: 22px;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --shadow: 0 28px 56px rgba(0, 0, 0, 0.5);
+      --glow: 0 0 72px rgba(46, 230, 200, 0.11);
+      --font: 'DM Sans', system-ui, -apple-system, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font);
+      background:
+        radial-gradient(100% 70% at 50% -15%, rgba(46, 230, 200, 0.07), transparent 52%),
+        radial-gradient(70% 45% at 100% 10%, rgba(77, 196, 255, 0.06), transparent 42%),
+        radial-gradient(50% 40% at 0% 60%, rgba(201, 169, 98, 0.04), transparent 40%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100dvh;
+      padding: 20px 0 36px;
+      -webkit-font-smoothing: antialiased;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+    }
+    .phone {
+      width: min(390px, 100vw - 32px);
+      margin: 0 auto;
+      padding: 0 18px;
+      padding-bottom: max(24px, env(safe-area-inset-bottom));
+    }
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .page-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+    .page-head h1 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .page-head .sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 6px;
+      opacity: 0.9;
+      letter-spacing: 0.02em;
+    }
+    .page-head .eye {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      border: 1px solid var(--stroke);
+      background: rgba(255, 255, 255, 0.04);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+      color: var(--cyan);
+      transition: background 0.2s ease, transform 0.12s ease;
+    }
+    .page-head .eye:active { transform: scale(0.96); }
+
+    /* Hero wallet card */
+    .hero {
+      position: relative;
+      border-radius: var(--radius-xl);
+      padding: 26px 22px 22px;
+      background: linear-gradient(168deg, rgba(46, 230, 200, 0.11) 0%, rgba(77, 196, 255, 0.05) 38%, rgba(14, 17, 22, 0.94) 100%);
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow), var(--glow);
+      overflow: hidden;
+      margin-bottom: 22px;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(46, 230, 200, 0.42), transparent 42%, rgba(77, 196, 255, 0.22));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+    .hero-badge {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(94, 214, 154, 0.12);
+      color: var(--success);
+      border: 1px solid rgba(94, 214, 154, 0.25);
+    }
+    .hero-total {
+      font-size: 36px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.035em;
+      line-height: 1.08;
+      margin-bottom: 6px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-total .num { color: var(--usdt); }
+    .hero-total .unit {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-left: 6px;
+    }
+    .hero-fiat {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-fiat strong { color: var(--gold); font-weight: 500; }
+    .hero-fiat .delta { color: var(--success); font-weight: 600; margin-left: 6px; }
+
+    .mini-chart {
+      height: 52px;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 1;
+    }
+    .mini-chart svg { width: 100%; height: 100%; display: block; }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    .stat {
+      background: rgba(0, 0, 0, 0.28);
+      border-radius: var(--radius-md);
+      padding: 12px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .stat-k {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .stat-v {
+      font-size: 15px;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+    .stat-v.avail { color: var(--usdt); }
+    .stat-v.esc { color: var(--cyan); }
+
+    /* Quick actions — horizontal scroll on narrow width */
+    .section-h {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin: 28px 0 12px;
+    }
+    .actions-wrap {
+      margin: 0 -18px;
+      padding: 0 18px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .actions-wrap::-webkit-scrollbar { display: none; }
+    .actions {
+      display: flex;
+      gap: 10px;
+      padding-bottom: 4px;
+      min-width: min-content;
+    }
+    .action {
+      flex: 0 0 auto;
+      width: 68px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 8px 14px;
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+      backdrop-filter: blur(22px);
+      border: 1px solid var(--stroke);
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .action:hover { border-color: rgba(46, 230, 200, 0.2); }
+    .action:active { transform: scale(0.97); }
+    .action-ic {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 19px;
+      background: rgba(46, 230, 200, 0.1);
+      border: 1px solid rgba(46, 230, 200, 0.2);
+    }
+    .action:nth-child(2) .action-ic { background: rgba(77, 196, 255, 0.1); border-color: rgba(77, 196, 255, 0.22); }
+    .action:nth-child(3) .action-ic { background: rgba(46, 230, 200, 0.14); border-color: rgba(46, 230, 200, 0.28); }
+    .action:nth-child(4) .action-ic { background: rgba(201, 169, 98, 0.1); border-color: rgba(201, 169, 98, 0.24); }
+    .action:nth-child(5) .action-ic { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.1); }
+    .action-tx {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.25;
+    }
+
+    /* Breakdown + composition bar */
+    .break-card {
+      border-radius: var(--radius-xl);
+      padding: 20px 18px;
+      background: var(--surface);
+      backdrop-filter: blur(24px);
+      border: 1px solid var(--stroke);
+      margin-bottom: 16px;
+    }
+    .compose {
+      height: 8px;
+      border-radius: 999px;
+      overflow: hidden;
+      display: flex;
+      margin-bottom: 16px;
+      background: rgba(0, 0, 0, 0.35);
+    }
+    .compose span { height: 100%; }
+    .compose .a { flex: 73.7; background: linear-gradient(90deg, var(--usdt), #1fa88f); }
+    .compose .f { flex: 10.3; background: rgba(139, 149, 168, 0.55); }
+    .compose .e { flex: 16; background: linear-gradient(90deg, rgba(77, 196, 255, 0.85), rgba(77, 196, 255, 0.45)); }
+    .compose-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 16px;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .compose-legend i {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+    .compose-legend .dot-a { background: var(--usdt); }
+    .compose-legend .dot-f { background: rgba(139, 149, 168, 0.7); }
+    .compose-legend .dot-e { background: var(--cyan); }
+
+    .break-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 13px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .break-row:last-of-type { border-bottom: none; }
+    .break-row .l { font-size: 14px; color: var(--muted); }
+    .break-row .r {
+      font-size: 15px;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+    .pill-move {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 14px;
+      font-size: 12px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: var(--usdt-soft);
+      color: var(--usdt);
+      font-weight: 600;
+    }
+
+    /* Ledger */
+    .ledger-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+    .ledger-head a {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--cyan);
+      text-decoration: none;
+    }
+    .tx-item {
+      display: grid;
+      grid-template-columns: 46px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .tx-item:last-child { border-bottom: none; }
+    .tx-ic {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid var(--stroke);
+    }
+    .tx-t { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+    .tx-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .tx-time { font-size: 12px; color: var(--muted); }
+    .tx-dir {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 7px;
+      border-radius: 6px;
+    }
+    .tx-dir.in {
+      background: rgba(94, 214, 154, 0.12);
+      color: var(--success);
+    }
+    .tx-dir.out {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--muted);
+    }
+    .tx-right { text-align: right; }
+    .tx-amt {
+      font-size: 15px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+    .tx-amt.in { color: var(--success); }
+    .tx-amt.out { color: var(--text); }
+    .tx-st {
+      display: block;
+      font-size: 10px;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+    .tx-st.ok { color: var(--cyan); }
+    .tx-st.warn { color: var(--warning); }
+    .tx-st.bad { color: var(--danger); }
+
+    /* Insights — restrained */
+    .insight-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .ins-card {
+      padding: 16px 14px;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .ins-card.wide { grid-column: 1 / -1; }
+    .ins-card .k {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .ins-card .v {
+      font-size: 20px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--usdt);
+    }
+    .ins-card .sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+    .spark {
+      height: 32px;
+      margin-top: 10px;
+      opacity: 0.85;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 32px;
+      opacity: 0.75;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body class="has-app-tabbar">
+  <div class="phone">
+    <div class="status-bar">
+      <span>9:41</span>
+      <span>资产</span>
+      <span>LTE ●</span>
+    </div>
+
+    <header class="page-head">
+      <div>
+        <h1>钱包</h1>
+        <p class="sub">资金、托管与任务结算统一视图</p>
+      </div>
+      <button type="button" class="eye" aria-label="隐藏或显示余额">◎</button>
+    </header>
+
+    <section class="hero" aria-label="总览余额">
+      <div class="hero-top">
+        <p class="hero-label">总余额 · USDT</p>
+        <span class="hero-badge">已保护</span>
+      </div>
+      <p class="hero-total"><span class="num">12,480.52</span><span class="unit">USDT</span></p>
+      <p class="hero-fiat">≈ <strong>¥ 89,860</strong><span class="delta">近24h +1.2%</span></p>
+
+      <div class="mini-chart" aria-hidden="true">
+        <svg viewBox="0 0 340 52" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="ch" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(46,230,200,0.32)" />
+              <stop offset="100%" stop-color="rgba(46,230,200,0)" />
+            </linearGradient>
+          </defs>
+          <path d="M0,36 C28,34 52,26 86,22 C120,18 148,24 188,14 C228,4 258,18 300,10 L340,6 L340,52 L0,52 Z" fill="url(#ch)" />
+          <path d="M0,36 C28,34 52,26 86,22 C120,18 148,24 188,14 C228,4 258,18 300,10 L340,6" fill="none" stroke="var(--usdt)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-k">可用</div>
+          <div class="stat-v avail">9,200.00</div>
+        </div>
+        <div class="stat">
+          <div class="stat-k">冻结</div>
+          <div class="stat-v">1,280.50</div>
+        </div>
+        <div class="stat">
+          <div class="stat-k">托管</div>
+          <div class="stat-v esc">2,000.02</div>
+        </div>
+      </div>
+    </section>
+
+    <h2 class="section-h">快捷操作</h2>
+    <div class="actions-wrap">
+      <div class="actions">
+        <a class="action" href="#"><div class="action-ic">↓</div><span class="action-tx">充值</span></a>
+        <a class="action" href="#"><div class="action-ic">↑</div><span class="action-tx">提现</span></a>
+        <a class="action" href="./preview-app-market.html"><div class="action-ic">₮</div><span class="action-tx">买入 USDT</span></a>
+        <a class="action" href="./preview-app-market.html"><div class="action-ic">¤</div><span class="action-tx">卖出 USDT</span></a>
+        <a class="action" href="#"><div class="action-ic">≡</div><span class="action-tx">账单 / 记录</span></a>
+      </div>
+    </div>
+
+    <h2 class="section-h">资金构成</h2>
+    <div class="break-card">
+      <div class="compose" title="可用、冻结、托管占比示意">
+        <span class="a"></span>
+        <span class="f"></span>
+        <span class="e"></span>
+      </div>
+      <div class="compose-legend">
+        <span><i class="dot-a"></i>可用</span>
+        <span><i class="dot-f"></i>冻结</span>
+        <span><i class="dot-e"></i>托管</span>
+      </div>
+      <div class="break-row"><span class="l">可随时划转</span><span class="r" style="color:var(--usdt)">9,200.00 USDT</span></div>
+      <div class="break-row"><span class="l">挂单与在途订单</span><span class="r">1,280.50 USDT</span></div>
+      <div class="break-row"><span class="l">托管与任务进行中</span><span class="r" style="color:var(--cyan)">2,000.02 USDT</span></div>
+      <span class="pill-move"><span>↗</span> 近期净流入 +120.00 · 任务赏金入账</span>
+    </div>
+
+    <div class="ledger-head">
+      <h2 class="section-h" style="margin:0">近期明细</h2>
+      <a href="#">全部</a>
+    </div>
+    <div class="break-card" style="padding-top:10px;padding-bottom:8px">
+      <div class="tx-item">
+        <div class="tx-ic">✦</div>
+        <div>
+          <div class="tx-t">任务收入</div>
+          <div class="tx-meta"><span class="tx-time">今天 · 14:32</span><span class="tx-dir in">收入</span></div>
+        </div>
+        <div class="tx-right">
+          <div class="tx-amt in">+120.00</div>
+          <span class="tx-st ok">已到账</span>
+        </div>
+      </div>
+      <div class="tx-item">
+        <div class="tx-ic">⛨</div>
+        <div>
+          <div class="tx-t">托管释放</div>
+          <div class="tx-meta"><span class="tx-time">昨天 · 09:10</span><span class="tx-dir in">收入</span></div>
+        </div>
+        <div class="tx-right">
+          <div class="tx-amt in">+500.00</div>
+          <span class="tx-st ok">已释放</span>
+        </div>
+      </div>
+      <div class="tx-item">
+        <div class="tx-ic">⇄</div>
+        <div>
+          <div class="tx-t">买入 USDT</div>
+          <div class="tx-meta"><span class="tx-time">周一 · 18:04</span><span class="tx-dir out">支出</span></div>
+        </div>
+        <div class="tx-right">
+          <div class="tx-amt out">−2,000.00</div>
+          <span class="tx-st ok">已成交</span>
+        </div>
+      </div>
+      <div class="tx-item">
+        <div class="tx-ic">◇</div>
+        <div>
+          <div class="tx-t">卖出 USDT</div>
+          <div class="tx-meta"><span class="tx-time">周日 · 11:22</span><span class="tx-dir in">收入</span></div>
+        </div>
+        <div class="tx-right">
+          <div class="tx-amt in">+3,400.00</div>
+          <span class="tx-st warn">结算中</span>
+        </div>
+      </div>
+      <div class="tx-item">
+        <div class="tx-ic">↑</div>
+        <div>
+          <div class="tx-t">链上提现</div>
+          <div class="tx-meta"><span class="tx-time">周六 · 16:40</span><span class="tx-dir out">支出</span></div>
+        </div>
+        <div class="tx-right">
+          <div class="tx-amt out">−800.00</div>
+          <span class="tx-st ok">已汇出</span>
+        </div>
+      </div>
+      <div class="tx-item">
+        <div class="tx-ic">%</div>
+        <div>
+          <div class="tx-t">手续费扣除</div>
+          <div class="tx-meta"><span class="tx-time">周六 · 16:40</span><span class="tx-dir out">支出</span></div>
+        </div>
+        <div class="tx-right">
+          <div class="tx-amt out">−2.40</div>
+          <span class="tx-st ok">已扣</span>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-h">钱包摘要</h2>
+    <div class="insight-row">
+      <div class="ins-card">
+        <div class="k">近 7 日净流入</div>
+        <div class="v">+842</div>
+        <div class="sub">含任务赏金与托管释放</div>
+      </div>
+      <div class="ins-card">
+        <div class="k">进行中托管</div>
+        <div class="v" style="color:var(--cyan)">3</div>
+        <div class="sub">待确认释放的笔数</div>
+      </div>
+      <div class="ins-card wide">
+        <div class="k">任务侧收入 · 轻趋势</div>
+        <div class="sub">本周平稳上行，波动可控。</div>
+        <div class="spark" aria-hidden="true">
+          <svg viewBox="0 0 280 32" width="100%" height="32" preserveAspectRatio="none">
+            <path d="M0,24 L40,22 L80,18 L120,20 L160,12 L200,14 L240,8 L280,10" fill="none" stroke="rgba(46,230,200,0.5)" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <p class="footer-note">高保真设计预览 · 资产 / 钱包 · 与首页、市场、发布预览共用同一设计系统 · 非真实数据</p>
+  </div>
+
+  <nav class="app-tabbar" aria-label="主导航">
+    <div class="app-tabbar__inner">
+      <a href="./preview-app-home.html" class="app-tab"><span class="app-tab__ic">⌂</span><span class="app-tab__tx">首页</span><span class="app-tab__dot" aria-hidden="true"></span></a>
+      <a href="./preview-app-market.html" class="app-tab"><span class="app-tab__ic">≋</span><span class="app-tab__tx">市场</span><span class="app-tab__dot" aria-hidden="true"></span></a>
+      <a href="./preview-app-publish.html" class="app-tab"><span class="app-tab__ic">⊕</span><span class="app-tab__tx">发布</span><span class="app-tab__dot" aria-hidden="true"></span></a>
+      <a href="./assets-wallet.html" class="app-tab is-active"><span class="app-tab__ic">◈</span><span class="app-tab__tx">资产</span><span class="app-tab__dot" aria-hidden="true"></span></a>
+      <a href="./preview-app-profile.html" class="app-tab"><span class="app-tab__ic">◎</span><span class="app-tab__tx">我的</span><span class="app-tab__dot" aria-hidden="true"></span></a>
+    </div>
+  </nav>
+</body>
+</html>

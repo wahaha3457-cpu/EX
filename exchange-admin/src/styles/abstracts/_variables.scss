@@ -1,0 +1,147 @@
+// =============================================================================
+// Exchange Design System — SCSS Tokens
+// 语义色引用 CSS 变量（由 [data-theme] 注入），组件 $color-* 随深浅色自动切换
+// =============================================================================
+
+// --- 背景 / 边框 / 文本 / 品牌 / 涨跌 / 语义色（运行时由主题切换） ---
+$color-bg-canvas: var(--ex-bg-canvas);
+$color-bg-base: var(--ex-bg-base);
+$color-bg-elevated: var(--ex-bg-elevated);
+$color-bg-surface: var(--ex-bg-surface);
+$color-bg-hover: var(--ex-bg-hover);
+$color-bg-muted: var(--ex-bg-muted);
+$color-bg-overlay: var(--ex-bg-overlay);
+$color-overlay-backdrop: var(--ex-overlay-backdrop);
+$color-surface-inset: var(--ex-surface-inset);
+$color-surface-inset-strong: var(--ex-surface-inset-strong);
+$color-table-header-bg: var(--ex-table-header-bg);
+$color-panel-row-hover: var(--ex-panel-row-hover);
+$shadow-modal-elevated: var(--ex-modal-shadow-elevated);
+$color-panel-sunken: var(--ex-panel-sunken);
+
+$color-border-subtle: var(--ex-border-subtle);
+$color-border: var(--ex-border);
+$color-border-strong: var(--ex-border-strong);
+$color-border-focus: var(--ex-border-focus);
+
+$color-text-primary: var(--ex-text-primary);
+$color-text-secondary: var(--ex-text-secondary);
+$color-text-tertiary: var(--ex-text-tertiary);
+$color-text-disabled: var(--ex-text-disabled);
+$color-text-inverse: var(--ex-text-inverse);
+
+$color-brand: var(--ex-brand);
+$color-brand-hover: var(--ex-brand-hover);
+$color-brand-active: var(--ex-brand-active);
+$color-brand-muted: var(--ex-brand-muted);
+$color-brand-subtle: var(--ex-brand-subtle);
+
+$color-rise: var(--ex-rise);
+$color-rise-hover: var(--ex-rise-hover);
+$color-rise-bg: var(--ex-rise-bg);
+$color-rise-border: var(--ex-rise-border);
+
+$color-fall: var(--ex-fall);
+$color-fall-hover: var(--ex-fall-hover);
+$color-fall-bg: var(--ex-fall-bg);
+$color-fall-border: var(--ex-fall-border);
+
+$color-info: var(--ex-info);
+$color-info-bg: var(--ex-info-bg);
+$color-warning: var(--ex-warning);
+$color-warning-bg: var(--ex-warning-bg);
+$color-danger: var(--ex-danger);
+$color-danger-bg: var(--ex-danger-bg);
+$color-success: var(--ex-success);
+$color-success-bg: var(--ex-success-bg);
+$color-neutral: var(--ex-neutral);
+$color-neutral-bg: var(--ex-neutral-bg);
+
+$border-width-thin: 1px;
+$border-width-medium: 2px;
+
+// --- 字体族 ---
+$font-family-base: 'Inter', 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
+$font-family-mono: 'JetBrains Mono', 'IBM Plex Mono', 'Roboto Mono', ui-monospace, monospace;
+
+// --- 字号 ---
+$font-size-xxs: 10px;
+$font-size-xs: 11px;
+$font-size-sm: 12px;
+$font-size-md: 13px;
+$font-size-base: 14px;
+$font-size-lg: 16px;
+$font-size-xl: 18px;
+$font-size-xxl: 22px;
+$font-size-display: 28px;
+
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// --- 行高 ---
+$line-height-tight: 1.2;
+$line-height-snug: 1.35;
+$line-height-normal: 1.5;
+$line-height-relaxed: 1.6;
+
+$letter-spacing-tight: -0.02em;
+$letter-spacing-normal: 0;
+$letter-spacing-wide: 0.04em;
+
+// --- 间距 ---
+$space-0: 0;
+$space-1: 4px;
+$space-2: 8px;
+$space-3: 12px;
+$space-4: 16px;
+$space-5: 20px;
+$space-6: 24px;
+$space-8: 32px;
+$space-10: 40px;
+$space-12: 48px;
+
+// --- 圆角 ---
+$radius-xs: 2px;
+$radius-sm: 4px;
+$radius-md: 6px;
+$radius-lg: 8px;
+$radius-xl: 12px;
+$radius-full: 9999px;
+
+// --- 阴影（随主题） ---
+$shadow-sm: var(--ex-shadow-sm);
+$shadow-card: var(--ex-shadow-card);
+$shadow-dropdown: var(--ex-shadow-dropdown);
+$shadow-inset-well: var(--ex-shadow-inset-well);
+
+// --- 布局常量 ---
+$header-height: 56px;
+$subnav-height: 40px;
+$footer-height: 48px;
+$mobile-dock-height: 52px;
+$sidebar-width: 240px;
+$order-book-col-min: 280px;
+
+$ex-chart-frame-min-xs: 220px;
+$ex-chart-frame-min-sm: 280px;
+
+// --- z-index ---
+$z-base: 0;
+$z-sticky: 10;
+$z-dropdown: 1000;
+$z-modal-backdrop: 1040;
+$z-modal: 1050;
+$z-toast: 1100;
+
+// --- 动效 ---
+$duration-fast: 120ms;
+$duration-normal: 180ms;
+$ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+
+// --- 表单控件高度 ---
+$control-height-sm: 32px;
+$control-height-md: 36px;
+$control-height-lg: 40px;
+$control-height-xl: 44px;

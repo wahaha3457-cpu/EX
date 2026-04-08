@@ -1,0 +1,35 @@
+/**
+ * 全站数量角标：与仪表盘「待处理提醒」汇总数字（如 417）同款
+ * — 橙红渐变、白字加粗、圆角胶囊、同色外发光（非扁平小红点）
+ */
+.admin-console {
+  --adm-count-badge-gradient: linear-gradient(135deg, #ef4444 0%, #f97316 100%);
+  --adm-count-badge-shadow:
+    0 0 0 2px color-mix(in srgb, #ef4444 28%, transparent),
+    0 4px 18px color-mix(in srgb, #f97316 38%, transparent),
+    0 2px 8px color-mix(in srgb, #ef4444 22%, transparent);
+}
+
+/* 侧栏 Element Plus el-badge（默认数字角标） */
+.admin-console .el-badge__content {
+  background: var(--adm-count-badge-gradient) !important;
+  border: none !important;
+  box-shadow: var(--adm-count-badge-shadow) !important;
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  font-variant-numeric: tabular-nums;
+  border-radius: 999px !important;
+  min-width: 20px;
+  min-height: 20px;
+  padding: 2px 8px !important;
+  line-height: 1.25 !important;
+}
+
+/* 小圆点模式（若使用）保持圆形，不强制胶囊宽高 */
+.admin-console .el-badge__content.is-dot {
+  min-width: 8px !important;
+  min-height: 8px !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  box-shadow: var(--adm-count-badge-shadow) !important;
+}

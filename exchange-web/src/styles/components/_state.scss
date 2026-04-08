@@ -1,0 +1,100 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *; // interactive-transition
+
+/* Loading / Skeleton 已迁至 components/common（scoped），勿在此恢复全屏 overlay / backdrop */
+
+// ========== Empty / Error / Unauthorized 共用布局 ==========
+.ex-state-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: $space-8 $space-4;
+  min-height: 200px;
+  color: $color-text-secondary;
+}
+
+.ex-state-block--tight {
+  min-height: 120px;
+  padding: $space-4;
+}
+
+.ex-state-block__icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: $space-3;
+  opacity: 0.85;
+}
+
+.ex-state-block__title {
+  margin: 0 0 $space-2;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.ex-state-block__desc {
+  margin: 0 0 $space-4;
+  max-width: 360px;
+  font-size: $font-size-sm;
+  line-height: $line-height-normal;
+  color: $color-text-tertiary;
+}
+
+.ex-state-block__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+  justify-content: center;
+}
+
+.ex-btn-ghost {
+  @include interactive-transition;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: $control-height-md;
+  padding: 0 $space-4;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  background: $color-bg-surface;
+  border: $border-width-thin solid $color-border-strong;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.ex-btn-ghost:hover {
+  background: $color-bg-hover;
+}
+
+.ex-btn-brand {
+  @include interactive-transition;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: $control-height-md;
+  padding: 0 $space-4;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: var(--ex-on-brand);
+  background: $color-brand;
+  border: none;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.ex-btn-brand:hover {
+  background: $color-brand-hover;
+}
+
+// ========== Page state wrapper（交易页修饰符；主体在 ExPageState.vue scoped）==========
+.ex-page-state--trade {
+  min-height: min(520px, 70vh);
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}

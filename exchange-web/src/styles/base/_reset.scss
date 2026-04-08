@@ -1,0 +1,36 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--ex-font-base);
+  font-size: var(--ex-font-size-base);
+  line-height: 1.5;
+  /* 覆盖 EP reset 的 body{color:var(--el-text-color-primary)}；!important 防止打包顺序变化再次发灰 */
+  color: var(--ex-text-primary) !important;
+  background: var(--ex-bg-base);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  /* 浅色：--ex-link 为深琥珀，避免品牌金 #c99400 在浅灰底对比度不足（发雾） */
+  color: var(--ex-link);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--ex-link-hover);
+}
+
+button {
+  font-family: inherit;
+}

@@ -1,0 +1,92 @@
+@use 'sass:math';
+@use '../abstracts/mixins' as *;
+@use '../abstracts/variables' as *;
+@use '../mixins' as mq;
+
+.ex-btn {
+  @include interactive-transition;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  min-height: $control-height-md;
+  padding: 0 $space-4;
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  border-radius: $radius-sm;
+  border: $border-width-thin solid transparent;
+  cursor: pointer;
+}
+
+@include mq.coarse-pointer {
+  .ex-btn:not(.ex-btn--sm):not(.ex-btn--touch-ignore) {
+    min-height: math.max(44px, $control-height-md);
+    min-width: math.max(44px, $control-height-md);
+  }
+}
+
+.ex-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ex-btn--primary {
+  background: var(--ex-btn-primary-bg, #{$color-brand});
+  color: var(--ex-btn-primary-text, var(--ex-on-brand));
+}
+
+.ex-btn--primary:hover:not(:disabled) {
+  background: var(--ex-btn-primary-hover-bg, #{$color-brand-hover});
+}
+
+.ex-btn--primary:active:not(:disabled) {
+  background: var(--ex-btn-primary-active-bg, #{$color-brand-active});
+}
+
+.ex-btn--secondary {
+  background: $color-bg-surface;
+  color: $color-text-primary;
+  border-color: $color-border-strong;
+}
+
+.ex-btn--secondary:hover:not(:disabled) {
+  background: $color-bg-hover;
+}
+
+.ex-btn--ghost {
+  background: transparent;
+  color: $color-text-secondary;
+  border-color: $color-border;
+}
+
+.ex-btn--ghost:hover:not(:disabled) {
+  color: $color-text-primary;
+  background: var(--ex-fill-ghost);
+}
+
+.ex-btn--danger {
+  background: transparent;
+  color: $color-fall;
+  border-color: $color-fall-border;
+}
+
+.ex-btn--danger:hover:not(:disabled) {
+  background: $color-fall-bg;
+}
+
+.ex-btn--block {
+  width: 100%;
+}
+
+.ex-btn--sm {
+  min-height: $control-height-sm;
+  padding: 0 $space-3;
+  font-size: $font-size-sm;
+}
+
+.ex-btn--lg {
+  min-height: $control-height-xl;
+  padding: 0 $space-6;
+  font-size: $font-size-lg;
+}

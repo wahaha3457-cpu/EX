@@ -1,0 +1,214 @@
+// 黑白专业主题：纯白前台主承载 + 线框/轻影分层；灰色仅作 hover/分割/输入井辅助
+@use '../abstracts/variables' as v;
+@use 'tokens' as ex-tok;
+
+[data-theme='monochrome'] {
+  color-scheme: light;
+
+  /* —— 页面与模块：以纯白为默认，避免整页「灰毡」后台感 —— */
+  --ex-bg-canvas: #ffffff;
+  --ex-bg-base: #ffffff;
+  --ex-bg-elevated: #ffffff;
+  --ex-bg-surface: #ffffff;
+  --ex-bg-hover: #f4f5f7;
+  --ex-bg-muted: #f5f6f8;
+  --ex-bg-overlay: rgba(17, 17, 17, 0.4);
+
+  --ex-overlay-bg: rgba(15, 23, 42, 0.38);
+  --ex-overlay-backdrop: rgba(15, 23, 42, 0.38);
+  --ex-modal-shadow-elevated: 0 16px 48px rgba(15, 23, 42, 0.1);
+  /* 输入框/ Numeric 凹槽；工具条、卡片顶区请用 elevated + 描边，勿再叠大块灰 */
+  --ex-surface-inset: #fafbfc;
+  --ex-surface-inset-strong: #f1f3f5;
+  --ex-table-header-bg: #ffffff;
+  --ex-panel-row-hover: rgba(15, 23, 42, 0.04);
+  --ex-divider-on-white: rgba(15, 23, 42, 0.08);
+  --ex-panel-sunken: #ffffff;
+
+  --ex-border-subtle: #eaecef;
+  --ex-border: #e8eaed;
+  --ex-border-strong: #cdd3db;
+  --ex-border-focus: #f0b90b;
+
+  --ex-text-primary: #111111;
+  --ex-text-secondary: #3d3d3d;
+  --ex-text-tertiary: #5a5a5a;
+  --ex-text-disabled: #a0a0a0;
+  --ex-text-inverse: #ffffff;
+
+  color: var(--ex-text-primary);
+
+  /* 与深色 default 共用同一品牌色相（#f0b90b 系） */
+  --ex-brand: #f0b90b;
+  --ex-brand-hover: #f8d12f;
+  --ex-brand-active: #c99400;
+  --ex-link: #f0b90b;
+  --ex-link-hover: #f8d12f;
+  --ex-brand-muted: rgba(240, 185, 11, 0.14);
+  --ex-brand-subtle: rgba(240, 185, 11, 0.09);
+
+  --ex-rise: #0d9e6a;
+  --ex-rise-hover: #0c8f5f;
+  --ex-rise-bg: rgba(13, 158, 106, 0.1);
+  --ex-rise-border: rgba(13, 158, 106, 0.32);
+
+  --ex-fall: #d43b52;
+  --ex-fall-hover: #bf3448;
+  --ex-fall-bg: rgba(212, 59, 82, 0.1);
+  --ex-fall-border: rgba(212, 59, 82, 0.32);
+
+  --ex-info: #2b6cb0;
+  --ex-info-bg: rgba(43, 108, 176, 0.1);
+  --ex-warning: #f0b90b;
+  --ex-warning-bg: rgba(240, 185, 11, 0.12);
+  --ex-danger: #d43b52;
+  --ex-danger-bg: rgba(212, 59, 82, 0.1);
+  --ex-success: #0d9e6a;
+  --ex-success-bg: rgba(13, 158, 106, 0.1);
+  --ex-neutral: #666666;
+  --ex-neutral-bg: rgba(102, 102, 102, 0.1);
+
+  --ex-card-surface: #ffffff;
+  --ex-modal-surface: #ffffff;
+  /* 主按钮/品牌底上文字：与深色一致用深色字，保证黄底可读 */
+  --ex-on-brand: #0b0e11;
+
+  --ex-tcf-surface: #ffffff;
+  --ex-tcf-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+
+  --ex-spot-order-surface: #ffffff;
+  --ex-spot-order-shadow: 0 1px 0 rgba(15, 23, 42, 0.06), 0 8px 24px rgba(15, 23, 42, 0.05);
+  --ex-elevated-panel-surface: #ffffff;
+  --ex-elevated-panel-shadow: 0 1px 0 rgba(15, 23, 42, 0.05), 0 4px 16px rgba(15, 23, 42, 0.04);
+  --ex-pair-modal-surface: #ffffff;
+  --ex-vip-banner-surface: #ffffff;
+  --ex-vip-banner-border: color-mix(in srgb, var(--ex-brand) 16%, var(--ex-border-subtle));
+
+  --ex-chart-host-bg: #ffffff;
+
+  --ex-hero-bg: #ffffff;
+  --ex-hero-grid-line: rgba(15, 23, 42, 0.04);
+  --ex-home-card-tint: #ffffff;
+  --ex-home-download-bg: #ffffff;
+  --ex-home-markets-bg: #ffffff;
+
+  --ex-font-base: #{v.$font-family-base};
+  --ex-font-mono: #{v.$font-family-mono};
+
+  --ex-font-xxs: #{v.$font-size-xxs};
+  --ex-font-xs: #{v.$font-size-xs};
+  --ex-font-sm: #{v.$font-size-sm};
+  --ex-font-md: #{v.$font-size-md};
+  --ex-font-base-size: #{v.$font-size-base};
+  --ex-font-size-base: #{v.$font-size-base};
+  --ex-font-lg: #{v.$font-size-lg};
+  --ex-font-xl: #{v.$font-size-xl};
+  --ex-font-xxl: #{v.$font-size-xxl};
+  --ex-font-display: #{v.$font-size-display};
+
+  --ex-leading-tight: #{v.$line-height-tight};
+  --ex-leading-snug: #{v.$line-height-snug};
+  --ex-leading-normal: #{v.$line-height-normal};
+
+  --ex-space-1: #{v.$space-1};
+  --ex-space-2: #{v.$space-2};
+  --ex-space-3: #{v.$space-3};
+  --ex-space-4: #{v.$space-4};
+  --ex-space-5: #{v.$space-5};
+  --ex-space-6: #{v.$space-6};
+  --ex-space-8: #{v.$space-8};
+  --ex-space-10: #{v.$space-10};
+
+  --ex-radius-xs: #{v.$radius-xs};
+  --ex-radius-sm: #{v.$radius-sm};
+  --ex-radius-md: #{v.$radius-md};
+  --ex-radius-lg: #{v.$radius-lg};
+  --ex-radius-xl: #{v.$radius-xl};
+
+  --ex-shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --ex-shadow-card: 0 1px 2px rgba(15, 23, 42, 0.04), 0 6px 16px rgba(15, 23, 42, 0.05);
+  --ex-shadow-dropdown: 0 8px 24px rgba(15, 23, 42, 0.07);
+  --ex-shadow-inset-well: inset 0 1px 1px rgba(15, 23, 42, 0.04);
+
+  --ex-header-height: #{v.$header-height};
+  --ex-subnav-height: #{v.$subnav-height};
+  --ex-footer-height: #{v.$footer-height};
+
+  --ex-z-dropdown: #{v.$z-dropdown};
+  --ex-z-modal: #{v.$z-modal};
+  --ex-z-toast: #{v.$z-toast};
+
+  --ex-fill-hover-subtle: rgba(15, 23, 42, 0.045);
+  --ex-fill-ghost: rgba(15, 23, 42, 0.028);
+  --ex-fill-ghost-border-hover: rgba(15, 23, 42, 0.12);
+
+  /* —— Element Plus：与 default 深色共用同一主色刻度 —— */
+  --el-color-primary: #f0b90b;
+  --el-color-primary-light-3: #f5cb4a;
+  --el-color-primary-light-5: #f8d97a;
+  --el-color-primary-light-7: #fbe8a8;
+  --el-color-primary-light-8: #fcf0c4;
+  --el-color-primary-light-9: #fef8e6;
+  --el-color-primary-dark-2: #c99400;
+  --el-bg-color: #ffffff;
+  --el-bg-color-page: #ffffff;
+  --el-bg-color-overlay: #ffffff;
+  --el-fill-color-blank: #ffffff;
+  --el-fill-color-light: #f4f5f7;
+  --el-fill-color: #ffffff;
+  --el-fill-color-lighter: #fafbfc;
+  --el-fill-color-extra-light: #ffffff;
+  --el-fill-color-dark: #eceef0;
+  --el-text-color-primary: #111111;
+  --el-text-color-regular: #3d3d3d;
+  --el-text-color-secondary: #5a5a5a;
+  --el-text-color-placeholder: #a0a0a0;
+  --el-text-color-disabled: #a0a0a0;
+  --el-border-color: #e8eaed;
+  --el-border-color-light: #eaecef;
+  --el-border-color-lighter: #f0f2f5;
+  --el-border-color-extra-light: #f5f6f8;
+  --el-border-color-dark: #cdd3db;
+  --el-border-color-darker: #9aa1ac;
+  --el-mask-color: rgba(15, 23, 42, 0.38);
+  --el-box-shadow-light: 0 4px 14px rgba(15, 23, 42, 0.06);
+  --el-box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  --el-dropdown-menu-box-shadow: 0 4px 16px rgba(15, 23, 42, 0.07);
+  /* 表格：白底 + 极轻 hover，表头与页面白一致，靠底边分割 */
+  --el-table-bg-color: #ffffff;
+  --el-table-tr-bg-color: #ffffff;
+  --el-table-header-bg-color: #ffffff;
+  --el-table-row-hover-bg-color: rgba(15, 23, 42, 0.04);
+  --el-table-current-row-bg-color: color-mix(in srgb, var(--el-color-primary) 9%, #ffffff);
+  --el-table-header-text-color: #5a5a5a;
+  --el-table-text-color: #111111;
+  --el-table-border-color: #eaecef;
+
+  @include ex-tok.ex-theme-semantic-aliases;
+
+  /* 顶栏 / Header 下拉：强制实色，避免与其它层叠规则叠加成「透底」 */
+  --ex-z-sticky-header: 1000;
+  --ex-z-header-panel: 1200;
+  --ex-bg-header: #ffffff;
+  --ex-bg-header-scrolled: #ffffff;
+  --ex-bg-dropdown: #ffffff;
+  --ex-bg-popover: #ffffff;
+  /* 与 elevated 一致纯白，避免部分区域仍走 muted/panel 造成「灰白混用」 */
+  --ex-bg-panel: #ffffff;
+  --ex-bg-nav-float: #ffffff;
+  /* 导航浮层 hover：浅冷灰，避免 #f0f0f0 显脏 */
+  --ex-nav-float-hover: #f4f5f7;
+  --ex-nav-float-inset: #fafbfc;
+  --ex-nav-float-border: #e8eaed;
+  --ex-nav-float-shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
+  --ex-nav-float-radius: 12px;
+  --ex-shadow-dropdown: var(--ex-nav-float-shadow);
+  --ex-header-sticky-shadow: 0 1px 0 var(--ex-border-subtle), 0 4px 14px rgba(15, 23, 42, 0.04);
+
+  /* Header 图标：浅色前台 — 极轻 hover，无硬描边盒子 */
+  --ex-icon-btn-hover-bg: rgba(15, 23, 42, 0.06);
+  --ex-icon-btn-active-bg: var(--ex-brand-muted);
+  --ex-icon-btn-border-hover: rgba(15, 23, 42, 0.08);
+  --ex-icon-btn-active-border: color-mix(in srgb, var(--ex-brand) 38%, transparent);
+  --ex-menu-icon-tile-bg: rgba(15, 23, 42, 0.045);
+}

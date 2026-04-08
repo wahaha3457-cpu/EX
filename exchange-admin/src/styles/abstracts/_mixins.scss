@@ -1,0 +1,86 @@
+@use 'variables' as *;
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin text-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@mixin panel {
+  background: $color-bg-elevated;
+  border: $border-width-thin solid $color-border;
+  border-radius: $radius-md;
+}
+
+@mixin panel-raised {
+  background: $color-bg-elevated;
+  border: $border-width-thin solid $color-border;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-card;
+}
+
+@mixin focus-ring {
+  outline: $border-width-medium solid color-mix(in srgb, var(--ex-brand) 45%, transparent);
+  outline-offset: 1px;
+}
+
+@mixin focus-ring-inset-brand {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--ex-brand) 20%, transparent);
+}
+
+/// 标题层级（页面主标题 / 卡片标题 / 分区）
+@mixin text-display {
+  font-size: $font-size-display;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  letter-spacing: $letter-spacing-tight;
+  color: $color-text-primary;
+}
+
+@mixin text-title-lg {
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-snug;
+  color: $color-text-primary;
+}
+
+@mixin text-title {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-snug;
+  color: $color-text-primary;
+}
+
+@mixin text-body {
+  font-size: $font-size-base;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-normal;
+  color: $color-text-primary;
+}
+
+@mixin text-caption {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-normal;
+  color: $color-text-secondary;
+}
+
+@mixin text-data {
+  font-family: $font-family-mono;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+@mixin interactive-transition {
+  transition:
+    background $duration-fast $ease-standard,
+    border-color $duration-fast $ease-standard,
+    color $duration-fast $ease-standard,
+    box-shadow $duration-fast $ease-standard;
+}

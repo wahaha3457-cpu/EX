@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>发布 · USDT 任务与托管（设计预览）</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./app-tabbar.css" />
+  <style>
+    :root {
+      --bg: #0a0c10;
+      --surface: rgba(22, 28, 38, 0.82);
+      --stroke: rgba(255, 255, 255, 0.08);
+      --text: #eef2f7;
+      --muted: #8b95a8;
+      --usdt: #2ee6c8;
+      --usdt-soft: rgba(46, 230, 200, 0.14);
+      --cyan: #4dc4ff;
+      --gold: #c9a962;
+      --success: #5ed69a;
+      --warning: #e8b86d;
+      --radius-xl: 22px;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --shadow: 0 28px 56px rgba(0, 0, 0, 0.5);
+      --glow: 0 0 60px rgba(46, 230, 200, 0.1);
+      --font: 'DM Sans', system-ui, -apple-system, sans-serif;
+      --dock-h: 76px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font);
+      background:
+        radial-gradient(90% 50% at 50% -10%, rgba(46, 230, 200, 0.07), transparent 48%),
+        radial-gradient(55% 35% at 100% 30%, rgba(201, 169, 98, 0.05), transparent 40%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100dvh;
+      padding: 16px 0 32px;
+      -webkit-font-smoothing: antialiased;
+    }
+    body.pub-dock-on {
+      padding-bottom: calc(200px + env(safe-area-inset-bottom, 0px)) !important;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition-duration: 0.01ms !important; }
+    }
+    .phone {
+      width: min(390px, 100vw - 32px);
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .hdr {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .hdr-back {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      border: 1px solid var(--stroke);
+      background: var(--surface);
+      backdrop-filter: blur(16px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: var(--cyan);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .hdr-back.visible { display: flex; }
+    .hdr-mid { flex: 1; min-width: 0; }
+    .hdr h1 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .hdr p { font-size: 13px; color: var(--muted); margin-top: 4px; }
+    .hdr-help {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      border: 1px solid var(--stroke);
+      background: rgba(255, 255, 255, 0.04);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--gold);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .hub-intro {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--muted);
+      margin-bottom: 18px;
+      padding: 14px 16px;
+      border-radius: var(--radius-lg);
+      background: rgba(77, 196, 255, 0.06);
+      border: 1px solid rgba(77, 196, 255, 0.14);
+    }
+    .hub-intro strong { color: var(--usdt); font-weight: 600; }
+
+    .action-card {
+      border-radius: var(--radius-xl);
+      padding: 22px 20px;
+      margin-bottom: 14px;
+      cursor: pointer;
+      border: 1px solid var(--stroke);
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+      position: relative;
+      overflow: hidden;
+      text-align: left;
+      font: inherit;
+      color: inherit;
+      width: 100%;
+      display: block;
+    }
+    .action-card:active { transform: scale(0.99); }
+    .action-card.primary {
+      background: linear-gradient(145deg, rgba(46, 230, 200, 0.18) 0%, rgba(22, 28, 38, 0.92) 55%);
+      box-shadow: var(--shadow), var(--glow);
+    }
+    .action-card.primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(46, 230, 200, 0.5), transparent 45%, rgba(77, 196, 255, 0.28));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+    .action-card.secondary {
+      background: var(--surface);
+      backdrop-filter: blur(20px);
+    }
+    .action-card.future {
+      background: rgba(22, 28, 38, 0.72);
+      border-color: rgba(201, 169, 98, 0.18);
+      opacity: 0.92;
+    }
+    .future-tag {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 5px 10px;
+      border-radius: 8px;
+      background: rgba(201, 169, 98, 0.18);
+      color: var(--gold);
+      border: 1px solid rgba(201, 169, 98, 0.32);
+    }
+    .ac-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 14px;
+      position: relative;
+      z-index: 1;
+    }
+    .action-card.primary .ac-icon {
+      background: rgba(46, 230, 200, 0.2);
+      border: 1px solid rgba(46, 230, 200, 0.35);
+    }
+    .action-card.secondary .ac-icon {
+      background: rgba(77, 196, 255, 0.12);
+      border: 1px solid rgba(77, 196, 255, 0.25);
+    }
+    .action-card.future .ac-icon {
+      background: rgba(201, 169, 98, 0.1);
+      border: 1px solid rgba(201, 169, 98, 0.22);
+    }
+    .ac-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+    }
+    .ac-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.45;
+      position: relative;
+      z-index: 1;
+      padding-right: 28px;
+    }
+    .ac-arrow {
+      position: absolute;
+      right: 18px;
+      bottom: 22px;
+      font-size: 20px;
+      color: var(--usdt);
+      z-index: 1;
+    }
+    .action-card.secondary .ac-arrow { color: var(--cyan); }
+    .action-card.future .ac-arrow { color: var(--gold); }
+
+    .view { display: none; }
+    .view.on { display: block; }
+
+    .form-card {
+      border-radius: var(--radius-xl);
+      padding: 20px 18px;
+      background: var(--surface);
+      backdrop-filter: blur(24px);
+      border: 1px solid var(--stroke);
+      margin-bottom: 14px;
+    }
+    .form-h {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .field { margin-bottom: 18px; }
+    .field:last-child { margin-bottom: 0; }
+    .label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .label span.hint { color: var(--muted); font-weight: 500; font-size: 12px; }
+    input, textarea, select {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--stroke);
+      background: rgba(0, 0, 0, 0.28);
+      color: var(--text);
+      font-size: 15px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: rgba(46, 230, 200, 0.45);
+      box-shadow: 0 0 0 3px rgba(46, 230, 200, 0.1);
+    }
+    textarea { min-height: 96px; resize: vertical; line-height: 1.45; }
+    .toggle-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 16px;
+      border-radius: var(--radius-md);
+      background: rgba(46, 230, 200, 0.06);
+      border: 1px solid rgba(46, 230, 200, 0.14);
+      gap: 12px;
+    }
+    .toggle-row .t { font-size: 14px; font-weight: 600; }
+    .toggle-row .s { font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.35; }
+    .switch {
+      width: 52px;
+      height: 30px;
+      border-radius: 999px;
+      background: rgba(94, 214, 154, 0.35);
+      position: relative;
+      flex-shrink: 0;
+      cursor: pointer;
+      border: none;
+    }
+    .switch::after {
+      content: '';
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #fff;
+      top: 3px;
+      right: 3px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+    .upload {
+      border: 1px dashed rgba(255, 255, 255, 0.16);
+      border-radius: var(--radius-lg);
+      padding: 26px 16px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .upload .u-main { font-size: 14px; font-weight: 600; color: var(--cyan); }
+    .upload p { font-size: 12px; color: var(--muted); margin-top: 8px; }
+
+    .trust-banner {
+      display: flex;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: var(--radius-lg);
+      background: rgba(201, 169, 98, 0.08);
+      border: 1px solid rgba(201, 169, 98, 0.22);
+      margin-bottom: 14px;
+    }
+    .trust-banner .ic { font-size: 20px; flex-shrink: 0; }
+    .trust-banner .tx { font-size: 12px; line-height: 1.5; color: var(--muted); }
+    .trust-banner .tx strong { color: var(--gold); }
+
+    .form-muted {
+      opacity: 0.88;
+    }
+    .form-muted .form-h span {
+      color: var(--gold);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .pub-dock {
+      display: none;
+      position: fixed;
+      left: 0;
+      right: 0;
+      z-index: 150;
+      bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+      padding: 12px 18px 10px;
+      background: linear-gradient(180deg, transparent 0%, rgba(10, 12, 16, 0.94) 35%);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    body.pub-dock-on .pub-dock { display: block; }
+    .pub-dock-inner {
+      width: min(390px, 100vw - 32px);
+      margin: 0 auto;
+    }
+    .fee-note {
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 10px;
+      line-height: 1.45;
+    }
+    .fee-note strong { color: var(--usdt); font-weight: 600; }
+    .btn-main {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: var(--radius-md);
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      background: linear-gradient(180deg, #3ee6c4 0%, #1fb89a 100%);
+      color: #061210;
+      box-shadow: 0 12px 32px rgba(46, 230, 200, 0.28);
+      transition: transform 0.12s ease;
+    }
+    .btn-main:active { transform: scale(0.99); }
+    .btn-main.secondary {
+      background: linear-gradient(180deg, rgba(77, 196, 255, 0.4) 0%, rgba(77, 196, 255, 0.15) 100%);
+      color: var(--text);
+      border: 1px solid rgba(77, 196, 255, 0.35);
+      box-shadow: 0 8px 24px rgba(77, 196, 255, 0.12);
+    }
+    .risk-line {
+      font-size: 10px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 10px;
+      line-height: 1.4;
+      opacity: 0.9;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 24px;
+      opacity: 0.7;
+      line-height: 1.45;
+    }
+  </style>
+</head>
+<body class="has-app-tabbar">
+  <div class="phone">
+    <div class="status-bar">
+      <span>9:41</span>
+      <span>发布</span>
+      <span>LTE ●</span>
+    </div>
+
+    <header class="hdr">
+      <button type="button" class="hdr-back" id="btn-back" aria-label="返回">←</button>
+      <div class="hdr-mid">
+        <h1 id="hdr-title">发布</h1>
+        <p id="hdr-sub">创建任务、托管或服务 listing</p>
+      </div>
+      <button type="button" class="hdr-help" title="发布说明">?</button>
+    </header>
+
+    <div class="view on" id="view-hub">
+      <p class="hub-intro">资金通过平台<strong>托管账户</strong>流转，验收或双方确认后再释放，降低对手方风险。</p>
+
+      <button type="button" class="action-card primary" data-form="task">
+        <div class="ac-icon">✦</div>
+        <div class="ac-title">发布任务</div>
+        <p class="ac-desc">设定 USDT 赏金，承接方交付后您确认即结算。</p>
+        <span class="ac-arrow">→</span>
+      </button>
+
+      <button type="button" class="action-card secondary" data-form="escrow">
+        <div class="ac-icon">⛨</div>
+        <div class="ac-title">创建托管交易</div>
+        <p class="ac-desc">与指定对手方锁定 USDT，条件满足后释放或按规则处理。</p>
+        <span class="ac-arrow">→</span>
+      </button>
+
+      <button type="button" class="action-card future" data-form="service">
+        <span class="future-tag">Preview</span>
+        <div class="ac-icon">◇</div>
+        <div class="ac-title">提供服务 · 出售数字资源</div>
+        <p class="ac-desc">标价与交付周期，适合模板、素材、咨询档等标准化交付。</p>
+        <span class="ac-arrow">→</span>
+      </button>
+    </div>
+
+    <div class="view" id="view-task">
+      <div class="form-card">
+        <p class="form-h">任务信息</p>
+        <div class="field">
+          <label class="label">任务名称</label>
+          <input type="text" placeholder="例如：官网落地页设计 — 含移动端" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label class="label">类别</label>
+          <select>
+            <option>设计</option>
+            <option>开发</option>
+            <option>文案</option>
+            <option>翻译</option>
+            <option>咨询</option>
+            <option>其他</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="label">任务描述 <span class="hint">建议写清交付物与验收标准</span></label>
+          <textarea placeholder="范围、格式、修改轮次、参考链接等"></textarea>
+        </div>
+        <div class="field">
+          <label class="label">预算 <span class="hint">USDT</span></label>
+          <input type="text" inputmode="decimal" placeholder="0.00" style="font-variant-numeric: tabular-nums" />
+        </div>
+        <div class="field">
+          <label class="label">最后期限</label>
+          <input type="text" placeholder="例如：2026-04-10 · 或「签约后 7 个工作日」" />
+        </div>
+        <div class="field">
+          <div class="toggle-row">
+            <div>
+              <div class="t">需要托管</div>
+              <div class="s">赏金先冻结，您确认完成后再打给承接方</div>
+            </div>
+            <button type="button" class="switch" aria-label="需要托管" aria-pressed="true"></button>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">附件</label>
+          <div class="upload">
+            <span class="u-main">点击上传</span>
+            <p>PDF / 图片 / ZIP，单文件 ≤ 25 MB</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="view" id="view-escrow">
+      <div class="trust-banner">
+        <span class="ic" aria-hidden="true">⛨</span>
+        <p class="tx"><strong>托管保护双方。</strong>USDT 由平台锁定，请勿在站外直接转账。争议可按规则申诉。</p>
+      </div>
+      <div class="form-card">
+        <p class="form-h">托管交易</p>
+        <div class="field">
+          <label class="label">商品名称 <span class="hint">标的 / 交易标题</span></label>
+          <input type="text" placeholder="简短命名，便于双方识别" />
+        </div>
+        <div class="field">
+          <label class="label">交易对手 <span class="hint">UID 或参考号</span></label>
+          <input type="text" placeholder="例如：UF-8K2M-91Q" />
+        </div>
+        <div class="field">
+          <label class="label">商品描述</label>
+          <textarea placeholder="交付内容、里程碑、验收条件等"></textarea>
+        </div>
+        <div class="field">
+          <label class="label">托管金额 <span class="hint">USDT</span></label>
+          <input type="text" inputmode="decimal" placeholder="0.00" style="font-variant-numeric: tabular-nums" />
+        </div>
+        <div class="field">
+          <label class="label">履约 / 交割方式</label>
+          <select>
+            <option>一次性交割</option>
+            <option>分阶段释放</option>
+            <option>自定义（见备注）</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="label">备注</label>
+          <textarea placeholder="可选：特殊约定、链接、联系方式说明" style="min-height:72px"></textarea>
+        </div>
+        <div class="field">
+          <label class="label">上传证明 <span class="hint">可选</span></label>
+          <div class="upload">
+            <span class="u-main" style="color:var(--gold)">上传凭证</span>
+            <p>合同截图、聊天记录摘要、订单号等</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="view" id="view-service">
+      <div class="form-card form-muted">
+        <p class="form-h">服务 listing · <span>预览</span></p>
+        <div class="field">
+          <label class="label">服务标题</label>
+          <input type="text" placeholder="买家将看到的主标题" />
+        </div>
+        <div class="field">
+          <label class="label">描述</label>
+          <textarea placeholder="包含内容、工具、修订政策等"></textarea>
+        </div>
+        <div class="field">
+          <label class="label">起价 <span class="hint">USDT</span></label>
+          <input type="text" inputmode="decimal" placeholder="从 0.00 起" />
+        </div>
+        <div class="field">
+          <label class="label">交货时间</label>
+          <input type="text" placeholder="例如：付款后 3 个工作日内" />
+        </div>
+        <div class="field">
+          <label class="label">交付成果</label>
+          <textarea placeholder="文件格式、链接、时长、次数等" style="min-height:80px"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <p class="footer-note" id="hub-footer">高保真设计预览 · 发布 · 虚构表单<br />与首页 / 市场 / 资产共用 Tab 与设计 Token</p>
+  </div>
+
+  <div class="pub-dock" id="pub-dock" aria-hidden="true">
+    <div class="pub-dock-inner">
+      <p class="fee-note" id="fee-note">成交后平台收取约 <strong>2%</strong> 服务费 · 赏金将进入<strong>托管</strong>直至结算</p>
+      <button type="button" class="btn-main" id="btn-submit">发布任务</button>
+      <p class="risk-line" id="risk-line">请勿向陌生人站外转账；异常订单请通过官方客服处理。</p>
+    </div>
+  </div>
+
+  <nav class="app-tabbar" aria-label="主导航">
+    <div class="app-tabbar__inner">
+      <a href="./preview-app-home.html" class="app-tab"><span class="app-tab__ic">⌂</span><span class="app-tab__tx">首页</span><span class="app-tab__dot" aria-hidden="true"></span></a>
+      <a href="./preview-app-market.html" class="app-tab"><span class="app-tab__ic">≋</span><span class="app-tab__tx">市场</span><span class="app-tab__dot" aria-hidden="true"></span></a>
+      <a href="./preview-app-publish.html" class="app-tab is-active"><span class="app-tab__ic">⊕</span><span class="app-tab__tx">发布</span><span class="app-tab__dot" aria-hidden="true"></span></a>
+      <a href="./assets-wallet.html" class="app-tab"><span class="app-tab__ic">◈</span><span class="app-tab__tx">资产</span><span class="app-tab__dot" aria-hidden="true"></span></a>
+      <a href="./preview-app-profile.html" class="app-tab"><span class="app-tab__ic">◎</span><span class="app-tab__tx">我的</span><span class="app-tab__dot" aria-hidden="true"></span></a>
+    </div>
+  </nav>
+
+  <script>
+    (function () {
+      var hub = document.getElementById('view-hub');
+      var views = {
+        task: document.getElementById('view-task'),
+        escrow: document.getElementById('view-escrow'),
+        service: document.getElementById('view-service')
+      };
+      var back = document.getElementById('btn-back');
+      var dock = document.getElementById('pub-dock');
+      var fee = document.getElementById('fee-note');
+      var risk = document.getElementById('risk-line');
+      var submit = document.getElementById('btn-submit');
+      var hdrTitle = document.getElementById('hdr-title');
+      var hdrSub = document.getElementById('hdr-sub');
+      var hubFooter = document.getElementById('hub-footer');
+      var body = document.body;
+
+      function showHub() {
+        hub.classList.add('on');
+        Object.values(views).forEach(function (v) { v.classList.remove('on'); });
+        back.classList.remove('visible');
+        body.classList.remove('pub-dock-on');
+        dock.setAttribute('aria-hidden', 'true');
+        hubFooter.style.display = 'block';
+        hdrTitle.textContent = '发布';
+        hdrSub.textContent = '创建任务、托管或服务 listing';
+      }
+
+      function showForm(name) {
+        hub.classList.remove('on');
+        Object.keys(views).forEach(function (k) {
+          views[k].classList.toggle('on', k === name);
+        });
+        back.classList.add('visible');
+        body.classList.add('pub-dock-on');
+        dock.setAttribute('aria-hidden', 'false');
+        hubFooter.style.display = 'none';
+
+        submit.classList.remove('secondary');
+        if (name === 'task') {
+          hdrTitle.textContent = '发布任务';
+          hdrSub.textContent = '托管结算 · 清晰验收更易成交';
+          fee.innerHTML = '成交后平台收取约 <strong>2%</strong> 服务费 · 赏金将进入<strong>托管</strong>直至结算';
+          risk.textContent = '请勿向陌生人站外转账；异常订单请通过官方客服处理。';
+          submit.textContent = '发布任务';
+        } else if (name === 'escrow') {
+          hdrTitle.textContent = '创建托管';
+          hdrSub.textContent = '对手方确认后托管生效';
+          fee.innerHTML = '托管期间 <strong>USDT</strong> 锁定在平台 · 链上网络费按实际另计';
+          risk.textContent = '请核对对手 UID；任何「站外低价」均可能是诈骗。';
+          submit.textContent = '发起托管';
+        } else {
+          hdrTitle.textContent = '发布服务';
+          hdrSub.textContent = '预览能力 · 实际上线以产品为准';
+          fee.innerHTML = '上架与成交费率以届时规则为准 · 当前为<strong>预览</strong>界面';
+          risk.textContent = '预览提交不会发起真实链上或资金操作。';
+          submit.textContent = '保存草稿';
+          submit.classList.add('secondary');
+        }
+      }
+
+      document.querySelectorAll('[data-form]').forEach(function (el) {
+        el.addEventListener('click', function () {
+          showForm(el.getAttribute('data-form'));
+        });
+      });
+      back.addEventListener('click', showHub);
+      showHub();
+    })();
+  </script>
+</body>
+</html>

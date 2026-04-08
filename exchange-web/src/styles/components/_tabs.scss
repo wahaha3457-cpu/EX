@@ -1,0 +1,95 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/variables' as *;
+@use '../mixins' as mq;
+
+.ex-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-1;
+  border-bottom: $border-width-thin solid $color-border;
+  margin-bottom: $space-4;
+}
+
+/// 多 Tab 不换行横滑（手机端避免挤压）
+.ex-tabs--scroll {
+  @include mq.ex-tabs-row-scroll;
+  flex-wrap: nowrap;
+  margin-bottom: $space-3;
+  border-bottom: $border-width-thin solid $color-border;
+}
+
+.ex-tabs--scroll .ex-tab {
+  flex: 0 0 auto;
+  margin-bottom: 0;
+  border-bottom: none;
+  border-radius: $radius-sm $radius-sm 0 0;
+}
+
+@include mq.media-down(md) {
+  .ex-tabs--scroll .ex-tab {
+    min-height: $control-height-lg;
+    padding-left: $space-4;
+    padding-right: $space-4;
+  }
+}
+
+.ex-tab {
+  @include interactive-transition;
+  padding: $space-2 $space-3;
+  margin-bottom: -$border-width-thin;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  line-height: $line-height-snug;
+  color: $color-text-tertiary;
+  background: none;
+  border: none;
+  border-bottom: $border-width-medium solid transparent;
+  cursor: pointer;
+}
+
+.ex-tab:hover {
+  color: $color-text-primary;
+}
+
+.ex-tab--active {
+  color: $color-brand;
+  border-bottom-color: $color-brand;
+}
+
+.ex-tab:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/// 胶囊型 Tab（行情分类等）
+.ex-tabs-pill {
+  display: inline-flex;
+  gap: $space-1;
+  padding: $space-1;
+  background: $color-bg-muted;
+  border-radius: $radius-md;
+  border-bottom: none;
+  margin-bottom: $space-4;
+}
+
+.ex-tab-pill {
+  @include interactive-transition;
+  padding: $space-2 $space-3;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text-secondary;
+  background: transparent;
+  border: none;
+  border-radius: $radius-sm;
+  cursor: pointer;
+}
+
+.ex-tab-pill:hover {
+  color: $color-text-primary;
+}
+
+.ex-tab-pill--active {
+  color: $color-text-primary;
+  background: $color-bg-surface;
+  box-shadow: $shadow-sm;
+}

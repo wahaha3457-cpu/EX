@@ -1,0 +1,18 @@
+// K 线 / 图表宿主：由 JS 读取 --ex-kline-* / --ex-chart-host-bg
+
+[data-theme='default'],
+[data-theme='dark'] {
+  --ex-kline-grid: rgba(46, 53, 61, 0.9);
+  --ex-kline-axis: #2e353d;
+  --ex-kline-crosshair: rgba(240, 185, 11, 0.35);
+  --ex-kline-tooltip-bg: #2b3139;
+  --ex-kline-tooltip-text: #eaecef;
+}
+
+[data-theme='monochrome'] {
+  --ex-kline-grid: #e0e0e0;
+  --ex-kline-axis: #dddddd;
+  --ex-kline-crosshair: rgba(154, 123, 44, 0.4);
+  --ex-kline-tooltip-bg: #f5f5f5;
+  --ex-kline-tooltip-text: #3d3d3d;
+}

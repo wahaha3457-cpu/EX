@@ -1,0 +1,186 @@
+{
+  "kyc": {
+    "heroTitle": "Identity Verification (KYC)",
+    "heroLead": "Complete verification to unlock withdrawals, P2P, fiat channels, and improve account security. This is a demo flow: data stays in this browser only and is not uploaded; production should use a licensed KYC provider.",
+    "routeHint": "Direct link:",
+    "progressLabel": "Verification progress",
+    "progLv0": "Lv.0 Not verified",
+    "progLv1": "Lv.1 Basic",
+    "progLv2": "Lv.2 Advanced",
+    "tipsOkTitle": "Photo tips",
+    "tipsNoTitle": "Please avoid",
+    "photoDo": {
+      "0": "Even lighting; avoid glare",
+      "1": "Keep all four corners in frame",
+      "2": "Text must be readable; no fingers covering key fields",
+      "3": "For handheld selfies, show face + document + dated note (common in production)"
+    },
+    "photoDont": {
+      "0": "No B/W photocopies or screenshots",
+      "1": "No coins or objects covering the document",
+      "2": "No documents that are not yours"
+    },
+    "limitsTitle": "Levels & limits",
+    "limitsSub": "Demo limits below; live limits follow risk policy.",
+    "limitsNoteRef": "See also",
+    "limitCol0": "Lv.0",
+    "limitCol1": "Lv.1 Basic",
+    "limitCol2": "Lv.2 Advanced",
+    "limitColPermission": "Feature",
+    "limitWithdraw24h": "24h withdrawal (USDT equiv.)",
+    "limitC2c": "P2P single-trade limit (illustrative)",
+    "limitFiat": "Fiat deposit / buy crypto",
+    "limitContract": "Futures / margin",
+    "limitV0w": "— / disabled",
+    "limitV1w": "200,000",
+    "limitV2w": "2,000,000",
+    "limitV0c": "Unavailable",
+    "limitV1c": "50,000 CNY",
+    "limitV2c": "500,000 CNY",
+    "limitV0f": "Unavailable",
+    "limitV1f": "Supported",
+    "limitV2f": "Higher limits",
+    "limitV0x": "View only",
+    "limitV1x": "Standard",
+    "limitV2x": "Full",
+    "binanceRef": "Binance KYC FAQ",
+    "stepsTitle": "Steps",
+    "step1Title": "Basic · ID & personal info",
+    "step2Title": "Advanced · Address & extra docs",
+    "status": {
+      "LOCKED": "Locked",
+      "TODO": "To do",
+      "IN_REVIEW": "In review",
+      "PASSED": "Approved",
+      "REJECTED": "Rejected"
+    },
+    "submittedAt": "Submitted {time}",
+    "basicTitle": "Basic verification · Personal info",
+    "basicSub": "Must match your ID. Fraud may lead to restrictions. In this demo, pick approve/reject manually.",
+    "advTitle": "Advanced verification · Address & documents",
+    "advSub": "For higher fiat and withdrawal limits. Demo does not upload real images.",
+    "bannerBasicReview": "In review — choose a demo outcome below (approve / reject). Submitted {time}",
+    "bannerBasicOk": "Basic verification approved · {time}",
+    "bannerAdvReview": "Advanced review — choose a demo outcome below. Submitted {time}",
+    "bannerAdvOk": "Advanced verification approved · {time}",
+    "demoReviewTitle": "Demo review (local simulation only)",
+    "demoApprove": "Approve (demo)",
+    "demoReject": "Reject (demo)",
+    "fieldCountry": "Country / region",
+    "fieldIdType": "ID type",
+    "idTypeIdCard": "National ID",
+    "idTypePassport": "Passport",
+    "fieldFullName": "Full name (as on ID)",
+    "fieldIdNumber": "ID number",
+    "fieldDob": "Date of birth",
+    "fieldResidential": "Residential address",
+    "fieldCity": "City",
+    "fieldPostal": "Postal code (optional)",
+    "loading": "Loading verification…",
+    "sectionIdPhotos": "ID images",
+    "sectionAdvDocs": "Additional documents",
+    "consentBasic": "I confirm the information and images are true and authorize processing for compliance (demo).",
+    "consentAdv": "I confirm the address proof and selfie are valid for higher-limit risk review (demo).",
+    "submitBasic": "Submit basic verification",
+    "submitAdv": "Submit advanced verification",
+    "upload": "Upload",
+    "reupload": "Replace",
+    "badgeCurrent": "Current Lv.{n}",
+    "badgeDone": "All levels completed",
+    "badgeHint1": "Complete Lv.2 for higher fiat and withdrawal limits",
+    "badgeHint0": "Unverified: withdrawals / P2P / fiat may be limited (demo)",
+    "faqTitle": "FAQ",
+    "faq": {
+      "why": {
+        "q": "Why verify?",
+        "a": "AML/KYC compliance and to unlock withdrawals, P2P, and fiat. Production uses licensed vendors."
+      },
+      "time": {
+        "q": "How long does review take?",
+        "a": "Live: minutes to several business days. Demo: you choose approve/reject after submit."
+      },
+      "reject": {
+        "q": "Why are my photos rejected?",
+        "a": "Ensure corners, no glare, data matches the form; no screenshots. If rejected, fix and resubmit."
+      },
+      "privacy": {
+        "q": "How is my data stored?",
+        "a": "Demo uses localStorage only. Production needs encryption, minimization, and audited access."
+      }
+    },
+    "reset": "Reset demo data",
+    "resetHint": "(Clears local KYC state for retesting)",
+    "previewAlt": "Preview",
+    "doc": {
+      "idFront": {
+        "title": "ID front (portrait side)",
+        "hint": "JPG / PNG / WebP, ≤5MB, full corners, no glare"
+      },
+      "idBack": {
+        "title": "ID back (national emblem side)",
+        "hint": "Same document as front; text readable"
+      },
+      "passportBio": {
+        "title": "Passport bio page (photo page)",
+        "hint": "Personal data page; full corners; JPG / PNG / WebP, ≤5MB (demo)"
+      },
+      "addressProof": {
+        "title": "Proof of address",
+        "hint": "Utility/bank statement within ~3 months (demo)"
+      },
+      "selfie": {
+        "title": "Selfie holding ID",
+        "hint": "Face + readable ID; dated handwritten note recommended"
+      }
+    },
+    "rejectReason": {
+      "blur": "Photos are blurry or too reflective. Please retake and upload.",
+      "mismatch": "ID data does not match the form. Please correct and resubmit.",
+      "address": "Address proof cannot be verified. Upload a valid bill within ~3 months.",
+      "selfie": "Selfie does not meet rules. Ensure face and ID are in frame and readable."
+    },
+    "demoRejectBlur": "Reject · blurry",
+    "demoRejectMismatch": "Reject · mismatch",
+    "demoRejectAddress": "Reject · address",
+    "demoRejectSelfie": "Reject · selfie",
+    "error": {
+      "load": "Failed to load verification data",
+      "fileSize": "File must be under 5MB (demo)",
+      "fileType": "Only JPG, PNG, or WebP",
+      "uploadAllIdDocs": "Please upload all required ID images",
+      "needBasicFirst": "Complete basic verification first",
+      "uploadAllAdvanced": "Please upload all advanced documents",
+      "name": "Enter your legal name as on ID (≥2 characters)",
+      "idNumber": "Enter a valid ID number",
+      "idCnInvalid": "Invalid Chinese national ID format or checksum",
+      "idPassportInvalid": "Invalid passport number (6–20 letters/digits)",
+      "dob": "Invalid date format",
+      "adult": "You must be at least 18 years old",
+      "address": "Enter a detailed residential address",
+      "city": "Enter city",
+      "consentBasic": "Please read and accept the declaration",
+      "consentAdv": "Please read and accept the advanced declaration"
+    },
+    "toast": {
+      "fileRecorded": "File recorded (demo; not uploaded)",
+      "submittedBasic": "Basic verification submitted — choose a demo outcome",
+      "submittedAdvanced": "Advanced verification submitted — choose a demo outcome",
+      "demoBasicPass": "Basic approved · Lv.1 unlocked (demo)",
+      "demoBasicReject": "Basic rejected (demo) — fix issues and resubmit",
+      "demoAdvPass": "Advanced approved · Lv.2 unlocked (demo)",
+      "demoAdvReject": "Advanced rejected (demo) — fix issues and resubmit",
+      "reset": "KYC demo data reset"
+    },
+    "country": {
+      "CN": "China",
+      "HK": "Hong Kong SAR",
+      "MO": "Macau SAR",
+      "TW": "Taiwan",
+      "US": "United States",
+      "SG": "Singapore",
+      "JP": "Japan",
+      "GB": "United Kingdom",
+      "OTHER": "Other"
+    }
+  }
+}

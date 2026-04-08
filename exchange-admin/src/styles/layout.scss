@@ -1,0 +1,180 @@
+// =============================================================================
+// Exchange — 全局布局层（Layout Layer）
+// -----------------------------------------------------------------------------
+// 提供：CSS 变量（gutter / 容器最大宽）、工具类（container / stack / cluster）。
+// 原则：页面根用 .ex-layout-container；交易页内部再用局部 grid，勿重复设 max-width。
+// =============================================================================
+
+@use './breakpoints' as *;
+@use './mixins' as mq;
+
+// --- 全局布局变量（随断点递增；组件可用 var(--ex-gutter-x) 对齐页面边距） ---
+:root {
+  --ex-gutter-x: #{layout-gutter-x('xs')};
+  --ex-container-max: 100%;
+  --ex-section-gap: 16px;
+}
+
+@include mq.media-up(sm) {
+  :root {
+    --ex-gutter-x: #{layout-gutter-x('sm')};
+    --ex-section-gap: 20px;
+  }
+}
+
+@include mq.media-up(md) {
+  :root {
+    --ex-gutter-x: #{layout-gutter-x('md')};
+    --ex-container-max: #{layout-container-max('lg')};
+    --ex-section-gap: 24px;
+  }
+}
+
+@include mq.media-up(lg) {
+  :root {
+    --ex-gutter-x: #{layout-gutter-x('lg')};
+    --ex-container-max: #{layout-container-max('lg')};
+  }
+}
+
+@include mq.media-up(xl) {
+  :root {
+    --ex-gutter-x: #{layout-gutter-x('xl')};
+    --ex-container-max: #{layout-container-max('xl')};
+  }
+}
+
+@include mq.media-up('2xl') {
+  :root {
+    --ex-gutter-x: #{layout-gutter-x('2xl')};
+    --ex-container-max: #{layout-container-max('2xl')};
+  }
+}
+
+@include mq.media-up('3xl') {
+  :root {
+    --ex-gutter-x: #{layout-gutter-x('3xl')};
+    --ex-container-max: #{layout-container-max('3xl')};
+  }
+}
+
+@include mq.media-up('4xl') {
+  :root {
+    --ex-gutter-x: #{layout-gutter-x('4xl')};
+    --ex-container-max: #{layout-container-max('4xl')};
+  }
+}
+
+// -----------------------------------------------------------------------------
+// 页面主容器：居中 + 水平内边距 + 最大宽（适合首页/行情/资产/用户中心等）
+// 交易页全宽时可在外层不加此类，或加修饰符 --fluid
+// -----------------------------------------------------------------------------
+.ex-layout-container {
+  width: 100%;
+  max-width: var(--ex-container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--ex-gutter-x);
+  padding-right: var(--ex-gutter-x);
+  box-sizing: border-box;
+}
+
+/// 通栏（无 max-width），仍保留左右 gutter
+.ex-layout-container--fluid {
+  max-width: none;
+}
+
+/// 阅读型窄页（公告/帮助文章）
+.ex-layout-container--reading {
+  max-width: min(720px, 100%);
+}
+
+// -----------------------------------------------------------------------------
+// Flex 策略：纵向堆叠（表单/卡片列）；横向簇（筛选条、按钮组）
+// 高密度场景优先 flex + gap，避免 margin 魔法数
+// -----------------------------------------------------------------------------
+.ex-layout-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ex-section-gap);
+  min-width: 0;
+}
+
+.ex-layout-stack--tight {
+  gap: calc(var(--ex-section-gap) * 0.5);
+}
+
+.ex-layout-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ex-section-gap);
+  min-width: 0;
+}
+
+.ex-layout-cluster--between {
+  justify-content: space-between;
+}
+
+// -----------------------------------------------------------------------------
+// Grid：营销页/仪表盘多列；交易页请用业务内 BEM + 局部 grid，勿滥用全局类
+// -----------------------------------------------------------------------------
+.ex-layout-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--ex-section-gap);
+
+  @include mq.media-up(md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.ex-layout-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--ex-section-gap);
+
+  @include mq.media-up(sm) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include mq.media-up(lg) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+// -----------------------------------------------------------------------------
+// 交易页辅助：横向滚动区（委托/行情表）
+// -----------------------------------------------------------------------------
+.ex-layout-scroll-x {
+  @include mq.overflow-x-scroll-stable;
+  min-width: 0;
+}
+
+// =============================================================================
+// 使用示例（复制到业务 .vue scoped 或 partial 中按需调整）
+// -----------------------------------------------------------------------------
+//
+// 1) 仅使用断点 mixin（须先 @use）：
+//    @use '@/styles/mixins' as mq;
+//    .trade-toolbar {
+//      flex-direction: column;
+//      @include mq.media-up(lg) { flex-direction: row; }
+//    }
+//
+// 2) Mobile Small 专用（≤479px）：
+//    @include mq.media-down(sm) { ... }
+//
+// 3) 平板竖屏区间（768–1023）：
+//    @include mq.media-between(md, lg) { ... }
+//
+// 4) 页面根容器（首页/行情/资产等）：
+//    <div class="ex-layout-container">...</div>
+//
+// 5) 使用全局 gutter（与容器对齐）：
+//    .my-panel { padding-inline: var(--ex-gutter-x); }
+//
+// 6) 取最小宽度数值（仅 SCSS 函数，非 CSS 输出）：
+//    @use '@/styles/breakpoints' as bp;
+//    $w: bp.bp-min('xl');
+// =============================================================================

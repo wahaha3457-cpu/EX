@@ -1,0 +1,79 @@
+@use './tokens' as *;
+@use './element-bridge';
+@use './theme-monochrome';
+@use './sidebar-icons';
+@use './admin-count-badges';
+
+/* 侧栏菜单深色微调（补充 EP 默认） */
+.admin-console .admin-sidebar .el-menu {
+  border-right: none;
+  background: transparent;
+}
+
+.admin-console .admin-sidebar .el-sub-menu__title:hover,
+.admin-console .admin-sidebar .el-menu-item:hover {
+  background: rgba(59, 130, 246, 0.1) !important;
+}
+
+.admin-console .admin-sidebar .el-menu-item.is-active {
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.22), transparent 72%) !important;
+  border-right: 3px solid var(--el-color-primary);
+}
+
+/* 卡片 / 表面：比内容画布再亮半档，层次清晰 */
+.admin-console .el-card {
+  --el-card-bg-color: #{$adm-bg-card};
+  --el-card-border-color: #{$adm-border-subtle};
+  background-color: var(--el-card-bg-color) !important;
+  border-color: var(--el-card-border-color) !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+}
+
+.admin-console .el-card__header {
+  border-bottom-color: #{$adm-border-subtle};
+}
+
+/* 表格与条纹：避免与背景融在一起 */
+.admin-console .el-table {
+  --el-table-bg-color: #{$adm-bg-card-muted};
+  --el-table-tr-bg-color: #{$adm-bg-card-muted};
+  --el-table-header-bg-color: #{$adm-bg-card};
+  --el-table-row-hover-bg-color: rgba(59, 130, 246, 0.08);
+  --el-table-border-color: #{$adm-border-subtle};
+}
+
+/* 深色主题专用：斑马行与默认行拉开明度差（勿作用在 [data-theme='monochrome']，浅色由 _theme-monochrome 接管） */
+html:not([data-theme='monochrome']) .admin-console .el-table--striped .el-table__body tr:not(.el-table__row--striped) td.el-table__cell {
+  background-color: #{$adm-bg-card-muted};
+}
+
+html:not([data-theme='monochrome']) .admin-console .el-table--striped .el-table__body tr.el-table__row--striped td.el-table__cell {
+  background-color: #{$adm-bg-card};
+}
+
+html:not([data-theme='monochrome']) .admin-console .el-table:not(.el-table--striped) .el-table__body tbody tr:nth-child(even) td.el-table__cell {
+  background-color: #{$adm-bg-card};
+}
+
+.admin-console .el-input__wrapper,
+.admin-console .el-select__wrapper,
+.admin-console .el-date-editor.el-input__wrapper,
+.admin-console .el-textarea__inner,
+.admin-console .el-input-number {
+  border-radius: 10px;
+  transition:
+    border-color 0.16s ease,
+    box-shadow 0.16s ease,
+    background-color 0.16s ease,
+    transform 0.16s ease;
+}
+
+.admin-console .el-button:not(.is-link):not(.is-text) {
+  min-height: 34px;
+  font-weight: 600;
+  transition:
+    border-color 0.16s ease,
+    box-shadow 0.16s ease,
+    transform 0.16s ease,
+    background-color 0.16s ease;
+}

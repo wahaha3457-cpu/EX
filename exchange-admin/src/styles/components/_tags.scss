@@ -1,0 +1,87 @@
+@use '../abstracts/variables' as *;
+
+/// 状态标签：订单状态 / 充值状态 / 风险提示
+.ex-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-1;
+  min-height: 22px;
+  padding: 0 $space-2;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  line-height: $line-height-tight;
+  border-radius: $radius-sm;
+  border: $border-width-thin solid transparent;
+  white-space: nowrap;
+}
+
+.ex-tag--neutral {
+  color: $color-text-secondary;
+  background: $color-neutral-bg;
+  border-color: $color-border;
+}
+
+.ex-tag--success {
+  color: $color-success;
+  background: $color-success-bg;
+  border-color: $color-rise-border;
+}
+
+.ex-tag--warning {
+  color: $color-warning;
+  background: $color-warning-bg;
+  border-color: color-mix(in srgb, var(--ex-warning) 35%, transparent);
+}
+
+.ex-tag--danger {
+  color: $color-danger;
+  background: $color-danger-bg;
+  border-color: $color-fall-border;
+}
+
+.ex-tag--info {
+  color: $color-info;
+  background: $color-info-bg;
+  border-color: color-mix(in srgb, var(--ex-info) 35%, transparent);
+}
+
+.ex-tag--brand {
+  color: $color-brand;
+  background: $color-brand-muted;
+  border-color: color-mix(in srgb, var(--ex-brand) 35%, transparent);
+}
+
+.ex-tag--rise {
+  color: $color-rise;
+  background: $color-rise-bg;
+  border-color: $color-rise-border;
+}
+
+.ex-tag--fall {
+  color: $color-fall;
+  background: $color-fall-bg;
+  border-color: $color-fall-border;
+}
+
+/// 小点状态（在线/离线）
+.ex-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: $radius-full;
+  background: $color-text-tertiary;
+}
+
+.ex-dot--success {
+  background: $color-success;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--ex-success) 25%, transparent);
+}
+
+.ex-dot--warning {
+  background: $color-warning;
+}
+
+.ex-dot--danger {
+  background: $color-danger;
+}

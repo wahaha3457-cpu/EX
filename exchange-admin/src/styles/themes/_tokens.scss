@@ -1,0 +1,129 @@
+// =============================================================================
+// 交易所设计令牌 — 语义层（aliases）
+// -----------------------------------------------------------------------------
+// 禁止与基础同名变量互指（例如 --ex-bg-elevated: var(--ex-bg-elevated) 会导致整句失效、背景透明）。
+// =============================================================================
+
+@mixin ex-theme-semantic-aliases {
+  --ex-bg-page: var(--ex-bg-canvas);
+  /** 极轻区分的页面次级底（默认与 canvas 一致；浅色前台可拆分为几乎无差的亮白） */
+  --ex-bg-page-alt: var(--ex-bg-surface);
+  --ex-bg-card: var(--ex-card-surface);
+  --ex-bg-input: var(--ex-surface-inset);
+  --ex-bg-panel: var(--ex-bg-elevated);
+  --ex-bg-table-header: var(--ex-table-header-bg);
+  --ex-bg-table-row-hover: var(--ex-panel-row-hover);
+  --ex-bg-trade-buy: var(--ex-rise-bg);
+  --ex-bg-trade-sell: var(--ex-fall-bg);
+
+  /* 浮层默认回落到 elevated；各主题可在 @include 之后覆盖为实色 */
+  --ex-bg-dropdown: var(--ex-bg-elevated);
+  --ex-bg-popover: var(--ex-bg-elevated);
+  --ex-bg-header: var(--ex-bg-elevated);
+  --ex-bg-header-scrolled: var(--ex-bg-elevated);
+
+  /* 顶栏导航浮层：与全站 dropdown/popover 对齐，各主题可单独收紧为「白底 + 细边 + 轻影」 */
+  --ex-bg-nav-float: var(--ex-bg-dropdown);
+  --ex-nav-float-hover: var(--ex-fill-hover-subtle);
+  --ex-nav-float-inset: var(--ex-surface-inset);
+  --ex-nav-float-border: var(--ex-border-primary);
+  --ex-nav-float-shadow: var(--ex-shadow-dropdown);
+  --ex-nav-float-radius: var(--ex-radius-lg);
+
+  --ex-text-muted: var(--ex-text-tertiary);
+  --ex-text-positive: var(--ex-rise);
+  --ex-text-negative: var(--ex-fall);
+
+  --ex-border-primary: var(--ex-border);
+  --ex-border-secondary: var(--ex-border-subtle);
+  --ex-divider: var(--ex-divider-on-white);
+
+  /** 交互态：与填充灰解耦，便于浅色主题用极淡色 + 线框表达层级 */
+  --ex-hover-bg: var(--ex-fill-hover-subtle);
+  --ex-active-bg: var(--ex-fill-ghost);
+  --ex-selected-bg: var(--ex-brand-muted);
+
+  --ex-shadow-md: var(--ex-shadow-card);
+  --ex-shadow-lg: var(--ex-modal-shadow-elevated);
+
+  --ex-brand-primary: var(--ex-brand);
+  --ex-brand-secondary: var(--ex-brand-hover);
+  --ex-brand-accent: var(--ex-brand-active);
+
+  /* 品牌强调色语义（黑白主题共用同一色相，仅明度/对比策略随主题微调） */
+  --ex-accent: var(--ex-brand);
+  --ex-accent-hover: var(--ex-brand-hover);
+  --ex-accent-active: var(--ex-brand-active);
+  --ex-accent-strong: var(--ex-brand-active);
+  --ex-accent-soft: var(--ex-brand-muted);
+  --ex-accent-contrast: var(--ex-on-brand);
+  --ex-accent-border: color-mix(in srgb, var(--ex-brand) 40%, transparent);
+  --ex-link-accent: var(--ex-brand);
+  --ex-link-accent-hover: var(--ex-brand-hover);
+  --ex-badge-accent: var(--ex-brand);
+  --ex-badge-accent-bg: var(--ex-brand-muted);
+  --ex-icon-accent: var(--ex-brand);
+  --ex-tab-active: var(--ex-brand);
+
+  /* 主按钮：纯色优先；渐变 token 仅保留占位，默认 none，营销/极少数场景可覆写 */
+  --ex-btn-primary-bg: var(--ex-brand);
+  --ex-btn-primary-text: var(--ex-on-brand);
+  --ex-btn-primary-hover-bg: var(--ex-brand-hover);
+  --ex-btn-primary-active-bg: var(--ex-brand-active);
+  --ex-gradient-brand: none;
+  --ex-gradient-accent: none;
+  --ex-gradient-cta: none;
+  --ex-gradient-card: none;
+
+  --ex-success: var(--ex-success);
+  --ex-danger: var(--ex-danger);
+  --ex-warning: var(--ex-warning);
+  --ex-info: var(--ex-info);
+
+  --ex-button-primary-bg: var(--ex-btn-primary-bg);
+  --ex-button-primary-text: var(--ex-btn-primary-text);
+  --ex-button-secondary-bg: var(--ex-fill-ghost);
+  --ex-button-secondary-text: var(--ex-text-primary);
+  --ex-button-ghost-bg: transparent;
+  --ex-button-ghost-text: var(--ex-text-primary);
+
+  --ex-chip-bg: var(--ex-bg-muted);
+  --ex-chip-text: var(--ex-text-secondary);
+  --ex-badge-buy: var(--ex-rise);
+  --ex-badge-sell: var(--ex-fall);
+
+  --ex-focus-ring: var(--ex-border-focus);
+  --ex-disabled-bg: var(--ex-bg-muted);
+  --ex-disabled-text: var(--ex-text-disabled);
+
+  --ex-orderbook-buy: var(--ex-rise);
+  --ex-orderbook-sell: var(--ex-fall);
+
+  --ex-transition-fast: 0.15s ease;
+  --ex-transition-base: 0.25s ease;
+
+  /* Header / 导航图标系统：顶栏 icon button + 下拉菜单图标共用语义（各主题在 palette 层覆写 hover/active 细值） */
+  --ex-icon-primary: var(--ex-text-primary);
+  --ex-icon-secondary: var(--ex-text-secondary);
+  --ex-icon-muted: var(--ex-text-tertiary);
+  --ex-icon-active: var(--ex-brand);
+
+  --ex-icon-btn-bg: transparent;
+  --ex-icon-btn-hover-bg: var(--ex-nav-float-hover);
+  --ex-icon-btn-active-bg: var(--ex-brand-muted);
+  --ex-icon-btn-border: transparent;
+  --ex-icon-btn-border-hover: color-mix(in srgb, var(--ex-text-primary) 7%, transparent);
+  --ex-icon-btn-active-border: color-mix(in srgb, var(--ex-brand) 40%, transparent);
+  --ex-icon-btn-shadow-hover: none;
+  --ex-icon-btn-radius: 999px;
+  --ex-icon-btn-size: 36px;
+  --ex-icon-size-sm: 17px;
+  --ex-icon-size-md: 20px;
+
+  --ex-menu-icon-color: var(--ex-text-secondary);
+  --ex-menu-icon-hover: var(--ex-brand);
+  --ex-menu-icon-active: var(--ex-brand);
+  --ex-menu-icon-muted: var(--ex-text-tertiary);
+  /* 下拉「强调格」用（mega 等），列表行内图标默认透明底 */
+  --ex-menu-icon-tile-bg: color-mix(in srgb, var(--ex-text-primary) 5%, transparent);
+}

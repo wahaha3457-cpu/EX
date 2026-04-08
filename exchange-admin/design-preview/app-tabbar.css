@@ -1,0 +1,95 @@
+/* Mobile app bottom tab — matches design-preview wallet tokens */
+:root {
+  --tab-muted: #8b95a8;
+  --tab-active: #2ee6c8;
+  --tab-bg: rgba(10, 12, 16, 0.92);
+  --tab-stroke: rgba(255, 255, 255, 0.08);
+}
+
+body.has-app-tabbar {
+  padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)) !important;
+}
+
+.app-tabbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 200;
+  padding: 10px 10px max(12px, env(safe-area-inset-bottom));
+  background: linear-gradient(180deg, transparent 0%, var(--tab-bg) 28%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-top: 1px solid var(--tab-stroke);
+  box-shadow: 0 -20px 48px rgba(0, 0, 0, 0.35);
+}
+
+.app-tabbar__inner {
+  width: min(390px, 100vw - 20px);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 2px;
+}
+
+.app-tab {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  padding: 6px 2px 4px;
+  text-decoration: none;
+  color: var(--tab-muted);
+  border-radius: 14px;
+  transition: color 0.2s ease, background 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.app-tab:active {
+  background: rgba(46, 230, 200, 0.06);
+}
+
+.app-tab__ic {
+  font-size: 20px;
+  line-height: 1;
+  opacity: 0.92;
+}
+
+.app-tab__tx {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.app-tab.is-active {
+  color: var(--tab-active);
+}
+
+.app-tab.is-active .app-tab__ic {
+  filter: drop-shadow(0 0 10px rgba(46, 230, 200, 0.45));
+}
+
+.app-tab.is-active .app-tab__tx {
+  font-weight: 700;
+}
+
+.app-tab__dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--tab-active);
+  margin-top: 2px;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.app-tab.is-active .app-tab__dot {
+  opacity: 1;
+  transform: scale(1);
+}

@@ -1,0 +1,142 @@
+// =============================================================================
+// Exchange — 响应式与布局相关 Mixin（依赖 breakpoints.scss）
+// -----------------------------------------------------------------------------
+// 与 abstracts/_mixins.scss 分工：
+// - 本文件：视口、容器、触控、安全区、减少动效
+// - abstracts/_mixins.scss：面板、字体、交互过渡等 UI 原子
+// 页面中请：@use '@/styles/mixins' as bp; 或 @use '../styles/mixins' as *;
+// =============================================================================
+
+@use 'sass:math';
+@use './abstracts/variables' as *;
+@use './breakpoints' as *;
+
+/// min-width：从某档起（含该档）。移动优先下的主路径。
+@mixin media-up($name) {
+  $min: bp-min($name);
+  @if $min == 0 {
+    @content;
+  } @else {
+    @media (min-width: $min) {
+      @content;
+    }
+  }
+}
+
+/// max-width：不超过某档的「上一像素」（不含该档 min）。
+/// 例：media-down(sm) → 0–479px，即 Mobile Small 专用。
+@mixin media-down($name) {
+  $min: bp-min($name);
+  @if $min == 0 {
+    @error 'media-down: do not use xs; use media-down(sm) for viewport ≤479px.';
+  } @else {
+    $max: $min - 1px;
+    @media (max-width: $max) {
+      @content;
+    }
+  }
+}
+
+/// 仅在某两档之间（闭区间 [min, max) 语义：含 min 档，不含 max 档的 min）
+@mixin media-between($min-name, $max-name) {
+  $min: bp-min($min-name);
+  $max: bp-min($max-name) - 1px;
+  @media (min-width: $min) and (max-width: $max) {
+    @content;
+  }
+}
+
+/// 触控优先：粗指针（触摸屏）——放大点击热区、降低 hover 依赖
+@mixin coarse-pointer {
+  @media (pointer: coarse) {
+    @content;
+  }
+}
+
+/// 悬停可靠设备（键鼠）
+@mixin fine-pointer {
+  @media (pointer: fine) {
+    @content;
+  }
+}
+
+/// 刘海屏安全区（顶栏 / 底部固定交易条）
+@mixin safe-area-padding($dir: all) {
+  @if $dir == all {
+    padding-top: env(safe-area-inset-top, 0);
+    padding-right: env(safe-area-inset-right, 0);
+    padding-bottom: env(safe-area-inset-bottom, 0);
+    padding-left: env(safe-area-inset-left, 0);
+  } @else if $dir == top {
+    padding-top: env(safe-area-inset-top, 0);
+  } @else if $dir == bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  } @else if $dir == inline {
+    padding-left: env(safe-area-inset-left, 0);
+    padding-right: env(safe-area-inset-right, 0);
+  }
+}
+
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+/// 高密度表格横向滚动容器（交易所列表/盘口）
+@mixin overflow-x-scroll-stable {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+
+/// 表格降级：容器内 `.ex-table` 设置最小宽度，触发横向滚动而非压扁列
+@mixin ex-table-degrade-scroll($min-width: 680px) {
+  @include overflow-x-scroll-stable;
+
+  .ex-table {
+    min-width: $min-width;
+  }
+}
+
+/// Tabs 横滑：不换行 + 触控友好（交易所多 Tab 场景）
+@mixin ex-tabs-row-scroll {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--ex-border-strong);
+    border-radius: 2px;
+  }
+}
+
+/// 高频操作：触控设备上保证最小点击高度（与 $control-height-xl 对齐）
+@mixin ex-touch-target-min($min: 44px) {
+  @include coarse-pointer {
+    min-height: math.max($min, $control-height-md);
+    min-width: math.max($min, $control-height-md);
+  }
+}
+
+/// 搜索/筛选行：窄屏改为纵向堆叠（在父级上配合 flex-direction: column）
+@mixin ex-search-bar-stack-at-md {
+  @include media-down(md) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: $space-2;
+  }
+}
+
+/// 冻结列常用：配合 sticky 列头由业务组件实现
+@mixin sticky-surface {
+  position: sticky;
+  z-index: 2;
+  background: inherit;
+}

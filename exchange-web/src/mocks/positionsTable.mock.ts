@@ -1,0 +1,36 @@
+import type { PositionsTableRow } from '@/types/positionsTable'
+
+export const mockPositionsTableRows: PositionsTableRow[] = [
+  {
+    positionId: 'pos-mock-1',
+    symbolDisplay: 'BTC/USDT',
+    side: { text: '买入', tone: 'long' },
+    typeLabel: '限价',
+    contractsDisplay: '0.052',
+    entryPriceDisplay: '67,800.00',
+    markPriceDisplay: '68,120.50',
+    unrealizedPnlDisplay: '+12.45',
+    unrealizedPnlTone: 'gain',
+    roiDisplay: '+8.32%',
+    roiTone: 'gain',
+    marginModeLabel: '逐仓',
+    leverageDisplay: '20x',
+    liquidationDisplay: '62,400.00',
+  },
+  {
+    positionId: 'pos-mock-2',
+    symbolDisplay: 'ETH/USDT',
+    side: { text: '卖出', tone: 'short' },
+    typeLabel: '市价',
+    contractsDisplay: '1.5',
+    entryPriceDisplay: '3,520.00',
+    markPriceDisplay: '3,505.00',
+    unrealizedPnlDisplay: '+22.50',
+    unrealizedPnlTone: 'gain',
+    roiDisplay: '+5.10%',
+    roiTone: 'gain',
+    marginModeLabel: '全仓',
+    leverageDisplay: '10x',
+    liquidationDisplay: '—',
+  },
+]

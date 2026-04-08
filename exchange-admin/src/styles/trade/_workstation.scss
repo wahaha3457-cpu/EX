@@ -1,0 +1,42 @@
+// =============================================================================
+// 交易终端工作台 — 全站统一 spacing / 主区比例变量（现货 / 永续 / 交割共用）
+// =============================================================================
+@use '../abstracts/variables' as *;
+@use '../mixins' as mq;
+
+:root {
+  /** 交易页：模块之间主间距（外间隙、管理区与主工作台分隔） */
+  --ex-trade-gap: #{$space-3};
+  /** 主工作台内部：图表 / 盘口 / 下单列之间间隙（略紧于区块级） */
+  --ex-trade-workbench-gap: #{$space-2};
+  /**
+   * 主工作台最大高度：为顶栏 + 品种信息带 + 底部管理区留出视口
+   * 数值偏保守，避免 K 线无限撑高挤出订单区；底部区自身可滚动
+   */
+  --ex-trade-workbench-max-h: calc(100svh - var(--ex-header-height, #{$header-height}) - 156px);
+}
+
+@include mq.media-up(md) {
+  :root {
+    --ex-trade-gap: #{$space-4};
+    --ex-trade-workbench-gap: #{$space-3};
+  }
+}
+
+@include mq.media-up(xl) {
+  :root {
+    --ex-trade-workbench-max-h: calc(100svh - var(--ex-header-height, #{$header-height}) - 148px);
+  }
+}
+
+/* 交易主内容容器：与 MainLayout `--trade` 配合，统一面板层级（padding 由 MainLayout 使用 --ex-trade-gap） */
+.ex-layout__main--trade .ex-trade-panel {
+  border-radius: $radius-md;
+  box-shadow: 0 0 0 1px var(--ex-border-subtle);
+}
+
+[data-theme='monochrome'] .ex-layout__main--trade .ex-trade-panel {
+  box-shadow:
+    0 0 0 1px var(--ex-border-subtle),
+    0 1px 2px rgba(15, 23, 42, 0.03);
+}

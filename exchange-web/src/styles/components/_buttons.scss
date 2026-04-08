@@ -1,0 +1,125 @@
+@use 'sass:math';
+@use '../abstracts/mixins' as *;
+@use '../abstracts/variables' as *;
+@use '../mixins' as mq;
+
+.ex-btn {
+  @include interactive-transition;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  min-height: $control-height-md;
+  padding: 0 $space-4;
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  border-radius: $radius-sm;
+  border: $border-width-thin solid transparent;
+  cursor: pointer;
+}
+
+@include mq.coarse-pointer {
+  .ex-btn:not(.ex-btn--sm):not(.ex-btn--touch-ignore) {
+    min-height: math.max(44px, $control-height-md);
+    min-width: math.max(44px, $control-height-md);
+  }
+}
+
+.ex-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ex-btn--primary {
+  background: var(--ex-btn-primary-bg, #{$color-brand});
+  color: var(--ex-btn-primary-text, var(--ex-on-brand));
+}
+
+.ex-btn--primary:hover:not(:disabled) {
+  background: var(--ex-btn-primary-hover-bg, #{$color-brand-hover});
+}
+
+.ex-btn--primary:active:not(:disabled) {
+  background: var(--ex-btn-primary-active-bg, #{$color-brand-active});
+}
+
+/* 主按钮 · LOGO 黄→橙红渐变（营销/关键 CTA；token 见各主题 --ex-logo-cta-*） */
+.ex-btn.ex-btn--primary.ex-btn--logo-grad {
+  border-color: var(--ex-logo-cta-edge);
+  color: var(--ex-logo-cta-text);
+  background: var(--ex-logo-cta-grad);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #ffffff 52%, transparent),
+    0 1px 2px rgba(0, 0, 0, 0.22);
+  transition:
+    background var(--ex-transition-fast, 0.15s ease),
+    box-shadow var(--ex-transition-fast, 0.15s ease),
+    border-color var(--ex-transition-fast, 0.15s ease),
+    transform var(--ex-transition-fast, 0.15s ease),
+    opacity var(--ex-transition-fast, 0.15s ease);
+}
+
+.ex-btn.ex-btn--primary.ex-btn--logo-grad:hover:not(:disabled) {
+  background: var(--ex-logo-cta-grad-hover);
+  box-shadow:
+    0 10px 32px color-mix(in srgb, var(--ex-logo-cta-4) 38%, transparent),
+    inset 0 1px 0 color-mix(in srgb, #ffffff 45%, transparent);
+}
+
+.ex-btn.ex-btn--primary.ex-btn--logo-grad:active:not(:disabled) {
+  background: var(--ex-logo-cta-grad-active);
+}
+
+[data-theme='monochrome'] .ex-btn.ex-btn--primary.ex-btn--logo-grad:hover:not(:disabled) {
+  box-shadow:
+    0 10px 28px color-mix(in srgb, var(--ex-logo-cta-4) 28%, transparent),
+    inset 0 1px 0 color-mix(in srgb, #ffffff 40%, transparent);
+}
+
+.ex-btn--secondary {
+  background: $color-bg-surface;
+  color: $color-text-primary;
+  border-color: $color-border-strong;
+}
+
+.ex-btn--secondary:hover:not(:disabled) {
+  background: $color-bg-hover;
+}
+
+.ex-btn--ghost {
+  background: transparent;
+  color: $color-text-secondary;
+  border-color: $color-border;
+}
+
+.ex-btn--ghost:hover:not(:disabled) {
+  color: $color-text-primary;
+  background: var(--ex-fill-ghost);
+}
+
+.ex-btn--danger {
+  background: transparent;
+  color: $color-fall;
+  border-color: $color-fall-border;
+}
+
+.ex-btn--danger:hover:not(:disabled) {
+  background: $color-fall-bg;
+}
+
+.ex-btn--block {
+  width: 100%;
+}
+
+.ex-btn--sm {
+  min-height: $control-height-sm;
+  padding: 0 $space-3;
+  font-size: $font-size-sm;
+}
+
+.ex-btn--lg {
+  min-height: $control-height-xl;
+  padding: 0 $space-6;
+  font-size: $font-size-lg;
+}

@@ -1,0 +1,137 @@
+// -----------------------------------------------------------------------------
+// Element Plus 与 body 级浮层：monochrome 下「白底 + 细边 + 轻影 + 统一 hover」
+// 与 --ex-bg-nav-float / --ex-nav-float-* 对齐，避免 EP 默认灰底与顶栏体系打架
+// -----------------------------------------------------------------------------
+
+[data-theme='monochrome'] {
+  /* Dropdown / Select / Cascader / Autocomplete 等挂在 el-popper 上 */
+  .el-dropdown__popper.el-popper,
+  .el-select__popper.el-popper,
+  .el-tooltip__popper.el-popper,
+  .el-cascader__dropdown,
+  .el-autocomplete__popper.el-popper {
+    background: var(--ex-bg-popover) !important;
+    border: 1px solid var(--ex-nav-float-border) !important;
+    border-radius: var(--ex-nav-float-radius) !important;
+    box-shadow: var(--ex-nav-float-shadow) !important;
+  }
+
+  .el-dropdown__popper.el-popper .el-popper__arrow::before,
+  .el-select__popper.el-popper .el-popper__arrow::before,
+  .el-autocomplete__popper.el-popper .el-popper__arrow::before {
+    background: var(--ex-bg-popover) !important;
+    border: 1px solid var(--ex-nav-float-border) !important;
+  }
+
+  .el-dropdown-menu {
+    background-color: var(--ex-bg-popover);
+    border: 1px solid var(--ex-nav-float-border);
+    border-radius: var(--ex-nav-float-radius);
+    box-shadow: none;
+    padding: 6px;
+  }
+
+  .el-dropdown-menu__item:not(.is-disabled):hover,
+  .el-dropdown-menu__item:not(.is-disabled):focus {
+    background-color: var(--ex-nav-float-hover) !important;
+    color: var(--ex-text-primary);
+  }
+
+  .el-dropdown-menu__item--divided {
+    margin: 6px 0;
+  }
+
+  .el-popover.el-popper {
+    background: var(--ex-bg-popover);
+    border: 1px solid var(--ex-nav-float-border);
+    border-radius: var(--ex-nav-float-radius);
+    box-shadow: var(--ex-nav-float-shadow);
+  }
+
+  .el-popper.is-light {
+    background: var(--ex-bg-popover);
+    border: 1px solid var(--ex-nav-float-border);
+    border-radius: var(--ex-nav-float-radius);
+    box-shadow: var(--ex-nav-float-shadow);
+  }
+
+  .el-popper.is-light .el-popper__arrow::before {
+    background: var(--ex-bg-popover);
+    border: 1px solid var(--ex-nav-float-border);
+  }
+
+  .el-picker__popper.el-popper,
+  .el-time-panel__popper.el-popper {
+    background: var(--ex-bg-popover);
+    border: 1px solid var(--ex-nav-float-border);
+    border-radius: var(--ex-nav-float-radius);
+    box-shadow: var(--ex-nav-float-shadow);
+  }
+
+  .el-select-dropdown {
+    background-color: var(--ex-bg-popover);
+    border-radius: var(--ex-nav-float-radius);
+  }
+
+  .el-select-dropdown__item.hover,
+  .el-select-dropdown__item:hover {
+    background-color: var(--ex-nav-float-hover) !important;
+  }
+
+  .el-select-dropdown__item.selected {
+    color: var(--ex-brand);
+    font-weight: 600;
+  }
+
+  .el-menu.el-menu--popup {
+    background-color: var(--ex-bg-popover);
+    border: 1px solid var(--ex-nav-float-border);
+    border-radius: var(--ex-nav-float-radius);
+    box-shadow: var(--ex-nav-float-shadow);
+  }
+
+  .el-sub-menu .el-menu {
+    background-color: transparent;
+  }
+
+  .el-menu--popup .el-menu-item:hover,
+  .el-menu--popup .el-sub-menu__title:hover {
+    background-color: var(--ex-nav-float-hover) !important;
+  }
+
+  .el-message {
+    background-color: var(--ex-bg-popover);
+    border: 1px solid var(--ex-nav-float-border);
+    box-shadow: var(--ex-shadow-md, var(--ex-shadow-card));
+    border-radius: var(--ex-radius-md);
+  }
+
+  .el-notification {
+    background-color: var(--ex-bg-popover);
+    border: 1px solid var(--ex-nav-float-border);
+    box-shadow: var(--ex-shadow-md, var(--ex-shadow-card));
+    border-radius: var(--ex-radius-md);
+  }
+
+  .el-card {
+    background-color: var(--ex-card-surface);
+    border-color: var(--ex-nav-float-border);
+  }
+
+  /* Dialog / Drawer：面板实底，与遮罩分层清晰 */
+  .el-dialog {
+    background-color: var(--ex-bg-popover);
+    border: 1px solid var(--ex-nav-float-border);
+    border-radius: var(--ex-radius-lg);
+    box-shadow: var(--ex-shadow-lg, var(--ex-shadow-card));
+  }
+
+  .el-drawer {
+    background-color: var(--ex-bg-popover);
+    box-shadow: -4px 0 24px rgba(15, 23, 42, 0.08);
+  }
+
+  .el-drawer__header {
+    border-bottom: 1px solid var(--ex-border-secondary);
+  }
+}

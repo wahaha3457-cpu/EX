@@ -1,0 +1,91 @@
+{
+  "news": {
+    "heroTitle": "Global News",
+    "heroLead": "Curated crypto and market headlines with filters and search. Preview the summary here, then open the article page for the full story.",
+    "tab": {
+      "featured": "Featured",
+      "all": "All",
+      "flash": "Flash"
+    },
+    "tabsAria": "News sections",
+    "searchPh": "Search title or summary",
+    "loading": "Loading news…",
+    "empty": "No articles match your filters",
+    "error": {
+      "load": "Failed to load news"
+    },
+    "articleNotFound": "Article not found. Returned to the list.",
+    "rulesTitle": "Reading notice",
+    "rules": {
+      "i1": "Information only, not investment advice; assess risks independently.",
+      "i2": "Content is edited and categorized for this platform; cite properly and follow applicable laws when reusing.",
+      "i3": "Sections and tags are for navigation; the live product rules prevail.",
+      "i4": "If something looks outdated or incorrect, contact support."
+    },
+    "disclaimer": "Articles are published through automated and manual review; updates may be delayed.",
+    "sidebarTitle": "Trending",
+    "readMin": "~{n} min read",
+    "views": "{n} views",
+    "detailRisk": "Risk warning: digital assets are volatile; trade with care.",
+    "readFullArticle": "Read full article",
+    "readFullLead": "The full story is on our article page—tap below to read.",
+    "backToNewsList": "Back to news list",
+    "copyPageLink": "Copy page link",
+    "footerNote": "For general information only; not platform endorsement. Please credit when quoting.",
+    "toast": {
+      "shareDemo": "Link copied",
+      "linkCopied": "Page link copied"
+    },
+    "cat": {
+      "ALL": "All categories",
+      "FLASH": "Flash",
+      "MARKETS": "Markets",
+      "REGULATION": "Regulation",
+      "PRODUCT": "Product",
+      "DEPTH": "Deep dive",
+      "MACRO": "Macro"
+    },
+    "items": {
+      "eth-etf-institutional": {
+        "title": "Spot Ethereum ETF flows turn positive as institutions return",
+        "summary": "Weekly net inflows flipped from negative; long-term holders tick up.",
+        "body": "Major spot Ethereum ETFs posted net inflows last week, ending a multi-week outflow streak. On-chain metrics show a modest rise in long-term holder share and a decline in short-term speculative share.\n\nAnalysts link the shift to improved macro liquidity expectations and busier Layer2 activity. US inflation prints and the rate path remain key for risk appetite.\n\nInformational only; not investment advice."
+      },
+      "btc-halving-liquidity": {
+        "title": "Post-halving Bitcoin: fees and miner revenue mix under the microscope",
+        "summary": "As block subsidies decline, fees and L2/inscription activity matter more.",
+        "body": "With subsidies stepping down, fees are becoming a larger part of miner revenue. Lightning and sidechains continue to scale payments and settlement.\n\nFocus is shifting from halving hype to sustainable usage and fee markets. Distinguish cycle narratives from fundamentals.\n\nData from public on-chain sources and industry research; demo is not live node data."
+      },
+      "stablecoin-mica": {
+        "title": "Stablecoin rules: reserves, audits, and redemption transparency",
+        "summary": "Key jurisdictions stress auditable reserves and clear redemption rails.",
+        "body": "Recent drafts require stablecoin issuers to disclose reserve composition and undergo third-party audits. Exchanges may tighten listing standards and risk checklists.\n\nUsers should review transparency, redemption paths, and counterparty risk—not yield alone.\n\nRegulatory outcomes are uncertain; follow final law and platform notices."
+      },
+      "layer2-dencun": {
+        "title": "Cheaper L2 fees lift activity: DEX and social apps benefit",
+        "summary": "Data-availability improvements cut costs; projects migrate faster.",
+        "body": "As mainnet upgrades and L2 mature, average costs for DEX and on-chain social use cases have fallen. Developers move more logic to L2.\n\nExchange wallets and Web3 entry points must improve cross-chain safety, account abstraction, and UX.\n\nTrend summary; individual projects vary by chain and environment."
+      },
+      "exchange-proof-reserves": {
+        "title": "Proof of reserves: frequency, merkle snapshots, and third-party audits",
+        "summary": "Major venues publish more often; merkle roots are a common pattern.",
+        "body": "PoR helps users verify that on-chain assets cover liabilities at a point in time. Typical patterns include periodic merkle root publication, audit reports, and hot/cold address disclosure.\n\nPoR is a point-in-time snapshot and not alone proof of ongoing solvency; combine with governance, risk, and compliance.\n\nDemo does not endorse any venue."
+      },
+      "macro-fed-watch": {
+        "title": "Macro calendar: rates and DXY as drivers for risk assets",
+        "summary": "Inflation and jobs data remain key short-term catalysts.",
+        "body": "This week’s prints may move rate expectations. Historically, liquidity regime shifts can raise short-term correlation between crypto and growth equities.\n\nWatch leverage and margin usage around releases.\n\nMacro views are subjective; size positions to your risk tolerance."
+      },
+      "flash-etf-net": {
+        "title": "[Flash] Spot ETH ETFs turn net positive on the day",
+        "summary": "Public trackers report ~$X billion net inflow yesterday (demo figure).",
+        "body": "Flash template; production wires live feeds and editorial review."
+      },
+      "flash-sec-crypto": {
+        "title": "[Flash] Regulator drafts new custody and disclosure guidance",
+        "summary": "Comment period opens; covers segregation and client-asset safeguards (demo).",
+        "body": "Flash template; follow final rules and official interpretations."
+      }
+    }
+  }
+}

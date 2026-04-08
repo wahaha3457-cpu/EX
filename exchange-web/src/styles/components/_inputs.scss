@@ -1,0 +1,66 @@
+@use 'sass:math';
+@use '../abstracts/mixins' as *;
+@use '../abstracts/variables' as *;
+@use '../mixins' as mq;
+
+.ex-input {
+  @include interactive-transition;
+  width: 100%;
+  min-height: $control-height-lg;
+  padding: 0 $space-3;
+  font-size: $font-size-base;
+  line-height: $line-height-snug;
+  color: $color-text-primary;
+  background: $color-bg-base;
+  border: $border-width-thin solid $color-border-strong;
+  border-radius: $radius-sm;
+}
+
+@include mq.coarse-pointer {
+  .ex-input:not(.ex-input--touch-ignore) {
+    min-height: math.max(44px, $control-height-lg);
+  }
+}
+
+.ex-input::placeholder {
+  color: $color-text-tertiary;
+}
+
+.ex-input:hover:not(:disabled) {
+  border-color: $color-text-tertiary;
+}
+
+.ex-input:focus {
+  outline: none;
+  border-color: $color-brand;
+  @include focus-ring-inset-brand;
+}
+
+.ex-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ex-label {
+  display: block;
+  margin-bottom: $space-2;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text-secondary;
+}
+
+.ex-field {
+  margin-bottom: $space-4;
+}
+
+.ex-field-hint {
+  margin-top: $space-1;
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.ex-field-error {
+  margin-top: $space-1;
+  font-size: $font-size-xs;
+  color: $color-fall;
+}

@@ -1,0 +1,19 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/variables' as *;
+
+/// 工具类：与 BEM 组件类并存，仅用于排版辅助
+.u-text-primary {
+  color: $color-text-primary;
+}
+.u-text-secondary {
+  color: $color-text-secondary;
+}
+.u-text-tertiary {
+  color: $color-text-tertiary;
+}
+.u-text-mono {
+  @include text-data;
+}
+.u-text-ellipsis {
+  @include text-ellipsis;
+}

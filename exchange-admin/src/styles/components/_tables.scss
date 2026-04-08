@@ -1,0 +1,81 @@
+@use '../abstracts/variables' as *;
+@use '../mixins' as mq;
+
+@mixin transition-background {
+  transition: background $duration-fast $ease-standard;
+}
+
+.ex-table-wrap {
+  overflow: auto;
+  max-height: min(480px, 70vh);
+  border: $border-width-thin solid $color-border;
+  border-radius: $radius-md;
+  background: $color-bg-elevated;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/// 与 `.ex-table-wrap--exchange` 工具类二选一：在纯 BEM 结构下直接用 modifier
+.ex-table-wrap--x-stable {
+  @include mq.overflow-x-scroll-stable;
+}
+
+.ex-table-wrap--degrade {
+  @include mq.ex-table-degrade-scroll(680px);
+}
+
+.ex-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $font-size-sm;
+  line-height: $line-height-snug;
+}
+
+.ex-table th,
+.ex-table td {
+  padding: $space-2 $space-3;
+  text-align: right;
+  border-bottom: $border-width-thin solid $color-border-subtle;
+}
+
+.ex-table th:first-child,
+.ex-table td:first-child {
+  text-align: left;
+}
+
+.ex-table thead th {
+  font-weight: $font-weight-semibold;
+  font-size: $font-size-xs;
+  letter-spacing: $letter-spacing-wide;
+  text-transform: uppercase;
+  color: $color-text-tertiary;
+  background: $color-bg-elevated;
+  position: sticky;
+  top: 0;
+  z-index: $z-sticky;
+}
+
+.ex-table tbody tr {
+  @include transition-background;
+}
+
+.ex-table tbody tr:hover td {
+  background: var(--ex-panel-row-hover);
+}
+
+.ex-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.ex-num {
+  font-family: $font-family-mono;
+  font-variant-numeric: tabular-nums;
+}
+
+.ex-rise {
+  color: $color-rise;
+}
+
+.ex-fall {
+  color: $color-fall;
+}

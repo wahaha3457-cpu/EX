@@ -1,0 +1,1 @@
+import{L as t,O as e,P as s,M as r}from"./ep-icons-CTFy652N.js";import{_ as a}from"./index-C2JJa2hj.js";const c={class:"adm-act"},n=t({__name:"AdmActionGroup",setup(_){return(o,p)=>(e(),s("div",c,[r(o.$slots,"default",{},void 0,!0)]))}}),i=a(n,[["__scopeId","data-v-35731429"]]);export{i as A};

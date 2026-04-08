@@ -1,0 +1,1 @@
+import{h as e}from"./index-C2JJa2hj.js";import{L as o,V as r,u as t,O as a}from"./ep-icons-CTFy652N.js";import"./element-plus-BZpAbrVg.js";const _=o({__name:"RouterPassLayout",setup(s){return(n,p)=>(a(),r(t(e)))}});export{_ as default};

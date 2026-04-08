@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>市场 · USDT 与任务（设计预览）</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./app-tabbar.css" />
+  <style>
+    :root {
+      --bg: #0a0c10;
+      --surface: rgba(22, 28, 38, 0.82);
+      --stroke: rgba(255, 255, 255, 0.08);
+      --text: #eef2f7;
+      --muted: #8b95a8;
+      --usdt: #2ee6c8;
+      --usdt-soft: rgba(46, 230, 200, 0.14);
+      --cyan: #4dc4ff;
+      --gold: #c9a962;
+      --success: #5ed69a;
+      --warning: #e8b86d;
+      --danger: #e89898;
+      --radius-xl: 22px;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --shadow: 0 24px 48px rgba(0, 0, 0, 0.48);
+      --font: 'DM Sans', system-ui, -apple-system, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font);
+      background:
+        radial-gradient(95% 55% at 50% -8%, rgba(46, 230, 200, 0.07), transparent 48%),
+        radial-gradient(60% 40% at 100% 15%, rgba(77, 196, 255, 0.06), transparent 40%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100dvh;
+      padding: 16px 0 28px;
+      -webkit-font-smoothing: antialiased;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition-duration: 0.01ms !important; }
+    }
+    .phone {
+      width: min(390px, 100vw - 32px);
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    /* Top bar */
+    .top-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .top-title {
+      flex: 1;
+      min-width: 0;
+    }
+    .top-title h1 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+    .top-title p {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .top-ic {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      border: 1px solid var(--stroke);
+      background: rgba(255, 255, 255, 0.04);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: var(--cyan);
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.12s ease;
+    }
+    .top-ic:active { transform: scale(0.96); }
+
+    /* Market pulse ticker */
+    .pulse {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: var(--radius-lg);
+      background: rgba(77, 196, 255, 0.06);
+      border: 1px solid rgba(77, 196, 255, 0.12);
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--success);
+      flex-shrink: 0;
+      box-shadow: 0 0 12px rgba(94, 214, 154, 0.5);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.45; }
+    }
+    .pulse-marquee {
+      flex: 1;
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    }
+    .pulse-marquee span {
+      display: inline-block;
+      padding-right: 48px;
+      animation: scroll 18s linear infinite;
+    }
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .pulse-val {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--usdt);
+      flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Main segmented tabs */
+    .seg-main {
+      display: flex;
+      padding: 4px;
+      border-radius: var(--radius-lg);
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--stroke);
+      margin-bottom: 18px;
+      position: relative;
+    }
+    .seg-main button {
+      flex: 1;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 12px 10px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    }
+    .seg-main button.is-on {
+      color: var(--text);
+      background: linear-gradient(180deg, rgba(46, 230, 200, 0.2) 0%, rgba(22, 28, 38, 0.95) 100%);
+      box-shadow: 0 4px 20px rgba(46, 230, 200, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    .panel { display: none; }
+    .panel.is-on { display: block; }
+
+    /* —— OTC —— */
+    .price-card {
+      border-radius: var(--radius-xl);
+      padding: 18px 18px 14px;
+      background: var(--surface);
+      backdrop-filter: blur(24px);
+      border: 1px solid var(--stroke);
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+    }
+    .price-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+    .price-head .lbl {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .price-head .chg {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--success);
+    }
+    .price-big {
+      font-size: 28px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+    }
+    .price-big .num { color: var(--usdt); }
+    .price-big .unit { font-size: 14px; font-weight: 600; color: var(--muted); margin-left: 4px; }
+    .price-sub { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+    .price-chart {
+      height: 48px;
+      margin-bottom: 4px;
+    }
+    .price-chart svg { width: 100%; height: 100%; display: block; }
+    .tick {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+      padding-top: 6px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .seg-side {
+      display: flex;
+      padding: 3px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--stroke);
+      margin-bottom: 14px;
+    }
+    .seg-side button {
+      flex: 1;
+      border: none;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 11px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .seg-side button.buy-off {
+      background: transparent;
+      color: var(--muted);
+    }
+    .seg-side button.buy-on {
+      background: linear-gradient(180deg, #3ee6c4 0%, #1fb89a 100%);
+      color: #061210;
+      box-shadow: 0 6px 20px rgba(46, 230, 200, 0.25);
+    }
+    .seg-side button.sell-off {
+      background: transparent;
+      color: var(--muted);
+    }
+    .seg-side button.sell-on {
+      background: linear-gradient(180deg, rgba(77, 196, 255, 0.35) 0%, rgba(77, 196, 255, 0.12) 100%);
+      color: var(--cyan);
+      border: 1px solid rgba(77, 196, 255, 0.35);
+    }
+
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .chip {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--muted);
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+    }
+    .chip.is-on {
+      border-color: rgba(46, 230, 200, 0.35);
+      background: var(--usdt-soft);
+      color: var(--usdt);
+    }
+
+    .merchant {
+      border-radius: var(--radius-xl);
+      padding: 16px;
+      background: var(--surface);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--stroke);
+      margin-bottom: 12px;
+      transition: border-color 0.2s ease;
+    }
+    .merchant:active { border-color: rgba(46, 230, 200, 0.2); }
+    .m-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .m-user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .m-av {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(46, 230, 200, 0.2), rgba(77, 196, 255, 0.1));
+      border: 1px solid rgba(46, 230, 200, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--usdt);
+    }
+    .m-name { font-size: 15px; font-weight: 700; }
+    .m-badge {
+      display: inline-block;
+      margin-top: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--gold);
+    }
+    .m-rate {
+      text-align: right;
+    }
+    .m-rate .p {
+      font-size: 18px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--usdt);
+    }
+    .m-rate .u { font-size: 11px; color: var(--muted); }
+    .m-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 12px;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .m-meta b { color: var(--text); font-weight: 600; }
+    .m-pay {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+    .pay-tag {
+      padding: 4px 8px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--stroke);
+      font-weight: 600;
+      color: var(--text);
+    }
+    .m-speed {
+      font-size: 11px;
+      color: var(--success);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+    .btn-cta {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: var(--radius-md);
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.12s ease, opacity 0.2s ease;
+    }
+    .btn-cta:active { transform: scale(0.99); }
+    .btn-cta.buy {
+      background: linear-gradient(180deg, #3ee6c4 0%, #1fb89a 100%);
+      color: #061210;
+      box-shadow: 0 10px 28px rgba(46, 230, 200, 0.22);
+    }
+    .btn-cta.sell {
+      background: linear-gradient(180deg, rgba(77, 196, 255, 0.45) 0%, rgba(77, 196, 255, 0.15) 100%);
+      color: var(--text);
+      border: 1px solid rgba(77, 196, 255, 0.35);
+    }
+
+    /* —— Task market —— */
+    .task-search {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: var(--radius-lg);
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--stroke);
+      margin-bottom: 12px;
+    }
+    .task-search span { color: var(--muted); font-size: 16px; }
+    .task-search input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      color: var(--text);
+      font-size: 15px;
+      font-family: inherit;
+      outline: none;
+    }
+    .task-search input::placeholder { color: var(--muted); opacity: 0.8; }
+
+    .task-sort {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+      scrollbar-width: none;
+    }
+    .task-sort::-webkit-scrollbar { display: none; }
+
+    .cat-scroll {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      margin-bottom: 16px;
+      scrollbar-width: none;
+    }
+    .cat-scroll::-webkit-scrollbar { display: none; }
+
+    .task-card {
+      border-radius: var(--radius-xl);
+      padding: 16px;
+      background: var(--surface);
+      border: 1px solid var(--stroke);
+      margin-bottom: 12px;
+      backdrop-filter: blur(20px);
+    }
+    .task-card .row1 {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .task-card .cat {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--cyan);
+    }
+    .task-card .tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .t-tag {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 8px;
+      background: rgba(232, 184, 109, 0.12);
+      color: var(--warning);
+    }
+    .t-tag.trust {
+      background: rgba(94, 214, 154, 0.12);
+      color: var(--success);
+    }
+    .task-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.35;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .task-card .sum {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.45;
+      margin-bottom: 14px;
+    }
+    .task-foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .task-reward {
+      font-size: 20px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--usdt);
+    }
+    .task-reward small {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-left: 2px;
+    }
+    .task-dl { font-size: 12px; color: var(--muted); text-align: right; }
+    .btn-task {
+      width: 100%;
+      margin-top: 12px;
+      padding: 13px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(46, 230, 200, 0.35);
+      background: rgba(46, 230, 200, 0.1);
+      color: var(--usdt);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.12s ease;
+    }
+    .btn-task:active { transform: scale(0.99); background: rgba(46, 230, 200, 0.16); }
+
+    .footer-note {
+      text-align: center;
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 20px;
+      opacity: 0.7;
+      line-height: 1.45;
+    }
+  </style>
+</head>
+<body class="has-app-tabbar">
+  <div class="phone">
+    <div class="status-bar">
+      <span>9:41</span>
+      <span>市场</span>
+      <span>LTE ●</span>
+    </div>
+
+    <header class="top-row">
+      <div class="top-title">
+        <h1>市场</h1>
+        <p>USDT 点对点 · 任务机会</p>
+      </div>
+      <button type="button" class="top-ic" aria-label="搜索">⌕</button>
+      <button type="button" class="top-ic" aria-label="筛选排序" style="color:var(--gold)">☷</button>
+    </header>
+
+    <div class="pulse" aria-live="polite">
+      <span class="pulse-dot" aria-hidden="true"></span>
+      <div class="pulse-marquee">
+        <span>OTC 深度良好 · 任务上新 +14 · 托管成交 ￥2.1M · 商家在线 1,024 · 平均放行 6 分钟 · </span>
+        <span>OTC 深度良好 · 任务上新 +14 · 托管成交 ￥2.1M · 商家在线 1,024 · 平均放行 6 分钟 · </span>
+      </div>
+      <span class="pulse-val">+0.02%</span>
+    </div>
+
+    <div class="seg-main" role="tablist">
+      <button type="button" class="is-on" id="tab-otc" role="tab" aria-selected="true">买卖 USDT</button>
+      <button type="button" id="tab-task" role="tab" aria-selected="false">任务市场</button>
+    </div>
+
+    <!-- Panel OTC -->
+    <div class="panel is-on" id="panel-otc" role="tabpanel">
+      <section class="price-card" aria-label="参考价">
+        <div class="price-head">
+          <span class="lbl">参考汇率（CNY）</span>
+          <span class="chg">24h −0.04%</span>
+        </div>
+        <p class="price-big"><span class="num">7.238</span><span class="unit">/ USDT</span></p>
+        <p class="price-sub">撮合加权 · 非最终成交价 · 更新 09:41:02</p>
+        <div class="price-chart" aria-hidden="true">
+          <svg viewBox="0 0 300 48" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="pg" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="rgba(46,230,200,0.28)" />
+                <stop offset="100%" stop-color="rgba(46,230,200,0)" />
+              </linearGradient>
+            </defs>
+            <path d="M0,36 L40,34 L80,28 L120,30 L160,22 L200,26 L240,18 L280,20 L300,16 L300,48 L0,48 Z" fill="url(#pg)" />
+            <path d="M0,36 L40,34 L80,28 L120,30 L160,22 L200,26 L240,18 L280,20 L300,16" fill="none" stroke="var(--usdt)" stroke-width="1.75" stroke-linecap="round" />
+          </svg>
+        </div>
+        <div class="tick">
+          <span>低 7.221</span>
+          <span>成交量活跃</span>
+          <span>高 7.251</span>
+        </div>
+      </section>
+
+      <div class="seg-side" role="group" aria-label="买入或卖出">
+        <button type="button" class="buy-on" id="side-buy">买入 USDT</button>
+        <button type="button" class="sell-off" id="side-sell">卖出 USDT</button>
+      </div>
+
+      <div class="filter-row" aria-label="筛选">
+        <button type="button" class="chip is-on" data-otc-filter>最优价</button>
+        <button type="button" class="chip" data-otc-filter>完成率</button>
+        <button type="button" class="chip" data-otc-filter>限额匹配</button>
+        <button type="button" class="chip" data-otc-filter>银行卡</button>
+        <button type="button" class="chip" data-otc-filter>支付宝</button>
+      </div>
+
+      <article class="merchant">
+        <div class="m-head">
+          <div class="m-user">
+            <div class="m-av">L</div>
+            <div>
+              <div class="m-name">LedgerPro</div>
+              <span class="m-badge">金牌 · 完成 3,402 单</span>
+            </div>
+          </div>
+          <div class="m-rate">
+            <div class="p">7.232</div>
+            <div class="u">CNY / USDT</div>
+          </div>
+        </div>
+        <div class="m-meta">
+          <span>限额 <b>500 – 50,000</b> CNY</span>
+          <span>完成率 <b>99.6%</b></span>
+          <span>平均用时 <b>4 分钟</b></span>
+          <span>30 日成交 <b>¥ 1.2M</b></span>
+        </div>
+        <div class="m-pay"><span>支付</span><span class="pay-tag">银行卡</span><span class="pay-tag">支付宝</span></div>
+        <p class="m-speed">⚡ 通常 3 分钟内响应</p>
+        <button type="button" class="btn-cta buy js-otc-cta">买入 USDT</button>
+      </article>
+
+      <article class="merchant">
+        <div class="m-head">
+          <div class="m-user">
+            <div class="m-av" style="color:var(--cyan)">N</div>
+            <div>
+              <div class="m-name">NovaOTC</div>
+              <span class="m-badge">完成 1,890 单 · 企业认证</span>
+            </div>
+          </div>
+          <div class="m-rate">
+            <div class="p">7.229</div>
+            <div class="u">CNY / USDT</div>
+          </div>
+        </div>
+        <div class="m-meta">
+          <span>限额 <b>1,000 – 200,000</b> CNY</span>
+          <span>完成率 <b>99.2%</b></span>
+          <span>平均用时 <b>8 分钟</b></span>
+          <span>30 日成交 <b>¥ 3.8M</b></span>
+        </div>
+        <div class="m-pay"><span>支付</span><span class="pay-tag">银行卡</span><span class="pay-tag">微信</span></div>
+        <p class="m-speed">⚡ 工作时段即时接单</p>
+        <button type="button" class="btn-cta buy js-otc-cta">买入 USDT</button>
+      </article>
+
+      <article class="merchant">
+        <div class="m-head">
+          <div class="m-user">
+            <div class="m-av" style="color:var(--gold)">K</div>
+            <div>
+              <div class="m-name">KiteFlow</div>
+              <span class="m-badge">完成 642 单</span>
+            </div>
+          </div>
+          <div class="m-rate">
+            <div class="p">7.241</div>
+            <div class="u">CNY / USDT</div>
+          </div>
+        </div>
+        <div class="m-meta">
+          <span>限额 <b>200 – 20,000</b> CNY</span>
+          <span>完成率 <b>98.8%</b></span>
+          <span>平均用时 <b>5 分钟</b></span>
+          <span>30 日成交 <b>¥ 420K</b></span>
+        </div>
+        <div class="m-pay"><span>支付</span><span class="pay-tag">支付宝</span></div>
+        <p class="m-speed">⚡ 夜间在线</p>
+        <button type="button" class="btn-cta buy js-otc-cta">买入 USDT</button>
+      </article>
+    </div>
+
+    <!-- Panel Task -->
+    <div class="panel" id="panel-task" role="tabpanel" hidden>
+      <div class="task-search">
+        <span aria-hidden="true">⌕</span>
+        <input type="search" placeholder="搜索任务标题、技能关键词…" autocomplete="off" />
+      </div>
+      <div class="task-sort">
+        <button type="button" class="chip is-on" data-task-sort>最新</button>
+        <button type="button" class="chip" data-task-sort>赏金优先</button>
+        <button type="button" class="chip" data-task-sort>人气</button>
+        <button type="button" class="chip" data-task-sort>即将截止</button>
+      </div>
+      <div class="cat-scroll" role="tablist" aria-label="类别">
+        <button type="button" class="chip is-on" data-cat>设计</button>
+        <button type="button" class="chip" data-cat>写作</button>
+        <button type="button" class="chip" data-cat>翻译</button>
+        <button type="button" class="chip" data-cat>编辑</button>
+        <button type="button" class="chip" data-cat>咨询</button>
+        <button type="button" class="chip" data-cat>数字商品</button>
+        <button type="button" class="chip" data-cat>其他</button>
+      </div>
+
+      <article class="task-card">
+        <div class="row1">
+          <span class="cat">设计</span>
+          <div class="tags"><span class="t-tag">急单</span><span class="t-tag trust">托管</span></div>
+        </div>
+        <h3>SaaS 控制台信息架构 + 高保真界面</h3>
+        <p class="sum">需交付 Figma 源文件与组件说明，2 轮修改；偏好 B 端金融科技风格。</p>
+        <div class="task-foot">
+          <div class="task-reward">2,800<small>USDT</small></div>
+          <div class="task-dl">截止 · 5 天内<br />128 浏览</div>
+        </div>
+        <button type="button" class="btn-task">接取任务</button>
+      </article>
+
+      <article class="task-card">
+        <div class="row1">
+          <span class="cat">翻译</span>
+          <div class="tags"><span class="t-tag trust">雇主优</span></div>
+        </div>
+        <h3>白皮书节选 · 中译英（金融合规术语）</h3>
+        <p class="sum">约 8,000 字，附术语表；需签署保密协议；验收后 48h 内结算。</p>
+        <div class="task-foot">
+          <div class="task-reward">960<small>USDT</small></div>
+          <div class="task-dl">灵活截止<br />42 浏览</div>
+        </div>
+        <button type="button" class="btn-task">接取任务</button>
+      </article>
+
+      <article class="task-card">
+        <div class="row1">
+          <span class="cat">咨询</span>
+          <div class="tags"><span class="t-tag">视频</span><span class="t-tag trust">高信用</span></div>
+        </div>
+        <h3>跨境收款架构咨询（60 分钟）</h3>
+        <p class="sum">含会前问卷与会议纪要；适合初创团队；时间可约工作日晚间。</p>
+        <div class="task-foot">
+          <div class="task-reward">350<small>USDT</small></div>
+          <div class="task-dl">剩 2 个名额<br />89 浏览</div>
+        </div>
+        <button type="button" class="btn-task">接取任务</button>
+      </article>
+
+      <article class="task-card">
+        <div class="row1">
+          <span class="cat">数字商品</span>
+          <div class="tags"><span class="t-tag">自动交付</span></div>
+        </div>
+        <h3>可商用 UI 音效包 · 分层 WAV</h3>
+        <p class="sum">支付后网盘链接；含授权说明；不支持退款请先看试听。</p>
+        <div class="task-foot">
+          <div class="task-reward">45<small>USDT</small></div>
+          <div class="task-dl">长期有效<br />512 已购</div>
+        </div>
+        <button type="button" class="btn-task">接取任务</button>
+      </article>
+    </div>
+
+    <p class="footer-note">高保真设计预览 · 市场 · 虚构报价与任务<br />与首页 / 资产页共用设计 Token 与底部导航</p>
+  </div>
+
+  <nav class="app-tabbar" aria-label="主导航">
+    <div class="app-tabbar__inner">
+      <a href="./preview-app-home.html" class="app-tab"><span class="app-tab__ic">⌂</span><span class="app-tab__tx">首页</span><span class="app-tab__dot" aria-hidden="true"></span></a>
+      <a href="./preview-app-market.html" class="app-tab is-active"><span class="app-tab__ic">≋</span><span class="app-tab__tx">市场</span><span class="app-tab__dot" aria-hidden="true"></span></a>
+      <a href="./preview-app-publish.html" class="app-tab"><span class="app-tab__ic">⊕</span><span class="app-tab__tx">发布</span><span class="app-tab__dot" aria-hidden="true"></span></a>
+      <a href="./assets-wallet.html" class="app-tab"><span class="app-tab__ic">◈</span><span class="app-tab__tx">资产</span><span class="app-tab__dot" aria-hidden="true"></span></a>
+      <a href="./preview-app-profile.html" class="app-tab"><span class="app-tab__ic">◎</span><span class="app-tab__tx">我的</span><span class="app-tab__dot" aria-hidden="true"></span></a>
+    </div>
+  </nav>
+
+  <script>
+    (function () {
+      var tabOtc = document.getElementById('tab-otc');
+      var tabTask = document.getElementById('tab-task');
+      var panelOtc = document.getElementById('panel-otc');
+      var panelTask = document.getElementById('panel-task');
+      var sideBuy = document.getElementById('side-buy');
+      var sideSell = document.getElementById('side-sell');
+      var ctas = document.querySelectorAll('.js-otc-cta');
+
+      function showOtc() {
+        tabOtc.classList.add('is-on');
+        tabTask.classList.remove('is-on');
+        tabOtc.setAttribute('aria-selected', 'true');
+        tabTask.setAttribute('aria-selected', 'false');
+        panelOtc.classList.add('is-on');
+        panelTask.classList.remove('is-on');
+        panelTask.hidden = true;
+        panelOtc.hidden = false;
+      }
+      function showTask() {
+        tabTask.classList.add('is-on');
+        tabOtc.classList.remove('is-on');
+        tabTask.setAttribute('aria-selected', 'true');
+        tabOtc.setAttribute('aria-selected', 'false');
+        panelTask.classList.add('is-on');
+        panelOtc.classList.remove('is-on');
+        panelOtc.hidden = true;
+        panelTask.hidden = false;
+      }
+
+      tabOtc.addEventListener('click', showOtc);
+      tabTask.addEventListener('click', showTask);
+
+      function setSide(buy) {
+        if (buy) {
+          sideBuy.className = 'buy-on';
+          sideSell.className = 'sell-off';
+          ctas.forEach(function (b) {
+            b.className = 'btn-cta buy js-otc-cta';
+            b.textContent = '买入 USDT';
+          });
+        } else {
+          sideBuy.className = 'buy-off';
+          sideSell.className = 'sell-on';
+          ctas.forEach(function (b) {
+            b.className = 'btn-cta sell js-otc-cta';
+            b.textContent = '卖出 USDT';
+          });
+        }
+      }
+      sideBuy.addEventListener('click', function () { setSide(true); });
+      sideSell.addEventListener('click', function () { setSide(false); });
+
+      document.querySelectorAll('[data-otc-filter]').forEach(function (el) {
+        el.addEventListener('click', function () {
+          document.querySelectorAll('[data-otc-filter]').forEach(function (c) { c.classList.remove('is-on'); });
+          el.classList.add('is-on');
+        });
+      });
+      document.querySelectorAll('[data-task-sort]').forEach(function (el) {
+        el.addEventListener('click', function () {
+          document.querySelectorAll('[data-task-sort]').forEach(function (c) { c.classList.remove('is-on'); });
+          el.classList.add('is-on');
+        });
+      });
+      document.querySelectorAll('[data-cat]').forEach(function (el) {
+        el.addEventListener('click', function () {
+          document.querySelectorAll('[data-cat]').forEach(function (c) { c.classList.remove('is-on'); });
+          el.classList.add('is-on');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

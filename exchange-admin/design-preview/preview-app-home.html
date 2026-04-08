@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>首页 · USDT 实用交易（设计预览）</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./app-tabbar.css" />
+  <style>
+    :root {
+      --bg: #0a0c10;
+      --surface: rgba(22, 28, 38, 0.78);
+      --stroke: rgba(255, 255, 255, 0.08);
+      --text: #eef2f7;
+      --muted: #8b95a8;
+      --usdt: #2ee6c8;
+      --usdt-soft: rgba(46, 230, 200, 0.14);
+      --cyan: #4dc4ff;
+      --gold: #c9a962;
+      --success: #5ed69a;
+      --warning: #e8b86d;
+      --danger: #e89898;
+      --radius-xl: 22px;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --shadow: 0 28px 56px rgba(0, 0, 0, 0.5);
+      --glow: 0 0 72px rgba(46, 230, 200, 0.1);
+      --font: 'DM Sans', system-ui, -apple-system, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font);
+      background:
+        radial-gradient(100% 65% at 50% -12%, rgba(46, 230, 200, 0.08), transparent 50%),
+        radial-gradient(65% 45% at 100% 8%, rgba(77, 196, 255, 0.06), transparent 42%),
+        radial-gradient(45% 35% at 0% 55%, rgba(201, 169, 98, 0.05), transparent 38%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100dvh;
+      padding: 16px 0 32px;
+      -webkit-font-smoothing: antialiased;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+    .phone {
+      width: min(390px, 100vw - 32px);
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    /* 1. Top greet */
+    .top-greet {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      background: linear-gradient(145deg, rgba(46, 230, 200, 0.25), rgba(77, 196, 255, 0.15));
+      border: 1px solid rgba(46, 230, 200, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .greet-text { flex: 1; min-width: 0; }
+    .greet-text .hi {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+    .greet-text .name {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .uid-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+    .uid-pill {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 4px 10px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--stroke);
+      color: var(--muted);
+    }
+    .trust-mini {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--success);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .top-actions {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .icon-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      border: 1px solid var(--stroke);
+      background: rgba(255, 255, 255, 0.04);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      cursor: pointer;
+      color: var(--text);
+      position: relative;
+      line-height: 1;
+      transition: background 0.2s ease, transform 0.12s ease;
+    }
+    .icon-btn:active { transform: scale(0.96); }
+    .icon-btn .dot {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--cyan);
+      border: 2px solid var(--bg);
+    }
+
+    /* 2. Wallet hero */
+    .hero {
+      position: relative;
+      border-radius: var(--radius-xl);
+      padding: 22px 20px 18px;
+      background: linear-gradient(168deg, rgba(46, 230, 200, 0.12) 0%, rgba(77, 196, 255, 0.06) 40%, rgba(14, 17, 22, 0.94) 100%);
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow), var(--glow);
+      overflow: hidden;
+      margin-bottom: 22px;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(46, 230, 200, 0.45), transparent 40%, rgba(77, 196, 255, 0.22));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+    .hero-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .hero-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(94, 214, 154, 0.12);
+      color: var(--success);
+      border: 1px solid rgba(94, 214, 154, 0.25);
+    }
+    .hero-total {
+      font-size: 32px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 4px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-total .num { color: var(--usdt); }
+    .hero-total .unit { font-size: 15px; font-weight: 600; color: var(--muted); margin-left: 6px; }
+    .hero-fiat {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-fiat strong { color: var(--gold); font-weight: 500; }
+    .mini-chart {
+      height: 44px;
+      margin-bottom: 14px;
+      position: relative;
+      z-index: 1;
+    }
+    .mini-chart svg { width: 100%; height: 100%; display: block; }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      position: relative;
+      z-index: 1;
+    }
+    .stat {
+      background: rgba(0, 0, 0, 0.28);
+      border-radius: var(--radius-md);
+      padding: 10px 8px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .stat-k {
+      font-size: 9px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .stat-v {
+      font-size: 14px;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+    .stat-v.a { color: var(--usdt); }
+    .stat-v.e { color: var(--cyan); }
+    .hero-link {
+      display: block;
+      text-align: center;
+      margin-top: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--cyan);
+      text-decoration: none;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Section title */
+    .sec-h {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 12px;
+    }
+    .sec-h h2 {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .sec-h a {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--cyan);
+      text-decoration: none;
+    }
+
+    /* 3. Quick grid */
+    .q-grid-wrap {
+      margin: 0 -18px 26px;
+      padding: 0 18px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .q-grid-wrap::-webkit-scrollbar { display: none; }
+    .q-grid {
+      display: flex;
+      gap: 8px;
+      min-width: min-content;
+    }
+    @media (min-width: 360px) {
+      .q-grid-wrap {
+        margin: 0 0 26px;
+        padding: 0;
+        overflow: visible;
+      }
+      .q-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        min-width: 0;
+      }
+    }
+    .q-item {
+      flex: 0 0 68px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 4px;
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--stroke);
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.15s ease, border-color 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    @media (min-width: 360px) {
+      .q-item { flex: none; }
+    }
+    .q-item:active { transform: scale(0.97); }
+    .q-item:hover { border-color: rgba(46, 230, 200, 0.2); }
+    .q-ic {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      background: rgba(46, 230, 200, 0.1);
+      border: 1px solid rgba(46, 230, 200, 0.2);
+    }
+    .q-item:nth-child(2) .q-ic { background: rgba(77, 196, 255, 0.1); border-color: rgba(77, 196, 255, 0.22); }
+    .q-item:nth-child(3) .q-ic { background: rgba(201, 169, 98, 0.12); border-color: rgba(201, 169, 98, 0.22); }
+    .q-item:nth-child(4) .q-ic { background: rgba(94, 214, 154, 0.1); border-color: rgba(94, 214, 154, 0.2); }
+    .q-item:nth-child(5) .q-ic { background: rgba(77, 196, 255, 0.08); border-color: rgba(77, 196, 255, 0.18); }
+    .q-tx {
+      font-size: 9px;
+      font-weight: 600;
+      text-align: center;
+      line-height: 1.25;
+      color: var(--muted);
+    }
+
+    /* 4. Task cards horizontal */
+    .h-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      margin: 0 -18px;
+      padding-left: 18px;
+      padding-right: 18px;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .h-scroll::-webkit-scrollbar { display: none; }
+    .task-card {
+      flex: 0 0 260px;
+      border-radius: var(--radius-xl);
+      padding: 16px;
+      background: var(--surface);
+      backdrop-filter: blur(24px);
+      border: 1px solid var(--stroke);
+      transition: border-color 0.2s ease;
+    }
+    .task-card:active { border-color: rgba(46, 230, 200, 0.25); }
+    .task-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .task-cat {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--cyan);
+    }
+    .task-hot {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .task-title {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .task-foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .task-reward {
+      font-size: 18px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--usdt);
+    }
+    .task-reward span { font-size: 11px; font-weight: 600; color: var(--muted); margin-left: 2px; }
+    .task-meta {
+      text-align: right;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .task-meta .urgent { color: var(--warning); font-weight: 600; }
+    .task-trust {
+      margin-top: 10px;
+      font-size: 10px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .task-trust b { color: var(--success); font-weight: 600; }
+
+    /* 5. Featured strip */
+    .feat-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .feat-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .feat-ic {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: rgba(201, 169, 98, 0.12);
+      border: 1px solid rgba(201, 169, 98, 0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .feat-body { flex: 1; min-width: 0; }
+    .feat-body .t { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+    .feat-body .s { font-size: 12px; color: var(--muted); }
+    .feat-tag {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 8px;
+      background: var(--usdt-soft);
+      color: var(--usdt);
+      flex-shrink: 0;
+    }
+
+    /* 6. Guide */
+    .guide {
+      border-radius: var(--radius-xl);
+      padding: 16px;
+      background: rgba(77, 196, 255, 0.06);
+      border: 1px solid rgba(77, 196, 255, 0.14);
+      margin-bottom: 14px;
+    }
+    .guide h3 {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+    .guide-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      text-decoration: none;
+      color: inherit;
+    }
+    .guide-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .guide-row:first-of-type { padding-top: 0; }
+    .guide-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 10px;
+      background: rgba(46, 230, 200, 0.15);
+      color: var(--usdt);
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .guide-txt { flex: 1; }
+    .guide-txt .g-t { font-size: 13px; font-weight: 600; }
+    .guide-txt .g-s { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .guide-row span.arr { color: var(--muted); font-size: 14px; }
+
+    /* 7. Security */
+    .safe-card {
+      border-radius: var(--radius-xl);
+      padding: 16px 18px;
+      background: rgba(201, 169, 98, 0.08);
+      border: 1px solid rgba(201, 169, 98, 0.2);
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .safe-ic { font-size: 22px; flex-shrink: 0; }
+    .safe-body .t { font-size: 13px; font-weight: 700; color: var(--gold); margin-bottom: 6px; }
+    .safe-body .p { font-size: 12px; line-height: 1.5; color: var(--muted); }
+
+    .footer-note {
+      text-align: center;
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 28px;
+      opacity: 0.7;
+      line-height: 1.45;
+    }
+  </style>
+</head>
+<body class="has-app-tabbar">
+  <div class="phone">
+    <div class="status-bar">
+      <span>9:41</span>
+      <span>首页</span>
+      <span>LTE ●</span>
+    </div>
+
+    <header class="top-greet">
+      <div class="avatar" aria-hidden="true">◇</div>
+      <div class="greet-text">
+        <p class="hi">早上好</p>
+        <p class="name">Alex</p>
+        <div class="uid-row">
+          <span class="uid-pill">UID · UF-8K2M-91Q</span>
+          <span class="trust-mini">● 已验证</span>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button type="button" class="icon-btn" aria-label="通知"><span class="dot" aria-hidden="true"></span><span style="color:var(--cyan);font-size:20px;font-weight:600">◇</span></button>
+      </div>
+    </header>
+
+    <section class="hero" aria-label="钱包总览">
+      <div class="hero-head">
+        <span class="hero-label">总览 · USDT</span>
+        <span class="hero-badge">资金隔离</span>
+      </div>
+      <p class="hero-total"><span class="num">12,480.52</span><span class="unit">USDT</span></p>
+      <p class="hero-fiat">≈ <strong>¥ 89,860</strong> · 近7日 +0.8%</p>
+      <div class="mini-chart" aria-hidden="true">
+        <svg viewBox="0 0 320 44" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="hg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(46,230,200,0.3)" />
+              <stop offset="100%" stop-color="rgba(46,230,200,0)" />
+            </linearGradient>
+          </defs>
+          <path d="M0,32 C36,28 64,18 100,20 C136,22 168,8 200,12 C232,16 268,4 320,8 L320,44 L0,44 Z" fill="url(#hg)" />
+          <path d="M0,32 C36,28 64,18 100,20 C136,22 168,8 200,12 C232,16 268,4 320,8" fill="none" stroke="var(--usdt)" stroke-width="1.75" stroke-linecap="round" />
+        </svg>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="stat-k">可用</div><div class="stat-v a">9,200.00</div></div>
+        <div class="stat"><div class="stat-k">冻结</div><div class="stat-v">1,280.50</div></div>
+        <div class="stat"><div class="stat-k">托管</div><div class="stat-v e">2,000.02</div></div>
+      </div>
+      <a class="hero-link" href="./assets-wallet.html">查看资产明细与流水 →</a>
+    </section>
+
+    <div class="sec-h">
+      <h2>快捷入口</h2>
+    </div>
+    <div class="q-grid-wrap">
+      <nav class="q-grid" aria-label="快捷操作">
+        <a class="q-item" href="./preview-app-market.html"><span class="q-ic">₮</span><span class="q-tx">买入 USDT</span></a>
+        <a class="q-item" href="./preview-app-market.html"><span class="q-ic">¤</span><span class="q-tx">卖出 USDT</span></a>
+        <a class="q-item" href="./preview-app-publish.html"><span class="q-ic">✦</span><span class="q-tx">发布任务</span></a>
+        <a class="q-item" href="./preview-app-market.html"><span class="q-ic">✓</span><span class="q-tx">接取任务</span></a>
+        <a class="q-item" href="./preview-app-publish.html"><span class="q-ic">⛨</span><span class="q-tx">托管交易</span></a>
+      </nav>
+    </div>
+
+    <div class="sec-h">
+      <h2>推荐任务</h2>
+      <a href="./preview-app-market.html">全部</a>
+    </div>
+    <div class="h-scroll" role="list">
+      <article class="task-card" role="listitem">
+        <div class="task-top">
+          <span class="task-cat">设计</span>
+          <span class="task-hot">★ 热门</span>
+        </div>
+        <h3 class="task-title">品牌官网视觉升级 · 含移动端适配</h3>
+        <div class="task-foot">
+          <div class="task-reward">1,200<span>USDT</span></div>
+          <div class="task-meta"><span class="urgent">剩 2 天</span><br />3 人竞标</div>
+        </div>
+        <p class="task-trust">雇主 <b>信用优</b> · 托管已锁定预算</p>
+      </article>
+      <article class="task-card" role="listitem">
+        <div class="task-top">
+          <span class="task-cat">开发</span>
+          <span class="task-hot">⚡ 急单</span>
+        </div>
+        <h3 class="task-title">API 对接与 Webhook 联调（文档齐全）</h3>
+        <div class="task-foot">
+          <div class="task-reward">850<span>USDT</span></div>
+          <div class="task-meta">5 天交付<br />12 次浏览</div>
+        </div>
+        <p class="task-trust">完成率 <b>98%</b> 同类任务</p>
+      </article>
+      <article class="task-card" role="listitem">
+        <div class="task-top">
+          <span class="task-cat">文案</span>
+          <span class="task-hot">新</span>
+        </div>
+        <h3 class="task-title">产品白皮书英文化 + 术语表</h3>
+        <div class="task-foot">
+          <div class="task-reward">420<span>USDT</span></div>
+          <div class="task-meta">灵活截止<br />雇主在线</div>
+        </div>
+        <p class="task-trust">平台 <b>担保结算</b></p>
+      </article>
+    </div>
+
+    <div class="sec-h" style="margin-top:26px">
+      <h2>精选机会</h2>
+      <a href="./preview-app-market.html">更多</a>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-row">
+        <div class="feat-ic">★</div>
+        <div class="feat-body">
+          <p class="t">高信用服务方 · Luna Studio</p>
+          <p class="s">UI/UX 套餐 · 平均 4.9 分 · 128 单交付</p>
+        </div>
+        <span class="feat-tag">甄选</span>
+      </div>
+      <div class="feat-row">
+        <div class="feat-ic" style="background:rgba(77,196,255,0.12);border-color:rgba(77,196,255,0.22)">⛨</div>
+        <div class="feat-body">
+          <p class="t">热门托管 · 数字资产交割</p>
+          <p class="s">双方确认后释放 · 争议可申诉</p>
+        </div>
+        <span class="feat-tag" style="background:rgba(77,196,255,0.12);color:var(--cyan)">托管</span>
+      </div>
+      <div class="feat-row">
+        <div class="feat-ic" style="background:rgba(94,214,154,0.1);border-color:rgba(94,214,154,0.2)">#</div>
+        <div class="feat-body">
+          <p class="t">推荐类目 · 跨境支付与合规咨询</p>
+          <p class="s">本周需求 +18% · 客单价稳定</p>
+        </div>
+        <span class="feat-tag" style="background:rgba(94,214,154,0.12);color:var(--success)">趋势</span>
+      </div>
+    </div>
+
+    <div class="sec-h" style="margin-top:26px">
+      <h2>新手指引</h2>
+    </div>
+    <div class="guide">
+      <h3>三步开始赚钱与交易</h3>
+      <a class="guide-row" href="./preview-app-market.html">
+        <span class="guide-num">1</span>
+        <div class="guide-txt"><p class="g-t">买入 USDT</p><p class="g-s">C2C 或链上入金，到账后即可参与任务与托管</p></div>
+        <span class="arr">→</span>
+      </a>
+      <a class="guide-row" href="./preview-app-publish.html">
+        <span class="guide-num">2</span>
+        <div class="guide-txt"><p class="g-t">发布或接取任务</p><p class="g-s">赏金进托管，验收通过后自动结算</p></div>
+        <span class="arr">→</span>
+      </a>
+      <a class="guide-row" href="./preview-app-publish.html">
+        <span class="guide-num">3</span>
+        <div class="guide-txt"><p class="g-t">托管如何保护资金</p><p class="g-s">平台锁定 USDT，任一方不可单方划走</p></div>
+        <span class="arr">→</span>
+      </a>
+    </div>
+
+    <div class="sec-h" style="margin-top:22px">
+      <h2>安全提示</h2>
+    </div>
+    <div class="safe-card">
+      <span class="safe-ic" aria-hidden="true">⛨</span>
+      <div class="safe-body">
+        <p class="t">平台不会私信索要私钥或验证码</p>
+        <p class="p">请仅在 App 内完成付款与确认；警惕「站外低价」与仿冒链接。如遇异常，请从官方渠道联系客服。</p>
+      </div>
+    </div>
+
+    <p class="footer-note">高保真设计预览 · 首页 · 虚构数据与文案<br />与 assets-wallet、发布/市场占位页共用底部导航与视觉 Token</p>
+  </div>
+
+  <nav class="app-tabbar" aria-label="主导航">
+    <div class="app-tabbar__inner">
+      <a href="./preview-app-home.html" class="app-tab is-active"><span class="app-tab__ic">⌂</span><span class="app-tab__tx">首页</span><span class="app-tab__dot" aria-hidden="true"></span></a>
+      <a href="./preview-app-market.html" class="app-tab"><span class="app-tab__ic">≋</span><span class="app-tab__tx">市场</span><span class="app-tab__dot" aria-hidden="true"></span></a>
+      <a href="./preview-app-publish.html" class="app-tab"><span class="app-tab__ic">⊕</span><span class="app-tab__tx">发布</span><span class="app-tab__dot" aria-hidden="true"></span></a>
+      <a href="./assets-wallet.html" class="app-tab"><span class="app-tab__ic">◈</span><span class="app-tab__tx">资产</span><span class="app-tab__dot" aria-hidden="true"></span></a>
+      <a href="./preview-app-profile.html" class="app-tab"><span class="app-tab__ic">◎</span><span class="app-tab__tx">我的</span><span class="app-tab__dot" aria-hidden="true"></span></a>
+    </div>
+  </nav>
+</body>
+</html>

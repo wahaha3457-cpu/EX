@@ -1,0 +1,169 @@
+{
+  "nft": {
+    "heroEyebrow": "數位藏品 · 多鏈市場",
+    "heroTitle": "NFT 市場",
+    "heroLead": "瀏覽精選數位藏品、合集與首發活動；支援多鏈展示與篩選（演示資料）。交易以實際上線規則與合約為準。",
+    "howTitle": "如何購買",
+    "how1t": "瀏覽與篩選",
+    "how1d": "依鏈、分類、排序與搜尋快速找到藏品或合集。",
+    "how2t": "連接錢包與驗資",
+    "how2d": "正式環境將支援託管錢包與外部錢包；演示階段無需鏈上簽名。",
+    "how3t": "下單或出價",
+    "how3d": "支援一口價與拍賣；成交後可至「訂單中心 › NFT 訂單」查看持有與紀錄。",
+    "chainLabel": "鏈",
+    "portal": {
+      "ctaHoldings": "我的持有與訂單",
+      "ctaLogin": "登入查看持有與訂單",
+      "ctaBrowse": "瀏覽市場",
+      "bannerTitle": "已購買的 NFT 在哪裡看？",
+      "bannerBody": "持有藏品與購買、拍賣紀錄統一在「訂單中心 › NFT 訂單」，與現貨／合約訂單分開。",
+      "bannerLink": "開啟 NFT 訂單",
+      "bannerAria": "NFT 持有與訂單入口"
+    },
+    "ordersPage": {
+      "intro": "此處展示帳戶內持有的數位藏品，以及購買、出售與拍賣出價紀錄（演示資料）。正式環境以鏈上確權與訂單介面為準。",
+      "bullet1": "「我的持有」為目前帳戶名下藏品；轉出或出售成功後將從清單移除。",
+      "bullet2": "「訂單紀錄」含一口價成交與拍賣出價；未得標、已撤單等狀態會另外標示。",
+      "heading": "NFT 持有與訂單",
+      "goMarket": "前往 NFT 市場",
+      "loading": "載入 NFT 持有與訂單…",
+      "tabsAria": "NFT 分區",
+      "tabHoldings": "我的持有",
+      "tabOrders": "訂單紀錄",
+      "emptyHoldings": "暫無持有藏品",
+      "emptyOrders": "暫無 NFT 訂單紀錄",
+      "acquired": "獲得時間",
+      "cost": "購入參考價",
+      "colTime": "時間",
+      "colItem": "藏品",
+      "colCollection": "合集",
+      "colChain": "鏈",
+      "colSide": "方向",
+      "colKind": "類型",
+      "colAmount": "金額",
+      "colStatus": "狀態",
+      "sideBuy": "買入",
+      "sideSell": "賣出",
+      "sideBid": "出價",
+      "status": {
+        "FILLED": "已成交",
+        "PENDING": "進行中",
+        "OUTBID": "已出局",
+        "CANCELLED": "已取消"
+      }
+    },
+    "stats": {
+      "volume24h": "24h 成交額 (USDT)",
+      "traders": "24h 交易用戶",
+      "listed": "在售 NFT"
+    },
+    "tab": {
+      "featured": "精選",
+      "market": "市場",
+      "collections": "合集",
+      "drops": "首發 / 活動"
+    },
+    "tabsAria": "NFT 分區",
+    "searchPh": "搜尋名稱、合集或創作者",
+    "searchCollectionPh": "搜尋合集名稱",
+    "loading": "載入 NFT 資料…",
+    "empty": "暫無符合篩選的內容",
+    "error": {
+      "load": "NFT 資料載入失敗"
+    },
+    "sort": {
+      "latest": "最新上架",
+      "price_asc": "價格由低到高",
+      "price_desc": "價格由高到低",
+      "popular": "熱度"
+    },
+    "chain": {
+      "ALL": "全部鏈",
+      "BSC": "BNB Chain",
+      "ETH": "以太坊",
+      "POLYGON": "Polygon"
+    },
+    "cat": {
+      "ALL": "全部分類",
+      "PFP": "頭像 PFP",
+      "ART": "藝術",
+      "GAME": "遊戲",
+      "SPORT": "體育",
+      "METAVERSE": "元宇宙"
+    },
+    "sale": {
+      "buyNow": "一口價",
+      "auction": "拍賣"
+    },
+    "collection": {
+      "floor": "地板價",
+      "vol24h": "24h 成交量",
+      "items": "作品數量"
+    },
+    "badge": {
+      "verified": "已驗證"
+    },
+    "drop": {
+      "badge": "首發活動",
+      "ended": "活動已結束",
+      "left": "剩餘 {d} 天 {h} 小時"
+    },
+    "rules": {
+      "title": "交易與風控說明（演示）",
+      "i1": "NFT 為非同質化數位資產，價格波動大；請在充分理解風險後參與。",
+      "i2": "演示環境不連接主網，購買/出價僅為前端模擬，不產生鏈上交易。",
+      "i3": "正式環境需完成身份認證（KYC）並遵守當地法規與平台規則。",
+      "i4": "版稅、創作者分成與 Gas 費以實際上線參數為準。",
+      "short": "演示購買不會產生真實扣款；正式環境將走託管合約與訂單系統。"
+    },
+    "disclaimer": "本頁為產品演示介面，圖片由占位服務生成；與任何真實專案無關。上線前請替換為自有 CDN 與鏈上元資料。",
+    "price": {
+      "buyNow": "一口價",
+      "currentBid": "目前最高出價"
+    },
+    "time": {
+      "ended": "已結束",
+      "left": "剩餘約 {h} 小時 {m} 分"
+    },
+    "detail": {
+      "creator": "創作者",
+      "tokenStandard": "代幣標準",
+      "royalty": "版稅",
+      "traits": "屬性",
+      "feeHint": "含平台服務費約 {fee}% · 創作者版稅 {roy}%（以下單頁明細為準）"
+    },
+    "trade": {
+      "title": "確認訂單",
+      "bidLabel": "出價金額",
+      "bidHint": "最低不少於 {min}，加價步長 {step}",
+      "lineBid": "出價",
+      "linePrice": "商品價格",
+      "lineFee": "平台服務費 ({pct}%)",
+      "lineRoyalty": "創作者版稅 ({pct}%)",
+      "lineGas": "預估 Gas",
+      "lineTotal": "預估合計（原生幣）",
+      "note": "合計含對價、平台費、版稅與預估 Gas；演示不發起真實鏈上交易。正式環境以訂單與鏈上結果為準。",
+      "agree": "我已閱讀並同意風險提示與平台規則（演示）",
+      "errTerms": "請先勾選同意條款",
+      "errBid": "出價低於最低要求",
+      "errEnded": "拍賣已結束",
+      "btnCancel": "取消",
+      "btnConfirm": "確認下單",
+      "btnDone": "完成",
+      "processing": "提交中…",
+      "successTitle": "提交成功",
+      "successDesc": "訂單已受理（演示）",
+      "successSub": "正式環境可在「訂單中心 › NFT 訂單」或資產頁查看鏈上狀態。"
+    },
+    "btn": {
+      "close": "關閉",
+      "buy": "立即購買",
+      "bid": "出價"
+    },
+    "toast": {
+      "orderDemo": "已建立訂單（演示）：{title}",
+      "needLogin": "請先登入後再購買或出價",
+      "completedDemo": "訂單已提交（演示）"
+    }
+  }
+}

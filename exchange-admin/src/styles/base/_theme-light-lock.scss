@@ -1,0 +1,43 @@
+// -----------------------------------------------------------------------------
+// monochrome（浅底）：html 无 .dark；用 !important 压住 EP body 与后注入样式。
+// 深色走 html.dark + [data-theme=default]。
+// 须在 main.scss 末尾 @use；整体在 element-plus 样式之后。
+// -----------------------------------------------------------------------------
+
+[data-theme='monochrome'] {
+  --ex-text-primary: #111111 !important;
+  --ex-text-secondary: #3d3d3d !important;
+  --ex-text-tertiary: #5a5a5a !important;
+  --ex-text-disabled: #a0a0a0 !important;
+  --ex-text-inverse: #ffffff !important;
+  --ex-brand: #f0b90b !important;
+  --ex-brand-hover: #f8d12f !important;
+  --ex-brand-active: #c99400 !important;
+  --ex-link: #f0b90b !important;
+  --ex-link-hover: #f8d12f !important;
+  --ex-on-brand: #0b0e11 !important;
+
+  --el-text-color-primary: #111111 !important;
+  --el-text-color-regular: #3d3d3d !important;
+  --el-text-color-secondary: #5a5a5a !important;
+  --el-text-color-placeholder: #a0a0a0 !important;
+  --el-text-color-disabled: #a0a0a0 !important;
+  --el-color-primary: #f0b90b !important;
+}
+
+[data-theme='monochrome'] body,
+[data-theme='monochrome'] #app {
+  color: var(--ex-text-primary) !important;
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+[data-theme='monochrome'] .ex-mdock {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+[data-theme='monochrome'] .ex-header__backdrop {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}

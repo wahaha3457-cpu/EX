@@ -1,0 +1,61 @@
+// =============================================================================
+// Exchange — 组件级响应式工具类（与业务 BEM 并存）
+// -----------------------------------------------------------------------------
+// 原则：交易所高密度场景优先「横滑 + 粘表头」而非盲目卡片化；触控优先保证热区。
+// 使用：在根元素上叠加 class，或在 SCSS 中 @use '@/styles/mixins' 复用同名 mixin。
+// =============================================================================
+
+@use '../abstracts/variables' as *;
+@use '../mixins' as mq;
+
+/// 图表容器：与 K 线/深度占位共用语义，保证小屏仍有最小可视高度
+.ex-chart-frame {
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: $ex-chart-frame-min-sm;
+}
+
+@include mq.media-down(md) {
+  .ex-chart-frame {
+    min-height: $ex-chart-frame-min-xs;
+  }
+}
+
+/// 搜索 / 筛选条：窄屏纵向堆叠（子项建议 `min-width: 0` + `width: 100%`）
+.ex-search-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-3;
+  min-width: 0;
+}
+
+@include mq.media-down(md) {
+  .ex-search-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: $space-2;
+  }
+}
+
+/// 下单面板外层：窄屏全宽、避免横向溢出（业务面板可再叠 BEM）
+.ex-order-shell {
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+@include mq.media-down(md) {
+  .ex-order-shell {
+    width: 100%;
+  }
+}
+
+/// 列表/表格场景：声明式启用「交易所表格降级」
+.ex-table-wrap--exchange {
+  @include mq.ex-table-degrade-scroll(680px);
+}
+
+/// 行情/订单列表：略窄最小宽度，适配列较少的表
+.ex-table-wrap--exchange-narrow {
+  @include mq.ex-table-degrade-scroll(560px);
+}

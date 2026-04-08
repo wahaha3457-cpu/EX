@@ -1,0 +1,29 @@
+# 多语言门禁：主 locale key 对齐 + TS 类型检查（可按需加入 eslint、覆盖率阈值）
+name: i18n-check
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master, develop]
+
+jobs:
+  parity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - name: Install
+        run: npm ci
+      - name: Locale key parity (zh-CN / en / zh-TW)
+        run: npm run i18n:parity
+      - name: Typecheck
+        run: npm run typecheck
+      # 可选：启发式覆盖率（迁移期可把阈值调大，避免误杀）
+      # - name: CJK coverage scan
+      #   run: node scripts/i18n/coverage-scan.mjs --fail-over 400
+      # - name: ESLint
+      #   run: npm run lint

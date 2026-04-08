@@ -1,0 +1,6 @@
+export { default as UserCenterAccountCard } from './UserCenterAccountCard.vue'
+export { default as UserCenterNav } from './UserCenterNav.vue'
+export { default as UserCenterOverviewPanel } from './UserCenterOverviewPanel.vue'
+export { default as UserCenterSecurityPanel } from './UserCenterSecurityPanel.vue'
+export { default as UserCenterLoginHistoryTable } from './UserCenterLoginHistoryTable.vue'
+export { default as UserCenterPlaceholderPanel } from './UserCenterPlaceholderPanel.vue'

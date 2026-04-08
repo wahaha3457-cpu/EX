@@ -1,0 +1,87 @@
+{
+  "admin": {
+    "placeholder": {
+      "desc": "Business list and approval flows are not connected yet; below is a demo of filters, toolbar, table, pagination, tags, and drawer.",
+      "keyword": "Keyword",
+      "keywordPh": "ID / name",
+      "status": "Status",
+      "statusAll": "All",
+      "statusPending": "Pending",
+      "statusActive": "Active",
+      "query": "Search",
+      "reset": "Reset",
+      "tableTitle": "Data list (demo)",
+      "exportCsv": "Export CSV (reserved)",
+      "refresh": "Refresh",
+      "colName": "Name",
+      "colStatus": "Status",
+      "actions": "Actions",
+      "detail": "Details",
+      "review": "Review (reserved)",
+      "drawerTitle": "Details (demo)",
+      "drawerBody": "Production would show read-only fields, trace IDs, risk labels, and nested approval forms.",
+      "close": "Close",
+      "confirm": "Confirm (reserved)",
+      "demoRowA": "Sample row A",
+      "demoRowB": "Sample row B",
+      "more": "More",
+      "edit": "Edit",
+      "delete": "Delete",
+      "copyId": "Copy ID",
+      "copyOk": "Copied to clipboard",
+      "reviewTitle": "Review",
+      "reviewRemark": "Comment",
+      "submitReview": "Submit",
+      "deleteConfirm": "Delete this record? (demo)",
+      "exportTip": "Export task created (demo)",
+      "queryOk": "Query done",
+      "resetOk": "Filters reset",
+      "editTitle": "Edit (demo)",
+      "saveOk": "Saved (demo)",
+      "refreshOk": "List refreshed",
+      "selectRow": "Select a row first"
+    },
+    "header": {
+      "backToExchange": "Exchange home",
+      "logoutSub": "Your admin session has ended.",
+      "locale": "Language",
+      "localeAria": "Change interface language",
+      "userAria": "User menu",
+      "userMenu": {
+        "loginPassword": "Change login password",
+        "fundPassword": "Change fund password",
+        "logout": "Log out"
+      }
+    },
+    "account": {
+      "loginPassword": {
+        "desc": "Rotate your admin login password regularly. This demo does not call a real API.",
+        "old": "Current password",
+        "new": "New password",
+        "confirm": "Confirm new password",
+        "submit": "Save",
+        "ok": "Login password updated (demo)",
+        "errMismatch": "New passwords do not match",
+        "errShort": "New password must be at least 8 characters"
+      },
+      "fundPassword": {
+        "desc": "Fund password is used for sensitive operations. Demo only.",
+        "old": "Current fund password",
+        "new": "New fund password",
+        "confirm": "Confirm new password",
+        "submit": "Save",
+        "ok": "Fund password updated (demo)",
+        "errMismatch": "New passwords do not match",
+        "errShort": "New password must be at least 6 characters"
+      }
+    },
+    "reviewAlert": {
+      "badge": "AI insight",
+      "title": "Orders pending review",
+      "subtitleDefault": "There are items awaiting approval. Please review soon to reduce risk.",
+      "demoSubtitle": "Demo: 1 simulated withdrawal is waiting for approval.",
+      "cta": "Review",
+      "dismiss": "Dismiss"
+    }
+  }
+}
